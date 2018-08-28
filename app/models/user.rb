@@ -50,9 +50,26 @@ class User
 
   def self.generate_token user
     access_token = SecureRandom.hex 
-    a = User.exists?(access_token: access_token)
-    unless a.present?
+    # a = User.exists?(access_token: access_token)
+    # unless a.present?
       return access_token
-    end
+    # end
+  end
+
+  # def self.generate_code
+  #   binding.pry
+  #   unique = SecureRandom.base64(9)
+  #   uniq = User.exists?(:unique_id => unique)
+  #   unless uniq.present?
+  #     return unique_id
+  #   end
+  # end
+
+  def self.generate_code
+    # self.token = loop do
+      random_token = SecureRandom.base64(9)
+    #   break random_token unless User.exists?(unique_id: random_token)
+    # end
+    return random_token
   end
 end

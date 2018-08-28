@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       resources :users do
         collection do
           post :sign_up
+          get :generate_code
+          post :login
         end
       end
 
