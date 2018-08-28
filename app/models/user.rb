@@ -11,7 +11,8 @@ class User
   ## Database authenticatable
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""
-
+  
+  field :unique_id, type: String
   field :name, type: String, default: ''
   field :dob, type: Date
   field :mobile, type: String, default: ''
@@ -46,4 +47,12 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+  def self.generate_token user
+    access_token = SecureRandom.hex 
+    a = User.exists?(access_token: access_token)
+    unless a.present?
+      return access_token
+    end
+  end
 end
