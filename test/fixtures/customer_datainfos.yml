@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  level1: false
+  level2: false
+  level3: false
+
+two:
+  level1: false
+  level2: false
+  level3: false
