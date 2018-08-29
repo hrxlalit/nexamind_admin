@@ -9,6 +9,7 @@ Rails.application.routes.draw do
           post :sign_up
           get :generate_code
           post :login
+          post :update_profile
         end
       end
 

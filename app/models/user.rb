@@ -15,11 +15,16 @@ class User
   field :unique_id, type: String
   field :name, type: String, default: ''
   field :dob, type: Date
+  field :code, type: String, default: ''
   field :mobile, type: String, default: ''
+  field :gender, type: Integer #0:male  1:female
   field :address, type: String, default: ''
+  field :otp, type: String
+  field :otp_gen_time, type: Time
   field :access_token, type: String, default: ''
   field :role, type: String, default: 'user'
   field :status, type: Integer # 0:Dect by admin 1:Active 2:Otp not verified
+  field :touch_id, type: Boolean, default: false
   field :fb_uid, type: String
   field :google_uid, type: String
 
@@ -29,6 +34,10 @@ class User
 
   ## Rememberable
   field :remember_created_at, type: Time
+  
+
+  has_one :image, as: :imagable, class_name: "Image"
+  has_many :devices, dependent: :destroy
 
   ## Trackable
   # field :sign_in_count,      type: Integer, default: 0
@@ -50,26 +59,21 @@ class User
 
   def self.generate_token user
     access_token = SecureRandom.hex 
-    # a = User.exists?(access_token: access_token)
-    # unless a.present?
-      return access_token
-    # end
+    generate_token if User.where(access_token: access_token).exists?
+    return access_token
   end
 
-  # def self.generate_code
-  #   binding.pry
-  #   unique = SecureRandom.base64(9)
-  #   uniq = User.exists?(:unique_id => unique)
-  #   unless uniq.present?
-  #     return unique_id
-  #   end
-  # end
-
   def self.generate_code
-    # self.token = loop do
-      random_token = SecureRandom.base64(9)
-    #   break random_token unless User.exists?(unique_id: random_token)
-    # end
-    return random_token
+    unique_id = SecureRandom.base64(9)
+    generate_code if User.where(unique_id: unique_id).exists?
+    return unique_id
+  end
+
+  def self.generate_otp_and_send mobile, code, user
+    mobile_no = code + mobile
+    # otp = [*1000..9999].sample
+    @otp =  "1234"
+    user.update_attributes(otp: @otp, otp_gen_time: DateTime.current)
+    # TwilioSms.send_otp(mobile_no, "Your Centrium App account OTP is: #{@otp}" )
   end
 end
