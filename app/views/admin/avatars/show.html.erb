@@ -1,0 +1,72 @@
+  <div class="right-inner">
+          <h1 class="heading">AVATAR MANAGEMENT</h1>
+
+            <div class="box-body">
+              <div class="col-md-12">
+              <%= link_to "Add avatar images", add_avatar_images_admin_avatars_path(id: @avatar), method: :post, class: "btn avatar_image_btn" %>
+              <% if @avatar.gender == "MALE" %>
+                <ul class="nav nav-tabs link-msg box-blue">
+                  <li class= "tab_1 active"><a href="#default-tab-1" data-toggle="tab" aria-expanded="true" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[0].id%>/get_skin_color',1)"><%= @avatar.avatar_categories[0].name%></a></li>
+                  <li class="tab_2" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[1].id%>/get_hair_color',2)"><a href="#default-tab-2" data-toggle="tab"><%= @avatar.avatar_categories[1].name%></a></li>
+                  <li class="tab_3" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[2].id%>/get_hair_style',3)" ><a href="#default-tab-3" data-toggle="tab"><%= @avatar.avatar_categories[2].name%></a></li>
+                  <li class="tab_4" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[3].id%>/get_beard_shape',4)" ><a href="#default-tab-4" data-toggle="tab"><%= @avatar.avatar_categories[3].name%></a></li>
+                  <li class="tab_5" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[4].id%>/get_beard_color',5)" ><a href="#default-tab-5" data-toggle="tab"><%= @avatar.avatar_categories[4].name%></a></li>
+                  <li class="tab_6" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[5].id%>/get_spects',6)" ><a href="#default-tab-6" data-toggle="tab"><%= @avatar.avatar_categories[5].name%></a></li>
+                  <li class="tab_7" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[6].id%>/get_hat',7)" ><a href="#default-tab-7" data-toggle="tab"><%= @avatar.avatar_categories[6].name%></a></li>
+                  <li class="tab_8" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[7].id%>/get_cloths',8)" ><a href="#default-tab-8" data-toggle="tab"><%= @avatar.avatar_categories[7].name%></a></li>
+                </ul>
+              <% else %>
+                   <ul class="nav nav-tabs link-msg box-blue">
+                  <li class= "tab_1 active"><a href="#default-tab-1" data-toggle="tab" aria-expanded="true" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[0].id%>/get_skin_color',1)"><%= @avatar.avatar_categories[0].name%></a></li>
+                  <li class="tab_2" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[1].id%>/get_hair_color',2)"><a href="#default-tab-2" data-toggle="tab"><%= @avatar.avatar_categories[1].name%></a></li>
+                  <li class="tab_3" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[2].id%>/get_hair_style',3)" ><a href="#default-tab-3" data-toggle="tab"><%= @avatar.avatar_categories[2].name%></a></li>
+                  <li class="tab_4" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[3].id%>/get_beard_shape',4)" ><a href="#default-tab-4" data-toggle="tab"><%= @avatar.avatar_categories[3].name%></a></li>
+                  <li class="tab_5" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[4].id%>/get_beard_color',5)" ><a href="#default-tab-5" data-toggle="tab"><%= @avatar.avatar_categories[4].name%></a></li>
+                  <li class="tab_6" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[5].id%>/get_spects',6)" ><a href="#default-tab-6" data-toggle="tab"><%= @avatar.avatar_categories[5].name%></a></li>
+                  <li class="tab_7" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[6].id%>/get_hat',7)" ><a href="#default-tab-7" data-toggle="tab"><%= @avatar.avatar_categories[6].name%></a></li>
+                  <li class="tab_8" onclick="get_data('/admin/avatars/<%= @avatar.avatar_categories[7].id%>/get_cloths',8)" ><a href="#default-tab-8" data-toggle="tab"><%= @avatar.avatar_categories[7].name%></a></li>
+                </ul>
+              <% end %>  
+                <div class="tab-content">
+                  <div class="tab-pane fade skin_color_container active in" id="default-tab-1">
+                  </div>
+
+                  <div class="tab-pane fade hair_color_container" id="default-tab-2">
+
+                  </div>
+                  <div class="tab-pane fade hair_style_container" id="default-tab-3">
+                  </div>
+                   <div class="tab-pane fade beard_shape_container" id="default-tab-4">
+                  </div>
+                   <div class="tab-pane fade beard_color_container" id="default-tab-5">
+                  </div>
+                   <div class="tab-pane fade spects_container" id="default-tab-6">
+                  </div>
+                   <div class="tab-pane fade hat_container" id="default-tab-7">
+                  </div>
+                   <div class="tab-pane fade cloths_container" id="default-tab-8">
+                  </div>
+                </div>
+              </div>                
+            </div>
+      </div>
+</div>
+<script type="text/javascript">
+
+ function get_data(url,tab){
+  // window.location.hash=tab;
+  if (url!=true){
+    $.ajax({
+        url: url,
+        type: 'get',
+        aysnc: false,
+        dataType: 'script'
+     });
+  }
+
+ }
+ $(document).ready(function(){
+  $(".tab_1 > a").trigger("click");
+ });
+
+ </script>

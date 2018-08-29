@@ -1,0 +1,85 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-lQ-u7das4d7DuTcjLii2G89FB2FqO-I&sensor=false&libraries=places"></script>
+<div class="content-wrapper">
+  <section class="main-block">
+    <div class="container">
+      <div class="row">
+        <div class="tab-content">
+  				<div class="tab-pane fade active in" id="default-tab-1">
+  					<div class="tab-pane">
+  							<%= form_for [:admin, @user],html: {id: "new_user"} do |f|%>
+  								<div class="detail-form m-t-40 m-b-40">
+
+  									<div class="form-group">
+  										<div class="row">
+  											<label class="col-sm-4 col-md-3 control-label">User Name</label>
+  											<div class="col-sm-8 col-md-7">
+  											  <%= f.text_field :name, class: "form-control", required: true, placeholder: ""%>
+  											</div>
+  										</div>
+  									</div>
+                    
+                    <div class="form-group">
+                      <div class="row">
+                        <label class="col-sm-4 col-md-3 control-label">Email</label>
+                        <div class="col-sm-8 col-md-7">
+                          <%= f.email_field :email, class: "form-control", required: true, placeholder: ""%>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+  										<div class="row">
+  											<label class="col-sm-4 col-md-3 control-label">Mobile</label>
+  											<div class="col-sm-8 col-md-7">
+  											  <%= f.text_field :mobile, class: "form-control", required: true, placeholder: ""%>
+  											</div>
+  										</div>
+  									</div>
+
+                    <div class="form-group">
+  										<div class="row">
+  											<label class="col-sm-4 col-md-3 control-label">Date of Birth</label>
+  											<div class="col-sm-8 col-md-7">
+  											  <%= f.text_field :dob, class: "form-control", required: true, :id=>'userdatetimepicker1', value: (f.object.dob.to_date.strftime("%d/%m/%Y") rescue "")%>
+  											</div>
+  										</div>
+  									</div>
+                    
+  									<div class="form-group">
+  										<div class="row">
+  											<label class="col-sm-4 col-md-3 control-label">Address</label>
+  											<div class="col-sm-8 col-md-7">
+  											  <%= f.text_field :address, class: "form-control", placeholder: "", required: true%>
+  											</div>
+  										</div>
+  									</div>
+
+  									<div class="form-group">
+  										<div class="text-center attendee-cent-s">
+  											<button class="btn btn-default btn-green" type="submit">Submit</button>
+  										</div>
+									</div>
+								</div>
+							<%end%>
+						</div>
+  				</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#userdatetimepicker1').datetimepicker({
+      format: 'DD/MM/YYYY',
+      useCurrent: false,
+      maxDate: new Date()
+    });
+    window.onload = function() {
+      var myInput = document.getElementById('userdatetimepicker1');
+      myInput.onpaste = function(e) {
+        e.preventDefault();
+      }
+    }
+  });
+</script>

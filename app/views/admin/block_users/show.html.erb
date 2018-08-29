@@ -1,0 +1,65 @@
+<div class="right-inner">
+<h1 class="heading"> Users Detail</h1>
+  <div class="form-show-body">
+      <form>
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2"> Name </label>
+            <div class="col-sm-8">
+               <%= @block_user.block.try(:name) %>
+            </div>
+          </div>
+        </div>
+       
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2"> Email  </label>
+            <div class="col-sm-8">
+              <%= @block_user.block.try(:email) %>
+            </div>
+          </div>
+        </div>
+       
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2">Mobile Number  </label>
+            <div class="col-sm-8">
+              <%= @block_user.block.try(:mobile) %>
+          </div>
+        </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2">Gender </label>
+            <div class="col-sm-8">
+                <%= @block_user.block.try(:gender)%>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2">User Reported by </label>
+            <div class="col-sm-8">
+             <%=  @block_user.user.name%>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2">Reported Reason </label>
+            <div class="col-sm-8">
+              <%=  @block_user.reason %>
+            </div>
+          </div>
+        </div>
+        
+        <div class="update-btn text-center">
+          <%= link_to 'BACK', admin_block_users_path, class: "btn btn-danger btn-common" %>
+        </div>
+      </form>
+    </div>
+</div>  

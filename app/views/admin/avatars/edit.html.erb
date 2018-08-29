@@ -1,0 +1,29 @@
+<div class="right-inner">
+  <h1 class="heading">Edit Image</h1>
+    <div class="form-show-body"><center>
+        <%= form_for @avatar, as: :avatar, url: admin_avatar_path, html: {id: "", class: "login-form",autocomplete: 'off'} do |f|%>
+         <% if @avatar.try(:image).present? %>
+			<div class="signup-profile-block">
+				<div class="image-block">
+				<%= @avatar.image.present? ? image_tag(@avatar.image.try(:file_url),:width => 300, :height => 400, :class => 'news-content', :id=> "black_cat_img") : image_tag("/1.png",:width => 300, :height => 400, :class => 'news-content') %>
+					</div>
+							<div class="cam-icon">
+								<%= f.file_field :file,:class=>"btn btn-pri btn-blue btn-file upload imgupload alignment_of_input",data: { preview_element_id: 'black_cat_img', preview_element_type: 'id'}, :accept=>"Image/*" %>
+							</div>
+						</div>                       
+						<%else%>
+						<div class="signup-profile-block">
+							<div class="image-block">
+								<img src="/1.png" class="fileinput-preview thumbnail" id= "black_cat_img" alt="">
+								<div class="cam-icon">
+									<%= f.file_field :file, :class=>"btn btn-pri btn-blue btn-file upload imgupload alignment_of_input",data: { preview_element_id: 'black_cat_img', preview_element_type: 'id'}, :accept=>"Image/*" %>
+								</div>	
+						</div>		                
+				</div>
+			<%end%>	
+			<button class="btn btn-red btn_blue_delete text-center">Submit</button>
+      <%end%>
+      </center>
+  </div>
+</div>  
+

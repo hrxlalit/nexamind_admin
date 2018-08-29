@@ -1,0 +1,41 @@
+<div class="right-inner">
+
+  <h1 class="heading">FAQ DETAIL</h1>
+    <div class="form-show-body">
+      <!-- <form> -->
+				<%= form_for [:admin, @faq],html: {id: "new_static_page"} do |f|%>
+					<div class="detail-form m-t-40 m-b-40">
+
+						<div class="form-group">
+							<div class="row">
+								<label class="col-sm-4 col-md-3 control-label">Question</label>
+								<div class="col-sm-8 col-md-7">
+								  <%= f.text_field :question, class: "form-control", required: true, placeholder: "" %>
+								</div>
+							</div>
+						</div>
+           
+						<div class="form-group">
+							<div class="row">
+								<label class="col-sm-4 col-md-3 control-label">Answer</label>
+								<div class="col-sm-8 col-md-7">
+								  <%= f.cktext_area :answer, class: "form-control cktext", placeholder: "", name: "faq[answer]", required: true %>
+								</div>
+							</div>
+						</div>
+            
+						<div class="form-group">
+							<div class="text-center attendee-cent-s">
+								<button class="btn btn-success btn-common" type="submit">Submit</button>                        
+                              <%= link_to 'Cancel', admin_faqs_path, class: "btn btn-danger btn-common" %>
+							</div>
+					</div>
+          <!--   <div class="update-btn text-center">
+              <button class="btn btn-success btn-common" href="my-account.html"> Save</button>
+               <button class="btn btn-danger btn-common" href="my-account.html"> Cancel</button>
+            </div> -->
+				</div>
+			<%end%>
+		<!-- </form>         -->
+  </div>
+</div>  

@@ -1,0 +1,49 @@
+<div class="right-inner">
+  <h1 class="heading">Save Image</h1>
+    <div class="form-show-body">
+        <%= form_for(:avatar_categories, url: upload_categories_admin_avatars_path, method: :post,  :html => { :multipart => true, :id => "avatar_validate" }) do |f| %>
+          <div class="detail-form m-t-40 m-b-40">
+            <div class="form-group">
+              <div class="row">
+                <label class="col-sm-4 col-md-3 control-label">Category</label>
+                <div class="col-sm-8 col-md-7">
+                  <%= select_tag "id", options_from_collection_for_select(@avatar.avatar_categories, :id, :name), include_blank: 'Select category', required: true%>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+              <%= f.fields_for :images do |p| %>
+                <label class="col-sm-4 col-md-3 control-label">Image</label>
+                <div class="col-sm-8 col-md-7">
+                  <%= p.file_field :file, :multiple => true, name: "images[file][]", accept:'image/*'%>
+                </div>
+              <% end %>  
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <div class="text-center attendee-cent-s">
+                <%= f.submit class: "btn btn-red btn_blue_delete save_image_margin" %>
+              </div>
+          </div>
+        </div>
+      <%end%>
+  </div>
+</div>  
+
+<script type="text/javascript">
+  $(document).on('turbolinks:load', function() {
+
+  $("#avatar_validate").validate({
+    rules: {
+      "id":{
+        required: true      }      
+    },
+    submitHandler: function(form) {
+        form.submit();
+      }
+  });
+  });
+  
+</script>

@@ -1,0 +1,66 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-lQ-u7das4d7DuTcjLii2G89FB2FqO-I&sensor=false&libraries=places"></script>
+<h1 class="heading">EDIT PROFILE</h1>
+<div class="box box-blue mb40">
+  <div class="box-body">
+    <%= form_for [:admin, @admin_user],html: {id: "new_admin_user"} do |f|%>
+      <div class="user-detail-block mt20 mb20">                    
+        <div class="userdetail-part common-detail-box common-detail-box1">
+          <div class="profile-picture">
+            <div class="imgupload">
+              <!-- <img src="/assets/profile.jpg"> -->
+              <% if @admin_user.try(:image).present? %>
+                <div class="uploadimg">                        
+                    <%= @admin_user.image.present? ? image_tag(@admin_user.image.try(:file_url),:width => 200, :height => 100, :class => 'news-content', :id=> "black_cat_img") : image_tag("/1.png",:width => 200, :height => 100, :class => 'news-content') %>
+                </div>
+                <div class="addupload addupload1">
+                  <div class="fileUpload btn btn-pri choose-file">
+                    <i class="fa fa-camera" aria-hidden="true"></i><%= f.file_field :file,:class=>"btn btn-pri btn-blue btn-file upload imgupload",data: { preview_element_id: 'black_cat_img', preview_element_type: 'id'}, :accept=>"Image/*" %>
+                  </div>
+                </div>
+              <%else%>
+                <div class="uploadimg">
+                  <img src="/1.png" class="fileinput-preview thumbnail" id= "black_cat_img" alt="" width="200px" height="150px">
+                </div>
+                <div class="addupload addupload1">
+                  <div class="fileUpload btn btn-pri choose-file">
+                    <i class="fa fa-camera" aria-hidden="true"></i><%= f.file_field :file,:class=>"btn btn-pri btn-blue btn-file upload imgupload",data: { preview_element_id: 'black_cat_img', preview_element_type: 'id'}, required: true, :accept=>"Image/*" %>
+                  </div>
+                </div>
+              <%end%>
+            </div>
+          </div>
+          <ul class="edit-profile-list">
+            <li class="detail-list">
+              <label>Name</label>
+              <span><%= f.text_field :name, class: "form-control", required: true, placeholder: ""%></span>
+            </li>
+            <li class="detail-list">
+              <label>Email</label>
+              <span><%= f.email_field :email, class: "form-control", required: true, placeholder: ""%></span>
+            </li>
+            <li class="detail-list">
+              <label>Phone No</label>
+              <span><%= f.number_field :phone, class: "form-control", required: true, placeholder: "", minlength: 9, maxlength: 15 %></span>
+            </li>
+
+            <li class="detail-list">
+              <label>Address</label>
+              <span><%= f.text_field :address, class: "form-control", placeholder: "", required: true%>
+              </span>
+            </li>
+          </ul>
+          <div class="table-button text-center mt20">
+            <button class="btn btn-primary" type="submit">Update Profile</button>  
+            <%= link_to 'Change Password', change_password_admin_admin_user_path, class: "btn btn-success" %>
+          </div>
+        </div>    
+      </div>
+    <%end%>
+  </div>
+</div>
+
+<script type="text/javascript">
+$("#admin_user_address").click(function(){
+  $("#admin_user_address").placepicker();
+});
+</script>
