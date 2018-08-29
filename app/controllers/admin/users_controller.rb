@@ -1,11 +1,11 @@
 require 'will_paginate/array'
-class Admin::UsersController < Admin::BaseController
+class Admin::UsersController < ApplicationController
   before_action :require_admin_user
   before_action :find_user, except: [:index, :vendor_list]
 
   def index
-    @search = User.ransack(params[:q])
-    @users = @search.result.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")},{mobile: Regexp.new(".*#{params[:search]}.*","i")},{status: Regexp.new(".*#{params[:status]}.*","i")},{gender: Regexp.new(".*#{params[:gender]}.*","i")})
+    @users = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
   end
 
   def user_status

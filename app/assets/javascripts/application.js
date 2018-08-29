@@ -14,3 +14,43 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+
+$(document).on('turbolinks:load', function() {
+
+	$('#full-width').modal('toggle');
+	$("[class^=flash_notice]").each(function(){
+		if ($(this).html() != ''){
+			alertify.dismissAll();
+			if ($(this).data('type') == "notice") {
+				alertify.success($(this).text());
+			}
+			else{
+				alertify.error($(this).text());
+			}
+		}
+	});
+
+    $('#datetimepicker').datetimepicker({
+      format: 'DD/MM/YYYY',
+      useCurrent: false,
+      locale: 'en',
+      maxDate: new Date(),
+      // inline: true,
+      // sideBySide: true
+      widgetPositioning:{
+        horizontal: 'auto',
+        vertical: 'bottom'
+      }
+    });
+    window.onload = function() {
+      var myInput = document.getElementById('datetimepicker');
+      if (myInput == null){
+        return 0;
+      }else{
+        myInput.onpaste = function(e) {
+          e.preventDefault();
+        }
+      }
+    }
+  });

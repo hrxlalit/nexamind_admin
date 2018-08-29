@@ -1,5 +1,5 @@
 require 'will_paginate/array'
-class Admin::StaticPagesController <  Admin::BaseController
+class Admin::StaticPagesController < ApplicationController
     before_action :require_admin_user, except: [:install_meta_mask]
     before_action :find_content, except: [:new, :create, :index]
 

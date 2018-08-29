@@ -21,6 +21,7 @@ class User
   field :status, type: Integer # 0:Dect by admin 1:Active 2:Otp not verified
   field :fb_uid, type: String
   field :google_uid, type: String
+  field :gender, type: String
 
   ## Recoverable
   field :reset_password_token,   type: String

@@ -1,0 +1,10 @@
+
+@font-face {
+    font-family: 'HelveticaNeueLTComLtCn';
+    src: url('../HelveticaNeueLTComLtCn.eot');
+    src: url('../HelveticaNeueLTComLtCn.eot') format('embedded-opentype'),
+         url('../HelveticaNeueLTComLtCn.woff2') format('woff2'),
+         url('../HelveticaNeueLTComLtCn.woff') format('woff'),
+         url('../HelveticaNeueLTComLtCn.ttf') format('truetype'),
+         url('../HelveticaNeueLTComLtCn.svg#HelveticaNeueLTComLtCn') format('svg');
+}

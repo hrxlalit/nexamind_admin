@@ -1,4 +1,4 @@
-class Admin::FeedbacksController <  Admin::BaseController
+class Admin::FeedbacksController < ApplicationController
 		before_action :require_admin_user
 		before_action :find_feedback, only: [:show, :destroy]
 

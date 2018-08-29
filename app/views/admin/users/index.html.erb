@@ -1,41 +1,43 @@
  <h1 class="heading">USER MANAGEMENT</h1>
  <div class="filter-block">
-  <fieldset class="global-fieldset">
+ <fieldset class="global-fieldset">
     <legend>Filter By</legend>
     <div class="filter-content user-filter">
       <div class="row">
-        <%= search_form_for @search, url: admin_users_path,method: :get do |f| %>
-        <div class="col-sm-3">
+    <%= form_tag admin_users_path, method: :get do  %>
+     <div class="input-group">
+      <div class="col-sm-3">
           <div class="search-inner  user-label">                              
            <div class="input-group">
-             <%=  f.search_field :name_cont, placeholder: "User Name", class:"form-control1 custom-control1" %>
+            <%=  text_field_tag :search, "", class:"form-control1 custom-control1" %>
            </div>                            
          </div>
        </div> 
-       <div class="col-sm-3">
+         <div class="col-sm-3">
           <div class="form-group">
             <div class="show-entries">
-              <%= f.select :status_eq ,options_for_user_status_select,{prompt: 'Select User Status'}, class: "form-control", placeholder: ""%>                               
+              <%=  select_tag :status,options_for_select([["All",""],["Active",1],["Blocked",2]]), class:"form-control1 custom-control1" %>
           </div>
           </div>
-      </div> 
-      <div class="col-sm-3">
-        <div class="form-group">
-          <div class="show-entries">
-            <%= f.select :gender_eq ,select_gender,{prompt: 'Select User Gender'}, class: "form-control", placeholder: ""%>                               
-        </div>
-        </div>
-      </div>                     
+        </div> 
+        <div class="col-sm-3">
+          <div class="form-group">
+            <div class="show-entries">
+              <%=  select_tag :gender,options_for_select([["All",""],["Male","male"],["Female","female"]]), class:"form-control1 custom-control1" %>
+          </div>
+          </div>
+      </div>
        <div class="col-sm-3">
         <div class="text-left">
           <button class="btn btn-red">Search</button>
         </div>
       </div>
-      <%end%>
+     </div>
+    <%end%>
     </div>
   </div>
 </fieldset>
-</div>
+  </div>
 <div class="box box-blue">
   <div class="box-body">
     <div class="custom-table table-responsive">
@@ -59,23 +61,23 @@
             <td><%= truncate(user.name, omision: "...", length: 30) %></td>
             <td><%= truncate(user.email, omision: "...", length: 30) %></td>
             <td><%= truncate(user.mobile, omision: "...", length: 30) %></td> 
-            <td><%= (user.gender).titleize %></td> 
-            <td><%if user.status.eql?(0) || user.not_verified? %>
-                    <%='<i class = "btn-sm btn-danger"> Unverified</i>'.html_safe %>                                   
-                  <%elsif user.status.eql?(1) || user.verified? %>
-                      <%= '<i class = "btn-sm btn-success"> Active </i>'.html_safe %>
-                  <%else%>
-                       <%='<i class = "btn-sm btn-danger"> Blocked</i>'.html_safe %>             
-                  <%end%>
+            <td><%#= (user.gender).titleize %></td> 
+            <td><%#if user.status.eql?(0) || user.not_verified? %>
+                    <%#='<i class = "btn-sm btn-danger"> Unverified</i>'.html_safe %>                                   
+                  <%#elsif user.status.eql?(1) || user.verified? %>
+                      <%#= '<i class = "btn-sm btn-success"> Active </i>'.html_safe %>
+                  <%#else%>
+                       <%#='<i class = "btn-sm btn-danger"> Blocked</i>'.html_safe %>             
+                  <%#end%>
             </td>                               
-            <td><%= user.last_sign_in_at ? user.last_sign_in_at.try(:localtime).try(:strftime, "%d %B, %Y %I:%M %p") : "N/A" %></td>                   
+            <td><%#= user.last_sign_in_at ? user.last_sign_in_at.try(:localtime).try(:strftime, "%d %B, %Y %I:%M %p") : "N/A" %></td>                   
             <td>
               <div class="action-btn">
-                <%if user.status.eql?(1) || user.verified? %>
-                <%= link_to '<i class="fa fa-ban" aria-hidden="true"></i> Block'.html_safe,user_status_admin_users_path(:id => user.id), method: :post,:class=>"btn btn-sm btn-danger",:data => { :confirm => "Are you sure to block this user?" }%>
-                <%elsif user.status.eql?(2) || user.blocked? %>
-                <%= link_to '<i class="fa fa-check" aria-hidden="true"></i> Unblock'.html_safe,user_status_admin_users_path(:id => user.id), method: :post,:class=>"btn btn-sm btn-primary",:data => { :confirm => "Are you sure to activate this user?" }%>
-                <%end%>    
+                <%#if user.status.eql?(1) || user.verified? %>
+                <%#= link_to '<i class="fa fa-ban" aria-hidden="true"></i> Block'.html_safe,user_status_admin_users_path(:id => user.id), method: :post,:class=>"btn btn-sm btn-danger",:data => { :confirm => "Are you sure to block this user?" }%>
+                <%#elsif user.status.eql?(2) || user.blocked? %>
+                <%#= link_to '<i class="fa fa-check" aria-hidden="true"></i> Unblock'.html_safe,user_status_admin_users_path(:id => user.id), method: :post,:class=>"btn btn-sm btn-primary",:data => { :confirm => "Are you sure to activate this user?" }%>
+                <%#end%>    
                 <a><%= link_to '<i class="fa fa-eye" aria-hidden="true"></i> View'.html_safe, admin_user_path(id: user.id), :class=>"btn btn-sm btn-success"%></a>
                 <!-- <a><%#= link_to '<i class="fa fa-trash" aria-hidden="true"></i> Delete'.html_safe,  admin_user_path(user.id), method: :delete,:class=>"btn btn-sm btn-danger", data: {confirm: 'Are you sure to delete this user?' }%></a> -->
               </div>  

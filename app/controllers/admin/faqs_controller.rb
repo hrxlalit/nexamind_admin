@@ -1,5 +1,5 @@
 require 'will_paginate/array'
-class Admin::FaqsController <  Admin::BaseController
+class Admin::FaqsController < ApplicationController
 	before_action :require_admin_user
 	before_action :find_content, except: [:new, :create, :index]
 

@@ -48,22 +48,22 @@
       <div class="user-panel">
          <figure class="view-inline">
           <!-- <a href="/admin/admin_users/<%= current_admin_user.id %>/edit"> -->
-          <%= current_admin_user.image.present? ? image_tag(current_admin_user.image.try(:file_url),:width => 200, :height => 100, :class => 'news-content') : image_tag("/1.png",:width => 200, :height => 100, :class => 'news-content') %>
+          <%#= current_admin_user.image.present? ? image_tag(current_admin_user.image.try(:file_url),:width => 200, :height => 100, :class => 'news-content') : image_tag("/1.png",:width => 200, :height => 100, :class => 'news-content') %>
             <!-- </a> -->
          </figure>
-          <span class="view-inline user_name"><%= current_admin_user.try(:name).try(:capitalize)%></span>
+          <span class="view-inline user_name"><%= current_admin_user.try(:email).try(:capitalize)%></span>
       </div>
       <div class="left-menu">
         <ul class="sidebar-menu">
           <li><a href="/admin/home"><i class="fa fa-dashboard"></i>DASHBOARD</a></li>
 
           <li><a href="/admin/users"><i class="fa fa-users"></i>USER MANAGEMENT</a></li>
-          <li><a href="#"><i class="fa fa-file-text"></i>REPORTED USER</a></li>
-          <li><a href="#"><i class="fa fa-file-text"></i>REPORTED POST</a></li>
+          <li><a href="#"><i class="fa fa-university"></i>STORE MANAGEMENT</a></li>
+          <li><a href="#"><i class="fa fa-product-hunt"></i>PRODUCT MANAGEMENT</a></li>
+          <li><a href="#"><i class="fa fa-gift"></i>CAMPAIGN MANAGEMENT</a></li>
+          <li><a href="/admin/faqs"><i class="fa fa-question-circle"></i>FAQ MANAGEMENT</a></li>
           <li><a href="/admin/static_pages"><i class="fa fa-file-text"></i>STATIC CONTENT MANAGEMENT </a></li>
-          <li><a href="#"><i class="fa fa-file-text"></i>USERS FEEDBACK</a></li>
-          <li><a href="/admin/faqs"><i class="fa fa-file-text"></i> FAQ </a></li>
-          <li><a href=" /admin/admin_users/<%= current_admin_user.id%>/change_password"><i class="fa fa-file-text"></i> CHANGE PASSWORD </a></li>
+          <li><a href=" /admin/admin_users/<%= current_admin_user.id%>/change_password"><i class="fa fa-unlock-alt"></i> CHANGE PASSWORD </a></li>
            <li><%= link_to '<i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT'.html_safe,  admin_session_path(id: current_admin_user.id), method: :delete, data: {confirm: 'Are you sure to logout?' }%></li>
         </ul>
       </div>
@@ -100,6 +100,13 @@
     // $('.treeview a[href^="/' + location.pathname.split("/")[2] + '"]').addClass('active');
     if ((pathname == "/admin/home") || (pathname == "/admin/home")){
       $('.sidebar-menu > li > a[href="/admin/home"]').addClass('active');
+    }else {
+      if ((pathname == "/admin/users/vendor_list") || (pathname == "/admin/users/vendor_list")){
+        $('.sidebar-menu > li > a[href="/admin/users/vendor_list"]').addClass('active');
+      }
+      else {
+        $('.sidebar-menu > li > a[href="/admin/'+link+'"]').addClass('active');
+      }
     }
   });
 </script>

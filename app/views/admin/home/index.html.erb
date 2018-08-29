@@ -7,7 +7,7 @@
               <legend>Total Active Users</legend>
               <div class=" info-txt">
                     <p><%= User.count %></p>
-                     <a href="/admin/users" class="btn btn-yellow"> View Details </a>
+                     <a href="/admin/users" class="btn btn-blue"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -15,10 +15,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Male Active Users</legend>
+              <legend>Total</legend>
               <div class=" info-txt">
                     <p><%= User.where(gender: "male").count %></p>
-                     <a href="/admin/users?utf8=✓&q[name_cont]=&q[status_eq]=&q[gender_eq]=male" class="btn btn-yellow"> View Details </a>
+                     <a href="#" class="btn btn-blue"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -26,10 +26,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Female Active Users</legend>
+              <legend>Total</legend>
               <div class=" info-txt">
                     <p><%= User.where(gender: "female").count %></p>
-                     <a href="/admin/users?utf8=✓&q[name_cont]=&q[status_eq]=&q[gender_eq]=female" class="btn btn-yellow"> View Details </a>
+                     <a href="#" class="btn btn-blue"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -37,10 +37,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total Reported Users</legend>
+              <legend>Total</legend>
               <div class=" info-txt">
-                <p><%= Report.where(reportable_type: "User").count %></p>
-                <a href="/admin/report_users" class="btn btn-yellow"> View Details </a>
+                <p>0<%#= Report.where(reportable_type: "User").count %></p>
+                <a href="#" class="btn btn-blue"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -50,10 +50,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total Reported Posts</legend>
+              <legend>Total</legend>
               <div class=" info-txt">
-                    <p><%= Report.where(reportable_type: "Post").count %></p>
-                     <a href="/admin/reports" class="btn btn-yellow"> View Details </a>
+                    <p>0<%#= Report.where(reportable_type: "Post").count %></p>
+                     <a href="#" class="btn btn-blue"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -61,10 +61,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total Posts</legend>
+              <legend>Total</legend>
               <div class=" info-txt">
-                    <p><%= Post.count %></p>
-                     <!-- <a href="/admin/users" class="btn btn-yellow"> View Details </a> -->
+                    <p>0<%#= Post.count %></p>
+                     <a href="#" class="btn btn-blue"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -72,10 +72,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total Message Count</legend>
+              <legend>Total</legend>
               <div class=" info-txt">
-                    <p><%= Message.count %></p>
-                     <!-- <a href="/admin/users" class="btn btn-yellow"> View Details </a> -->
+                    <p>0<%#= Message.count %></p>
+                     <a href="#" class="btn btn-blue"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -83,10 +83,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Anonymous Message Count</legend>
+              <legend>Total</legend>
               <div class=" info-txt">
-                    <p><%= Message.joins(:room).where("rooms.is_anonymous =?", true).count %></p>
-                     <!-- <a href="/admin/users" class="btn btn-yellow"> View Details </a> -->
+                    <p>0<%#= Message.joins(:room).where("rooms.is_anonymous =?", true).count %></p>
+                     <a href="#" class="btn btn-blue"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -96,9 +96,9 @@
       <div class="col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-yellow">
-              <legend>Users</legend>
+              <legend>Total</legend>
               <div class=" info-txt">
-                <%= line_chart User.group_by_day(:created_at).count,colors: ["#169BD5"] %>
+                <%#= line_chart User.group_by_day(:created_at).count,colors: ["#169BD5"] %>
               </div>
             </fieldset>
           </div>
@@ -106,9 +106,9 @@
       <div class="col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Male/Female</legend>
+              <legend>Total</legend>
               <div class=" info-txt">
-                <%= pie_chart User.group(:gender).count,colors: ["#169BD5","#f82323"] %>
+                <%#= pie_chart User.group(:gender).count,colors: ["#169BD5","#f82323"] %>
               </div>
             </fieldset>
           </div>
@@ -118,9 +118,9 @@
       <div class="col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-yellow">
-              <legend>Messages</legend>
+              <legend>Totals</legend>
               <div class=" info-txt">
-                <%= line_chart Message.group_by_day(:created_at).count,colors: ["#169BD5"] %>
+                <%#= line_chart Message.group_by_day(:created_at).count,colors: ["#169BD5"] %>
               </div>
             </fieldset>
           </div>
@@ -128,9 +128,9 @@
       <div class="col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Posts</legend>
+              <legend>Total</legend>
               <div class=" info-txt">
-                <%= line_chart Post.group_by_day(:updated_at).count,colors: ["#169BD5"] %>
+                <%#= line_chart Post.group_by_day(:updated_at).count,colors: ["#169BD5"] %>
               </div>
             </fieldset>
           </div>

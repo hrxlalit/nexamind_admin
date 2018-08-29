@@ -1,4 +1,4 @@
-class Admin::AdminUsersController < Admin::BaseController
+class Admin::AdminUsersController < ApplicationController
 	before_action :require_admin_user, except: [:new, :create]
   before_action :find_admin_user, except: [:index, :new, :create]
 

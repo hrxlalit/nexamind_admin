@@ -1,4 +1,4 @@
-class Admin::HomeController < Admin::BaseController
+class Admin::HomeController < ApplicationController
   before_action :require_admin_user, except: [:forget_password, :reset_password]
   # before_action :find_admin_user, except: [:forget_password, :change_password]
 
