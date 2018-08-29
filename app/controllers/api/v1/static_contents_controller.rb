@@ -18,7 +18,7 @@ class Api::V1::StaticContentsController < ApplicationController
                 content: {title: @about_us.try(:title), description: strip_tags(@about_us.try(:description)).try(:chomp)}
                }	
     else
-    	return render json:  {responseCode: 402, responseMessage: "Content is not present."}
+      return render_message 402, "Content is not present."
     end
   end
 end

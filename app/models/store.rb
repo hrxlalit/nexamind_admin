@@ -15,5 +15,5 @@ class Store
 
   belongs_to :user
   has_many :products, dependent: :destroy
-  has_many :images, as: :imagable, class_name: "Image"
+  has_many :images, as: :imageable, class_name: "Image"
 end

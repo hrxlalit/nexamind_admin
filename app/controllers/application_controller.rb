@@ -16,16 +16,15 @@ class ApplicationController < ActionController::Base
   end
  
   def find_user
-    binding.pry
     if request.headers[:AUTHTOKEN].present?
       user_token = request.headers[:AUTHTOKEN]
       @current_user = User.find_by(access_token: user_token)
       unless @current_user
         return render_message 403,"Oops! Your token is expired."
       end
-      if @current_user.status == "blocked"
+      if @current_user.status.eql?(0)
         return render_message 405,"User is blocked or deleted."
-      elsif @current_user.status == "not_verified"
+      elsif @current_user.status.eql?(2)
         return render_message 407,"Sorry! User is not verified."
       end
     else

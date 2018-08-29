@@ -20,7 +20,7 @@ class User
   field :gender, type: Integer #0:male  1:female
   field :address, type: String, default: ''
   field :otp, type: String
-  field :otp_gen_time, type: Time
+  field :otp_gen_time, type: DateTime
   field :access_token, type: String, default: ''
   field :role, type: String, default: 'user'
   field :status, type: Integer # 0:Dect by admin 1:Active 2:Otp not verified
@@ -36,7 +36,7 @@ class User
   field :remember_created_at, type: Time
   
 
-  has_one :image, as: :imagable, class_name: "Image"
+  has_one :image, as: :imageable, class_name: "Image"
   has_many :devices, dependent: :destroy
 
   ## Trackable
@@ -75,5 +75,9 @@ class User
     @otp =  "1234"
     user.update_attributes(otp: @otp, otp_gen_time: DateTime.current)
     # TwilioSms.send_otp(mobile_no, "Your Centrium App account OTP is: #{@otp}" )
+  end
+
+  def otp_expired?
+    otp_gen_time < 15.minutes.ago
   end
 end

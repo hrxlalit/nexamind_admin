@@ -13,5 +13,5 @@ class Product
   field :description, type: String
 
   belongs_to :store
-  has_many :images, as: :imagable, class_name: "Image"
+  has_many :images, as: :imageable, class_name: "Image"
 end
