@@ -1,0 +1,57 @@
+  <div class="right-inner">
+          <h1 class="heading">FAQ MANAGEMENT</h1>
+            <div class="search-main-block">
+               <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        
+                        <div class="search-block" style="text-align: left;">
+                            <div class="search-inner">
+                            </div>
+                       </div>
+                   </div>
+                   <div class="col-md-6 col-sm-6">
+                        <div class="text-right">
+                          <%= link_to "Add FAQ", new_admin_faq_path, :class => "btn btn-red" %>
+                        </div>
+                   </div>
+               </div>
+           </div>
+          <div class="box box-blue">
+            <div class="box-body">
+                <div class="custom-table table-responsive">
+              <table class="table table-striped table-border">
+                  <thead>
+                      <tr>
+                        <th>Question</th>
+                        <th>Answer</th>                   
+                        <th>Action</th>
+                      </tr>
+                  </thead>
+                  <%= "No Faqs found." unless @faqs.present?%>
+                  <% @faqs.each do |faq| %>
+                      <tbody>
+                        <tr>
+                          <td><%= sanitize(truncate(faq.question, omision: "...", length: 30))%></td>
+                          <td><%= sanitize faq.answer %></td>
+                          <td>
+                            <div class="action-btn">
+                            <a href="/admin/faqs/<%= faq.id%>" class="btn btn-sm btn-success"><i class="fa fa-eye" aria-hidden="true"></i>View</a>
+                            <a href="/admin/faqs/<%= faq.id%>/edit" class="btn btn-sm btn-primary"><i class="fa fa-edit" aria-hidden="true"></i>Edit</a>
+                            <%= link_to '<i class="fa fa-trash" aria-hidden="true"></i> Delete'.html_safe,  admin_faq_path(faq.id), method: :delete,:class=>"btn btn-sm btn-danger", data: {confirm: 'Are you sure to delete this faq?' }%></a>
+                            </div>                             
+                          </td>
+                        </tr>                              
+                      </tbody>
+                  <%end%>
+              </table>
+          </div>	
+                
+            </div>
+         </div>
+          
+          <div class="custom-pagination">
+          <%= will_paginate @faqs %>
+        </div>
+          
+      </div>
+</div>

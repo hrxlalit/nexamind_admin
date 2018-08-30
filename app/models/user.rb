@@ -27,6 +27,7 @@ class User
   field :touch_id, type: Boolean, default: false
   field :fb_uid, type: String
   field :google_uid, type: String
+  field :gender, type: String
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -36,8 +37,9 @@ class User
   field :remember_created_at, type: Time
   
 
-  has_one :image, as: :imageable, class_name: "Image"
   has_many :devices, dependent: :destroy
+  has_one :store, dependent: :destroy
+  has_one :images, as: :imagable, class_name: "Image"
 
   ## Trackable
   # field :sign_in_count,      type: Integer, default: 0

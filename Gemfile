@@ -25,13 +25,22 @@ gem 'mongoid', '~> 6.1.0'
 gem 'devise'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'rails_12factor', group: :production
+gem 'will_paginate', '~> 3.1.0'
+gem 'bootstrap-will_paginate', '~> 0.0.10'
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+gem 'jquery-rails'
+gem 'jquery-validation-rails'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'jquery-ui-rails'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'alertify-rails'
+gem 'geocoder'
+gem "chartkick"
+gem 'groupdate'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'twilio-ruby'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

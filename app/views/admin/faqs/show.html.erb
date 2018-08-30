@@ -1,0 +1,30 @@
+<div class="right-inner">
+
+  <h1 class="heading">FAQ</h1>
+  <div class="form-show-body">
+    <form>
+
+      <div class="form-group">
+        <div class="row">
+          <label class="col-sm-2"> Question  </label>
+          <div class="col-sm-8">
+            <%= sanitize @faq.question %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <label class="col-sm-2"> Answer  </label>
+          <div class="col-sm-8">
+            <%= sanitize @faq.answer%>
+          </div>
+        </div>
+      </div>
+
+      <div class="update-btn text-center">
+        <%= link_to 'Back', admin_faqs_path, class: "btn btn-danger btn-common" %>
+      </div>
+    </form>
+  </div>
+</div>  

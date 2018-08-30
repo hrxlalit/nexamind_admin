@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception, unless: -> { request.format.json? }
+  helper_method :current_admin_user
 
   def render_message code,message
     render :json => {:responseCode => code,:responseMessage => message}
@@ -31,4 +32,12 @@ class ApplicationController < ActionController::Base
       render_message 402, "Sorry! You are not an authenticated user." unless @current_user
     end
   end 
+
+  def current_admin_user
+  	current_admin_user ||= AdminUser.find_by(id: cookies.signed[:admin_user_id]) if cookies.signed[:admin_user_id]
+  end
+
+  def require_admin_user
+  	redirect_to new_admin_session_path unless current_admin_user.present?		
+  end
 end

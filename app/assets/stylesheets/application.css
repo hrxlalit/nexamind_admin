@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+
+ @import 'bootstrap-sprockets';
+ @import 'bootstrap';
+ @import 'alertify';
+
+.admin-error div.error {color: red !important;}
+.flash {
+    color: red;
+    font-family: fonte;
+}
+#err-label{color: red;}

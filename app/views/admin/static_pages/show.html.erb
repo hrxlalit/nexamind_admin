@@ -1,0 +1,43 @@
+<div class="right-inner">
+
+<h1 class="heading">STATIC CONTENT DETAIL</h1>
+  <div class="form-show-body">
+      <form>
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2"> Content Title  </label>
+            <div class="col-sm-8">
+              <%= @static_page.title %>
+            </div>
+          </div>
+        </div>
+       
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2"> Content Description  </label>
+            <div class="col-sm-8">
+              <%= sanitize @static_page.description %>
+            </div>
+          </div>
+        </div>
+       
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2">Created On </label>
+            <div class="col-sm-8">
+              <label><%= @static_page.created_at.localtime.strftime("%d %B, %Y %I:%M %p") %></label>
+            </div>
+          </div>
+        </div>
+       
+       
+        <div class="update-btn text-center">
+          <%= link_to 'Back', admin_static_pages_path, class: "btn btn-danger btn-common" %>
+        </div>
+  
+
+      </form>
+    
+        
+    </div>
+</div>  

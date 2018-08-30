@@ -1,0 +1,41 @@
+<div class="right-inner">
+
+  <h1 class="heading">STATIC CONTENT DETAIL</h1>
+    <div class="form-show-body">
+      <!-- <form> -->
+				<%= form_for [:admin, @static_page],html: {id: "new_static_page"} do |f|%>
+					<div class="detail-form m-t-40 m-b-40">
+
+						<div class="form-group">
+							<div class="row">
+								<label class="col-sm-4 col-md-3 control-label">Content Title</label>
+								<div class="col-sm-8 col-md-7">
+								  <%= f.text_field :title, class: "form-control", required: true, placeholder: "" %>
+								</div>
+							</div>
+						</div>
+           
+						<div class="form-group">
+							<div class="row">
+								<label class="col-sm-4 col-md-3 control-label">Description</label>
+								<div class="col-sm-8 col-md-7">
+								  <%= f.cktext_area :description, class: "form-control cktext", placeholder: "", name: "static_page[description]" %>
+								</div>
+							</div>
+						</div>
+            
+						<div class="form-group">
+							<div class="text-center attendee-cent-s">
+								<button class="btn btn-success btn-common" type="submit">Submit</button>                        
+                              <%= link_to 'Cancel', admin_static_pages_path, class: "btn btn-danger btn-common" %>
+							</div>
+					</div>
+          <!--   <div class="update-btn text-center">
+              <button class="btn btn-success btn-common" href="my-account.html"> Save</button>
+               <button class="btn btn-danger btn-common" href="my-account.html"> Cancel</button>
+            </div> -->
+				</div>
+			<%end%>
+		<!-- </form>         -->
+  </div>
+</div>  

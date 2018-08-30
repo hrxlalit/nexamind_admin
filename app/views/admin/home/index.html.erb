@@ -1,0 +1,140 @@
+<h1 class="heading">DASHBOARD</h1>
+<div class="info-box-block">
+  <div class="row">
+      <div class="col-md-3 col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-green">
+              <legend>Total Active Users</legend>
+              <div class=" info-txt">
+                    <p><%= User.count %></p>
+                     <a href="/admin/users" class="btn btn-blue"> View Details </a>
+              </div>
+            </fieldset>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-green">
+              <legend>Total</legend>
+              <div class=" info-txt">
+                    <p><%= User.where(gender: "male").count %></p>
+                     <a href="#" class="btn btn-blue"> View Details </a>
+              </div>
+            </fieldset>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-green">
+              <legend>Total</legend>
+              <div class=" info-txt">
+                    <p><%= User.where(gender: "female").count %></p>
+                     <a href="#" class="btn btn-blue"> View Details </a>
+              </div>
+            </fieldset>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-green">
+              <legend>Total</legend>
+              <div class=" info-txt">
+                <p>0<%#= Report.where(reportable_type: "User").count %></p>
+                <a href="#" class="btn btn-blue"> View Details </a>
+              </div>
+            </fieldset>
+          </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-green">
+              <legend>Total</legend>
+              <div class=" info-txt">
+                    <p>0<%#= Report.where(reportable_type: "Post").count %></p>
+                     <a href="#" class="btn btn-blue"> View Details </a>
+              </div>
+            </fieldset>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-green">
+              <legend>Total</legend>
+              <div class=" info-txt">
+                    <p>0<%#= Post.count %></p>
+                     <a href="#" class="btn btn-blue"> View Details </a>
+              </div>
+            </fieldset>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-green">
+              <legend>Total</legend>
+              <div class=" info-txt">
+                    <p>0<%#= Message.count %></p>
+                     <a href="#" class="btn btn-blue"> View Details </a>
+              </div>
+            </fieldset>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-green">
+              <legend>Total</legend>
+              <div class=" info-txt">
+                    <p>0<%#= Message.joins(:room).where("rooms.is_anonymous =?", true).count %></p>
+                     <a href="#" class="btn btn-blue"> View Details </a>
+              </div>
+            </fieldset>
+          </div>
+      </div>
+   </div>
+   <div class="row mt20">
+      <div class="col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-yellow">
+              <legend>Total</legend>
+              <div class=" info-txt">
+                <%#= line_chart User.group_by_day(:created_at).count,colors: ["#169BD5"] %>
+              </div>
+            </fieldset>
+          </div>
+      </div>
+      <div class="col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-green">
+              <legend>Total</legend>
+              <div class=" info-txt">
+                <%#= pie_chart User.group(:gender).count,colors: ["#169BD5","#f82323"] %>
+              </div>
+            </fieldset>
+          </div>
+      </div>
+   </div>
+    <div class="row mt20">
+      <div class="col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-yellow">
+              <legend>Totals</legend>
+              <div class=" info-txt">
+                <%#= line_chart Message.group_by_day(:created_at).count,colors: ["#169BD5"] %>
+              </div>
+            </fieldset>
+          </div>
+      </div>
+      <div class="col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-green">
+              <legend>Total</legend>
+              <div class=" info-txt">
+                <%#= line_chart Post.group_by_day(:updated_at).count,colors: ["#169BD5"] %>
+              </div>
+            </fieldset>
+          </div>
+      </div>
+   </div>
+</div>
+              
