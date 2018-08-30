@@ -12,7 +12,7 @@ class User
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""
   
-  field :unique_id, type: String
+  field :unique_id, type: String, default: ''
   field :name, type: String, default: ''
   field :dob, type: Date
   field :code, type: String, default: ''
@@ -39,7 +39,8 @@ class User
 
   has_many :devices, dependent: :destroy
   has_one :store, dependent: :destroy
-  has_one :images, as: :imagable, class_name: "Image"
+  has_one :image, as: :imageable, class_name: "Image"
+  has_many :user_docs, dependent: :destroy
 
   ## Trackable
   # field :sign_in_count,      type: Integer, default: 0
@@ -59,15 +60,15 @@ class User
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
 
-  def self.generate_token user
+  def self.generate_token
     access_token = SecureRandom.hex 
-    generate_token if User.where(access_token: access_token).exists?
+    generate_token if User.where(access_token: access_token).exists? || Store.where(access_token: access_token).exists?
     return access_token
   end
 
   def self.generate_code
     unique_id = SecureRandom.base64(9)
-    generate_code if User.where(unique_id: unique_id).exists?
+    generate_code if User.where(unique_id: unique_id).exists? || Store.where(unique_id: unique_id).exists?
     return unique_id
   end
 

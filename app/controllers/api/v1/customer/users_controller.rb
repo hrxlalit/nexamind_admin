@@ -1,5 +1,5 @@
-class Api::V1::UsersController < ApplicationController
-  before_action :find_user, :only=>[:logout, :view_profile, :update_profile, :send_otp_mobile, :otp_change_mobile]
+class Api::V1::Customer::UsersController < ApplicationController
+  before_action :find_user, :only=>[:logout, :view_profile, :update_profile, :send_otp_mobile, :otp_change_mobile, :send_otp_mobile, :upload_doc]
 
   def generate_code
     unique_code = User.generate_code
@@ -15,7 +15,7 @@ class Api::V1::UsersController < ApplicationController
         @user.create_image(file: params[:image])
       end
       @user.try(:image).try(:reload)
-  	  token = User.generate_token(@user)
+  	  token = User.generate_token
       @user.update_attributes(access_token: token, status: 2)
       @image = @user.try(:image).try(:file_url)
       @select = @user.as_json.merge("image" => @image).except("otp", "otp_gen_time", "unique_id")
@@ -37,7 +37,7 @@ class Api::V1::UsersController < ApplicationController
         @image = @user.try(:image).try(:file_url)
         @select = @user.as_json.merge("image" => @image).except("otp", "otp_gen_time", "unique_id")
         device = @user.devices.create(device_params) 
-        render :json =>  {:responseCode => 200, :responseMessage => "You have verified otp successfully.", :user => @select }
+        render :json =>  {:responseCode => 200, :responseMessage => "Otp verified successfully.", :user => @select }
       end
     else
       return render_message 402, "OTP is not valid."
@@ -89,6 +89,16 @@ class Api::V1::UsersController < ApplicationController
     render_message 200, "Logged out successfully." if @device.destroy_all  
   end
 
+  def send_otp_mobile
+    @mobile = params[:mobile]
+    @mobile_code = params[:code]
+    @user = User.where(:id.ne => @current_user.id).where(:mobile => @mobile)
+    return render json: {responseCode: 402, responseMessage: "Mobile no already exist."} if @user.present?
+    User.generate_otp_and_send(@mobile, @mobile_code, @current_user)
+    @merge = @current_user.as_json.merge("new_mobile" => @mobile, "new_code" => @mobile_code)
+    return render json: {responseCode: 200, responseMessage: "OTP send to your no.", user: @merge}
+  end
+
   def otp_change_mobile
     if @current_user.otp == params[:otp]
       if @current_user.otp_expired?
@@ -99,6 +109,28 @@ class Api::V1::UsersController < ApplicationController
       end
     else
       return render_message 402, "OTP is not valid."
+    end
+  end
+
+  def otp_change_mobile
+    if @current_user.otp == params[:otp]
+      if @current_user.otp_expired?
+        return render_message 402, "OTP is expired."
+      else
+        @current_user.update_attributes(mobile: params[:mobile], code: params[:code], otp: nil)
+        render :json =>  {:responseCode => 200, :responseMessage => "Mobile no. change successfully."}
+      end
+    else
+      return render_message 402, "OTP is not valid."
+    end
+  end
+
+  def upload_doc
+    user_doc = @current_user.user_docs.new(doc_no: params[:doc_no], doc_type: params[:doc_type], front_img: params[:front_img], back_img: params[:back_img])
+    if user_doc.save
+      render :json =>  {:responseCode => 200, :responseMessage => "Doc uploaded successfully."}
+    else
+      return render_message 402, user_doc.errors.full_messages.first
     end
   end
 

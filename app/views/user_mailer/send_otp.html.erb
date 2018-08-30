@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3>Hello, <%= @store.try(:name) %></h3>
+    <p>
+      Fill this otp to otp verification screen.
+    </p>
+    <p>
+      OTP: <%= @store.otp %><br>
+    </p>
+  </body>
+</html>

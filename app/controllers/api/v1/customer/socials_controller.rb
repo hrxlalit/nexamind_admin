@@ -1,4 +1,4 @@
-class Api::V1::SocialsController < ApplicationController
+class Api::V1::Customer::SocialsController < ApplicationController
   
   def social_login
     @user = User.any_of({:email => params[:user][:email].try(:downcase)},{:fb_uid => params[:user][:uid]}, {:google_uid => params[:user][:uid]})
