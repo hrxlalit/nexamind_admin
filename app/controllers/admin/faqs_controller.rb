@@ -4,7 +4,7 @@ class Admin::FaqsController < ApplicationController
 	before_action :find_content, except: [:new, :create, :index]
 
 	def index
-		@faqs = Faq.all.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+		@faqs = Faq.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
 	end
 
 	def new
