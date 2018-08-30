@@ -56,6 +56,12 @@ Rails.application.routes.draw do
         post :user_status
       end
     end
+    resources :stores do
+      collection do
+        post :store_status
+      end
+    end
+    resources :products
     resources :static_pages
     resources :faqs    
     get '/login' => 'sessions#new'

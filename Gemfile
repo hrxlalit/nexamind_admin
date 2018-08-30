@@ -39,6 +39,8 @@ gem 'alertify-rails'
 gem 'geocoder'
 gem "chartkick"
 gem 'groupdate'
+gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 group :development, :test do

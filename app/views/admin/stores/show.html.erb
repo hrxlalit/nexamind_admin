@@ -1,0 +1,281 @@
+<h1 class="heading">USER DETAIL</h1>
+<div class="box box-blue mb40">
+  <div class="box-body">
+    <div class="store-detail-block mt20">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="text-center">
+            <div class="detail-profile-box">
+              <!-- <img src="/assets/profile.jpg"> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="storedetail-part">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Name</label>
+                </div>
+                <div class="col-sm-8">
+                  <label><%= @store.try(:name) %></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Email</label>
+                </div>
+                <div class="col-sm-8">
+                  <label><%= @store.try(:email) %></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Phone no </label>
+                </div>
+                <div class="col-sm-8">
+                  <label><%= @store.try(:mobile) %></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Citizenship No</label>
+                </div>
+                <div class="col-sm-8">
+                  <label><%= @store.try(:citizenship_no) %></label>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Email Verification</label>
+                </div>
+                <div class="col-sm-8">
+                  <label><%#= @store.email_verified.eql?(true) ?  '<i class = "btn-sm btn-success fa fa-check-circle"> Verified </i>'.html_safe : '<i class = "btn-sm btn-danger fa fa-times-circle"> Pending </i>'.html_safe %></label>
+                </div>
+              </div>
+            </div> -->
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Account Status</label>
+                </div>
+                <div class="col-sm-8">
+                  <label><%= @store.status.eql?(1) ?  '<i class = "btn-sm btn-success fa fa-check-circle"> Activated </i>'.html_safe : '<i class = "btn-sm btn-danger fa fa-times-circle"> Deactivated </i>'.html_safe %></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Document Verified</label>
+                </div>
+                <div class="col-sm-8">
+                  <label><%= @store.is_verified.eql?(true) ?  '<i class = "btn-sm btn-success fa fa-check-circle"> Activated </i>'.html_safe : '<i class = "btn-sm btn-danger fa fa-times-circle"> Deactivated </i>'.html_safe %></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Date of Birth</label>
+                </div>
+                <div class="col-sm-8">
+                  <label><%= @store.try(:dob) %></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Gender</label>
+                </div>
+                <div class="col-sm-8">
+                  <label><%= @store.try(:gender)%></label>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Country</label>
+                </div>
+                <div class="col-sm-8">
+                  <label><%#= @store.try(:country) %></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>City</label>
+                </div>
+                <div class="col-sm-8">
+                  <label><%#= @store.try(:city) %></label>
+                </div>
+              </div>
+            </div> -->
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Address</label>
+                </div>
+                <div class="col-sm-8">
+                  <label><%= @store.try(:address) %></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label class= "doc_front">Document Front page</label>
+                </div>
+                <div class="col-sm-8">
+                  <!-- <label class=""><i class="fa fa-file" aria-hidden="true"></i> </label> -->
+                  <span class= "image_preview"  id="<%#= @store&.id_proof_file.try(:url) %>">
+                   <%#= @store.try(:id_proof_file).present? ? image_tag(@store.try(:id_proof_file).try(:url), :class => 'profile-store-img', :id=> "black_cat_img") : image_tag("/1.png", :class => 'profile-store-img') %>
+                   <%#=  image_tag("#{@store&.id_proof_file.try(:url)}", :class=>"profile-store-img") %></span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label class= "doc_back">Document Back Page</label>
+                </div>
+                <div class="col-sm-8">
+                  <!-- <label class=""><i class="fa fa-file" aria-hidden="true"></i> </label> -->
+                  <span class= "image_preview"  id="<%#= @store&.id_proof_file2.try(:url) %>">
+                  <%#= @store.try(:id_proof_file2).present? ? image_tag(@store.try(:id_proof_file2).try(:url), :class => 'profile-store-img', :id=> "black_cat_img") : image_tag("/1.png", :class => 'profile-store-img') %>
+                  <%#=  image_tag("#{@store&.id_proof_file2.try(:url)}", :class=>"profile-store-img") %></span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>KYC Info Verification</label>
+                </div>
+                <div class="col-sm-8">
+                  <label class="info-status"><%#= @store.kyc_info.eql?(true) ?  '<i class = "btn-sm btn-success fa fa-check-circle" id = "info-verified"> Verified </i>'.html_safe : '<i class = "btn-sm btn-danger fa fa-times-circle" id = "info-verified"> Pending </i>'.html_safe %></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>KYC Doc Verification</label>
+                </div>
+                <div class="col-sm-8">
+                  <label class="doc-status"><%#= @store.kyc_doc.eql?(true) ?  '<i class = "btn-sm btn-success fa fa-check-circle" id = "doc-verified"> Verified </i>'.html_safe : '<i class = "btn-sm btn-danger fa fa-times-circle" id = "doc-verified"> Pending </i>'.html_safe %></label>
+                </div>                                        
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade common-modal" id="image" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
+   <div class="modal-dialog max-WT-600" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><img src="/assets/cross-icon.png"></button>
+         </div>
+         <div class="modal-body">
+            <div>
+               <div class="row">
+                  <div class="col-sm-12">
+                     <!-- <div class="formbox shipment common-inner-form "> -->
+                        <div align="center " class= "imgwidh">
+                           <!-- <img src="/assets/upload-img.png"> -->
+                           <%#= image_tag(photo.photo_url)%>
+                           <img src="http://res.cloudinary.com/hammer/image/upload/v1520832469/tdzvfnlybpmwuuzrmkrj.jpg" alt="Tdzvfnlybpmwuuzrmkrj" id="img_id" style="width= 1000px;height= 1000px;" class= "zoom_img" >
+                        </div>
+                     <!-- </div> -->
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   $('.image_preview').click(function(){
+     var image_url = $(this).attr('id');
+      
+     $("#img_id").attr("src", image_url);
+     $('#image').modal("show");
+   
+     });
+</script>
+
+
+<script type="text/javascript">
+
+
+    $("#info-verified").click(function(){
+    var id =  "<%= @store.id%>";
+    $.post("/admin/stores/update_kyc_info_status",
+          {
+              id: id
+          },
+      function(data){
+        if(data.status == true){
+        document.getElementById("info-verified").textContent="  Verified";
+        $("#info-verified.btn-sm").removeClass('btn-danger');
+        $("#info-verified.btn-sm").addClass('btn-success');
+        $("#info-verified").addClass('fa fa-check-circle');
+        }
+        else
+        {
+        document.getElementById("info-verified").textContent="  Pending";
+         $("#info-verified").removeClass('fa fa-check-circle');
+         $("#info-verified.btn-sm").removeClass('btn-success');
+         $("#info-verified").addClass('fa fa-times-circle');
+         $("#info-verified.btn-sm").addClass('btn-danger');
+        }
+    });
+  });
+    $("#doc-verified").click(function(){
+    var id =  "<%= @store.id%>";
+    $.post("/admin/stores/update_kyc_doc_status",
+          {
+              id: id
+          },
+      function(data){
+        if(data.status == true){
+        document.getElementById("doc-verified").textContent="  Verified";
+        $("#doc-verified.btn-sm").removeClass('btn-danger');
+        $("#doc-verified.btn-sm").addClass('btn-success');
+        $("#doc-verified").addClass('fa fa-check-circle');
+        }
+        else
+        {
+        document.getElementById("doc-verified").textContent="  Pending";
+         $("#doc-verified").removeClass('fa fa-check-circle');
+         $("#doc-verified.btn-sm").removeClass('btn-success');
+         $("#doc-verified").addClass('fa fa-times-circle'); 
+         $("#doc-verified.btn-sm").addClass('btn-danger');
+        }
+    });
+   });
+</script>
+<style type="text/css">
+  .info-status { cursor: pointer; }
+  .doc-status { cursor: pointer; }
+  .profile-store-img.img-circle {height: 100px;width: 100px;}
+  .doc_front{line-height: 70px;}
+  .doc_back{line-height: 70px;}
+  .zoom_img{height: 100%;width: 100%;}
+  .profile-store-img{height: 100px; width: 100px;cursor: pointer;}
+</style>

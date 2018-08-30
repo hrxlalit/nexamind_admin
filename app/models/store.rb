@@ -12,8 +12,9 @@ class Store
   field :latitude, type: String
   field :longitude, type: String
   field :description, type: String
+  field :status, type: Integer, default: 0
+  field :is_verified, type: Boolean, default: false
 
-  belongs_to :user
   has_many :products, dependent: :destroy
   has_many :images, as: :imageable, class_name: "Image"
 end
