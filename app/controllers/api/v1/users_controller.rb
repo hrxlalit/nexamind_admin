@@ -27,9 +27,9 @@ class Api::V1::UsersController < ApplicationController
   end	
 
   def verify_otp
-    @user = User.find_by(mobile: params[:user][:mobile])
+    @user = User.find_by(mobile: params[:mobile])
     return render_message 402, "User doesn't exist." unless @user.present?
-    if @user.otp == params[:user][:otp]
+    if @user.otp == params[:otp]
       if @user.otp_expired?
         return render_message 402, "OTP is expired."
       else
@@ -37,7 +37,7 @@ class Api::V1::UsersController < ApplicationController
         @image = @user.try(:image).try(:file_url)
         @select = @user.as_json.merge("image" => @image).except("otp", "otp_gen_time", "unique_id")
         device = @user.devices.create(device_params) 
-        render :json =>  {:responseCode => 200, :responseMessage => "You have registered successfully.", :user => @select }
+        render :json =>  {:responseCode => 200, :responseMessage => "You have verified otp successfully.", :user => @select }
       end
     else
       return render_message 402, "OTP is not valid."
@@ -71,7 +71,7 @@ class Api::V1::UsersController < ApplicationController
   def update_profile
     @users = User.where(:id.ne => @current_user.id).and({email: params[:email].try(:downcase)}, {:email.ne => ""}) if params[:email].present?
     return render_message 402, "Email must be unique." if @users.present?
-    if @current_user.update_attributes(user_params)
+    if @current_user.update_attributes(update_user_params)
       if params[:image].present?
           @current_user.create_image(file: params[:image])
           @current_user.try(:image).try(:reload)
@@ -85,7 +85,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def logout
-    @device = Device.where("device_token = ? AND user_id = ?", params[:device][:device_token], @current_user.id)
+    @device = Device.and({device_token: params[:device][:device_token]}, {:user_id => @current_user.id})
     render_message 200, "Logged out successfully." if @device.destroy_all  
   end
 
@@ -106,6 +106,10 @@ class Api::V1::UsersController < ApplicationController
 
   def user_params
     params.permit(:email, :name, :dob, :code, :mobile, :gender, :address, :unique_id, :touch_id)
+  end
+
+  def update_user_params
+    params.permit(:email, :name, :dob, :gender, :address, :touch_id)
   end
 
   def device_params
