@@ -1,20 +1,37 @@
 Rails.application.routes.draw do
-  # devise_for :admin_users
-  # devise_for :users
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  devise_for :users
 
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  namespace :api, defaults: { format: :json } do
+    scope module: :v1 do
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+      resources :users do
+        collection do
+          post :sign_up
+          get :generate_code
+          post :login
+          post :verify_otp
+          post :resend_otp
+          post :logout
+          get :view_profile
+          post :update_profile
+          post :otp_change_mobile
+        end
+      end
 
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+      resources :socials do
+        collection do
+          post :social_login
+        end
+      end
 
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+      resources :static_contents  do
+        collection do
+          post :static_content    
+        end
+      end
+
+    end
+  end
 
   namespace :admin do
     root :to => "home#index"
