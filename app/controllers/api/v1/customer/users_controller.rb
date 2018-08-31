@@ -95,7 +95,7 @@ class Api::V1::Customer::UsersController < ApplicationController
     @user = User.where(:id.ne => @current_user.id).where(:mobile => @mobile)
     return render json: {responseCode: 402, responseMessage: "Mobile no already exist."} if @user.present?
     User.generate_otp_and_send(@mobile, @mobile_code, @current_user)
-    @merge = @current_user.as_json.merge("new_mobile" => @mobile, "new_code" => @mobile_code)
+    @merge = @current_user.as_json.merge("new_mobile" => @mobile, "new_code" => @mobile_code).except("otp", "otp_gen_time", "unique_id")
     return render json: {responseCode: 200, responseMessage: "OTP send to your no.", user: @merge}
   end
 

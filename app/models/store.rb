@@ -27,6 +27,7 @@ class Store
 
   has_many :products, dependent: :destroy
   has_many :images, as: :imageable, class_name: "Image"
+  has_many :devices, dependent: :destroy
 
   def self.generate_otp_and_send store
     otp = rand(1111..9999)
