@@ -8,7 +8,8 @@ class Store
   has_secure_password
   geocoded_by :location
   after_validation :geocode, :if => :location_changed?
-  index({ coordinates: "2d" },  { min: -180, max: 180 })
+  
+  # index({ coordinates: "2d" },  { min: -180, max: 180 })
 
 
   field :name, type: String
@@ -45,15 +46,15 @@ class Store
     otp_gen_time < 15.minutes.ago
   end
 
-  def self.at_range(latitude, longitude, range)
-    geo_near([latitude, longitude]).max_distance(range.fdiv(111.12))
-  end
+  # def self.at_range(latitude, longitude, range)
+  #   geo_near([latitude, longitude]).max_distance(range.fdiv(111.12))
+  # end
 
-  def latitude
-    coordinates[0]
-  end
+  # def latitude
+  #   coordinates[0]
+  # end
 
-  def longitude
-    coordinates[1]
-  end
+  # def longitude
+  #   coordinates[1]
+  # end
 end
