@@ -1,4 +1,4 @@
-class Api::V1::Store::StoresController < ApplicationController
+class Api::V1::Storeapi::StoresController < ApplicationController
    before_action :find_store, :only=>[:logout, :view_profile, :update_profile, :send_otp_mobile, :otp_change_mobile, :send_otp_mobile, :upload_doc]
 
   def sign_up
@@ -22,7 +22,7 @@ class Api::V1::Store::StoresController < ApplicationController
   end	
 
   def verify_otp
-    @store = Store.find_by(mobile: params[:mobile])
+    @store = Store.find_by(email: params[:email])
     return render_message 402, "Store doesn't exist." unless @store.present?
     if @store.otp == params[:otp]
       if @store.otp_expired?
@@ -55,11 +55,9 @@ class Api::V1::Store::StoresController < ApplicationController
   end
 
   def resend_otp
-    @mobile = params[:mobile]
-    @mobile_code = params[:code]
     @store = Store.find_by(id: params[:id])
     return render_message 402, "Store doesn't exists." unless @store.present?
-    Store.generate_otp_and_send(@mobile, @mobile_code, @store)
+    Store.generate_otp_and_send(@store)
     return render_message 200, "Otp resend successfully."
   end
 
@@ -90,14 +88,34 @@ class Api::V1::Store::StoresController < ApplicationController
     render_message 200, "Logged out successfully." if @device.destroy_all  
   end
 
+  def send_otp_mobile
+    @user = Store.where(:id.ne => @current_store.id).where(:email => params[:email])
+    return render json: {responseCode: 402, responseMessage: "Email Id already exist."} if @user.present?
+    User.generate_otp_and_send(@current_store)
+    @merge = @current_store.as_json.merge("new_email" => params[:email])
+    return render json: {responseCode: 200, responseMessage: "OTP send to your no.", user: @merge}
+  end
+
+  def otp_change_mobile
+    if @current_store.otp == params[:otp]
+      if @current_store.otp_expired?
+        return render_message 402, "OTP is expired."
+      else
+        @current_store.update_attributes(email: params[:email], otp: nil)
+        render :json =>  {:responseCode => 200, :responseMessage => "Email Id changed successfully."}
+      end
+    else
+      return render_message 402, "OTP is not valid."
+    end
+  end
+
   private
 
   def store_params
-    params.permit(:name, :store_type, :email, :website, :code, :mobile, :address, :unique_id, :touch_id, :latitude, :longitude, :description)
+    params.permit(:name, :store_type, :email, :password, :website, :code, :mobile, :address, :unique_id, :touch_id, :latitude, :longitude, :description)
   end
 
   def update_store_params
     params.permit(:name, :email, :website, :address, :touch_id, :latitude, :longitude)
   end
-
 end

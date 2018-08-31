@@ -30,7 +30,7 @@ Rails.application.routes.draw do
           end
         end
       end
-      namespace :store do
+      namespace :storeapi do
         resources :stores do
           collection do
             post :sign_up

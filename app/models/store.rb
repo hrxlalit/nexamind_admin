@@ -30,7 +30,7 @@ class Store
 
   def self.generate_otp_and_send store
     otp = rand(1111..9999)
-    store.update_attributes(otp: @otp, otp_gen_time: DateTime.current)
+    store.update_attributes(otp: otp, otp_gen_time: DateTime.current)
     msg = "#{otp} is your one time password(OTP). This is usable once & valid for 15 minuts from request. Do not share with anyone."
     UserMailer.send_otp(store, msg).deliver_now
   end

@@ -112,19 +112,6 @@ class Api::V1::Customer::UsersController < ApplicationController
     end
   end
 
-  def otp_change_mobile
-    if @current_user.otp == params[:otp]
-      if @current_user.otp_expired?
-        return render_message 402, "OTP is expired."
-      else
-        @current_user.update_attributes(mobile: params[:mobile], code: params[:code], otp: nil)
-        render :json =>  {:responseCode => 200, :responseMessage => "Mobile no. change successfully."}
-      end
-    else
-      return render_message 402, "OTP is not valid."
-    end
-  end
-
   def upload_doc
     user_doc = @current_user.user_docs.new(doc_no: params[:doc_no], doc_type: params[:doc_type], front_img: params[:front_img], back_img: params[:back_img])
     if user_doc.save
@@ -147,5 +134,4 @@ class Api::V1::Customer::UsersController < ApplicationController
   def device_params
     params.require(:device).permit(:device_type, :device_token)
   end
-
 end
