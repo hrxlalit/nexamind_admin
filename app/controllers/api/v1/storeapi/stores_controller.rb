@@ -1,5 +1,5 @@
 class Api::V1::Storeapi::StoresController < ApplicationController
-   before_action :find_store, :only=>[:logout, :view_profile, :update_profile, :send_otp_mobile, :otp_change_mobile, :send_otp_mobile, :upload_doc]
+   before_action :find_store, :only=>[:logout, :view_profile, :update_profile, :send_otp_email, :otp_change_email, :upload_doc]
 
   def sign_up
     @store = Store.any_of({:unique_id => params[:unique_id]},{:email => params[:email].try(:downcase)}, {:phone => params[:mobile]})
@@ -76,7 +76,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
           @current_store.try(:images).try(:last).try(:reload)
       end
       @image = @current_store.try(:images).map{|x| x.try(:file_url)}
-      @select = @current_store.as_json.merge("image" => @image).except("otp", "otp_gen_time", "unique_id")
+      @select = @current_store.as_json.merge("image" => @image).except("otp", "otp_gen_time", "unique_id", "password_digest")
       render json: {responseCode: 200, responseMessage: "Store profile updated successfully.",user: @select}
     else
       render_message 402, @current_store.errors.full_messages.first
@@ -84,19 +84,19 @@ class Api::V1::Storeapi::StoresController < ApplicationController
   end
 
   def logout
-    @device = Device.and({device_token: params[:device][:device_token]}, {:user_id => @current_store.id})
+    @device = Device.and({device_token: params[:device][:device_token]}, {:store_id => @current_store.id})
     render_message 200, "Logged out successfully." if @device.destroy_all  
   end
 
-  def send_otp_mobile
+  def send_otp_email
     @user = Store.where(:id.ne => @current_store.id).where(:email => params[:email])
     return render json: {responseCode: 402, responseMessage: "Email Id already exist."} if @user.present?
-    User.generate_otp_and_send(@current_store)
-    @merge = @current_store.as_json.merge("new_email" => params[:email])
-    return render json: {responseCode: 200, responseMessage: "OTP send to your no.", user: @merge}
+    Store.generate_otp_and_send(@current_store)
+    @merge = @current_store.as_json.merge("new_email" => params[:email]).except("otp", "otp_gen_time", "unique_id", "password_digest")
+    return render json: {responseCode: 200, responseMessage: "OTP send to your email.", user: @merge}
   end
 
-  def otp_change_mobile
+  def otp_change_email
     if @current_store.otp == params[:otp]
       if @current_store.otp_expired?
         return render_message 402, "OTP is expired."
@@ -117,5 +117,9 @@ class Api::V1::Storeapi::StoresController < ApplicationController
 
   def update_store_params
     params.permit(:name, :email, :website, :address, :touch_id, :latitude, :longitude)
+  end
+
+  def device_params
+    params.require(:device).permit(:device_type, :device_token)
   end
 end

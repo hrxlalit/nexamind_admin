@@ -5,4 +5,6 @@ class StaticPage
   
   field :title, type: String
   field :description, type: String
+  field :type, type: String
+
 end

@@ -7,4 +7,5 @@ class Device
   field :device_token, type: String
 
   belongs_to :user
+  belongs_to :store
 end

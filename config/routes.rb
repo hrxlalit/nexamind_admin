@@ -42,8 +42,8 @@ Rails.application.routes.draw do
             post :logout
             get :view_profile
             post :update_profile
-            post :send_otp_mobile
-            post :otp_change_mobile
+            post :send_otp_email
+            post :otp_change_email
             post :upload_doc
           end
         end
