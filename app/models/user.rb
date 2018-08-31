@@ -3,22 +3,26 @@ class User
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
+  include Geocoder::Model::Mongoid
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
 
+  geocoded_by :address
+  after_validation :geocode, :if => :address_changed?
   ## Database authenticatable
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""
   
-  field :unique_id, type: String
+  field :unique_id, type: String, default: ''
   field :name, type: String, default: ''
   field :dob, type: Date
   field :code, type: String, default: ''
   field :mobile, type: String, default: ''
   field :gender, type: Integer #0:male  1:female
   field :address, type: String, default: ''
+  field :coordinates, :type => Array
   field :otp, type: String
   field :otp_gen_time, type: DateTime
   field :access_token, type: String, default: ''
@@ -40,13 +44,14 @@ class User
   has_many :devices, dependent: :destroy
   has_one :store, dependent: :destroy
   has_one :image, as: :imageable, class_name: "Image"
+  has_many :user_docs, dependent: :destroy
 
   ## Trackable
-  # field :sign_in_count,      type: Integer, default: 0
-  # field :current_sign_in_at, type: Time
-  # field :last_sign_in_at,    type: Time
-  # field :current_sign_in_ip, type: String
-  # field :last_sign_in_ip,    type: String
+  field :sign_in_count,      type: Integer, default: 0
+  field :current_sign_in_at, type: Time
+  field :last_sign_in_at,    type: Time
+  field :current_sign_in_ip, type: String
+  field :last_sign_in_ip,    type: String
 
   ## Confirmable
   # field :confirmation_token,   type: String
@@ -59,15 +64,15 @@ class User
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
 
-  def self.generate_token user
+  def self.generate_token
     access_token = SecureRandom.hex 
-    generate_token if User.where(access_token: access_token).exists?
+    generate_token if User.where(access_token: access_token).exists? || Store.where(access_token: access_token).exists?
     return access_token
   end
 
   def self.generate_code
     unique_id = SecureRandom.base64(9)
-    generate_code if User.where(unique_id: unique_id).exists?
+    generate_code if User.where(unique_id: unique_id).exists? || Store.where(unique_id: unique_id).exists?
     return unique_id
   end
 

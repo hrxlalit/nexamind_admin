@@ -1,4 +1,4 @@
-class Api::V1::StaticContentsController < ApplicationController
+class Api::V1::Customer::StaticContentsController < ApplicationController
   include ActionView::Helpers::TextHelper
 
   def static_content
