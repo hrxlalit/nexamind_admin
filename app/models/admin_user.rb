@@ -8,6 +8,7 @@ class AdminUser
   ## Database authenticatable
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""
+  field :name, type: String
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -33,4 +34,6 @@ class AdminUser
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+  has_one :image, as: :imageable, dependent: :destroy
 end

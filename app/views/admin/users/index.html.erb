@@ -44,6 +44,7 @@
       <table class="table table-striped table-border">
         <thead>
           <tr>
+            <th>User Image</th>
             <th>User Name</th>                            
             <th>Email </th>
             <th>Phone Number </th>
@@ -58,10 +59,11 @@
         <% unless user.eql?(nil) %>
         <tbody>
           <tr>
-            <td><%= truncate(user.name, omision: "...", length: 30) %></td>
-            <td><%= truncate(user.email, omision: "...", length: 30) %></td>
-            <td><%= truncate(user.mobile, omision: "...", length: 30) %></td> 
-            <td><%#= (user.gender).titleize %></td> 
+          <td><%= user.image.present? ? image_tag(user.image.try(:file_url),:width => 50, :height => 50, :class => 'news-content') : image_tag("/1.png",:width => 50, :height => 50, :class => 'news-content') %></td>
+            <td><%= truncate(user.try(:name), omision: "...", length: 30) %></td>
+            <td><%= truncate(user.try(:email), omision: "...", length: 30) %></td>
+            <td><%= truncate(user.try(:mobile), omision: "...", length: 30) %></td> 
+            <td><%= (user.gender).try(:titleize) %></td> 
             <td><%#if user.status.eql?(0) || user.not_verified? %>
                     <%#='<i class = "btn-sm btn-danger"> Unverified</i>'.html_safe %>                                   
                   <%#elsif user.status.eql?(1) || user.verified? %>

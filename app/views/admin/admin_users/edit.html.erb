@@ -38,16 +38,7 @@
               <label>Email</label>
               <span><%= f.email_field :email, class: "form-control", required: true, placeholder: ""%></span>
             </li>
-            <li class="detail-list">
-              <label>Phone No</label>
-              <span><%= f.number_field :phone, class: "form-control", required: true, placeholder: "", minlength: 9, maxlength: 15 %></span>
-            </li>
-
-            <li class="detail-list">
-              <label>Address</label>
-              <span><%= f.text_field :address, class: "form-control", placeholder: "", required: true%>
-              </span>
-            </li>
+            
           </ul>
           <div class="table-button text-center mt20">
             <button class="btn btn-primary" type="submit">Update Profile</button>  

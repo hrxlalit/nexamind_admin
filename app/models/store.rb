@@ -23,7 +23,8 @@ class Store
   field :otp, type: String
   field :otp_gen_time, type: DateTime
   field :access_token, type: String, default: ''
-  field :status, type: Integer # 0:Dect by admin 1:Active 2:Otp not verified
+  field :status, type: Integer, default: 0 # 0:Dect by admin 1:Active 2:Otp not verified
+  field :is_verified, type: Boolean, default: false
 
   has_many :products, dependent: :destroy
   has_many :images, as: :imageable, class_name: "Image"

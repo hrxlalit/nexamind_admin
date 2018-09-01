@@ -73,33 +73,14 @@ Rails.application.routes.draw do
         post :user_status
       end
     end
+    resources :stores do
+      collection do
+        post :store_status
+      end
+    end
+    resources :products
     resources :static_pages
-    # resources :reports do
-    #   collection do
-    #     post :post_status
-    #   end
-    # end
-    resources :block_users
-    resources :faqs
-    # resources :avatars do
-    #   member do
-    #     get :get_skin_color
-    #     get :get_hair_color
-    #     get :get_hair_style
-    #     get :get_beard_shape
-    #     get :get_beard_color
-    #     get :get_spects
-    #     get :get_hat
-    #     get :get_cloths
-    #   end
-    #   collection do
-    #     post :upload_categories
-    #     post :add_avatar_images
-    #     post :destroy_avatar_images
-    #   end
-    # end
-    resources :feedbacks
-    resources :report_users
+    resources :faqs    
     get '/login' => 'sessions#new'
   end
   # Example resource route with sub-resources:
