@@ -15,7 +15,7 @@ class Api::V1::Customer::SocialsController < ApplicationController
         if params[:user][:image].present?
           @user.create_image(remote_file_url: params[:user][:image])
         end
-      	if params[:user][:type] == "fb"
+      	if params[:user][:type] == "facebook"
           @user.update_attributes(access_token: token, fb_uid: params[:user][:uid], status: 1)
         elsif params[:user][:type] == "gmail"
           @user.update_attributes(access_token: token, google_uid: params[:user][:uid], status: 1)	
