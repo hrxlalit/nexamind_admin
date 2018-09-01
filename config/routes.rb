@@ -20,6 +20,7 @@ Rails.application.routes.draw do
           end
         end
         resources :stores
+        resources :products
         resources :socials do
           collection do
             post :social_login
