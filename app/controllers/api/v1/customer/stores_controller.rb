@@ -10,7 +10,7 @@ class Api::V1::Customer::StoresController < ApplicationController
 			@stores = Store.all
 		end
 		@stores = @stores.geo_near(location).max_distance(10)
-		@stores = @stores.map{|x| x.attributes.merge(rating: (x.ratings.pluck(:rate).map(&:to_i).sum > 0) ? ((x.ratings.pluck(:rate).map(&:to_i).sum.to_f)/(x.ratings.count)) : 0, is_fav: (x.fav_stores.find_by(user_id: @current_user.id).eql?(nil) ? false : true), camaign: x.campaigns.try(:last))}
+		@stores = @stores.map{|x| x.attributes.merge(rating: (x.ratings.pluck(:rate).map(&:to_i).sum > 0) ? ((x.ratings.pluck(:rate).map(&:to_i).sum.to_f)/(x.ratings.count)) : 0, is_fav: (x.fav_stores.find_by(user_id: @current_user.id).eql?(nil) ? false : true), camaign: x.campaigns.try(:last), image: (x.images.first.try(:file_url) if x.images.first.present?))}
 		return render :json =>  {responseCode: 200, responseMessage: "Stored fetched successfully.", stores: @stores}
 	end
 end

@@ -14,4 +14,6 @@ class Product
 
   belongs_to :store
   has_many :images, as: :imageable, class_name: "Image"
+  has_many :product_ratings, dependent: :destroy
+  has_many :fav_products, dependent: :destroy
 end

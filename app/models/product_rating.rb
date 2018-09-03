@@ -6,6 +6,6 @@ class ProductRating
   field :rate, type: String
   field :review, type: String
 
-  has_many :users, dependent: :destroy
-  has_many :products, dependent: :destroy
+  belongs_to :user
+  belongs_to :product
 end
