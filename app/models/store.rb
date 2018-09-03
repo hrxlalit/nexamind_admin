@@ -6,10 +6,11 @@ class Store
   include Geocoder::Model::Mongoid
 
   has_secure_password
-  geocoded_by :location
-  after_validation :geocode, :if => :location_changed?
+  geocoded_by :coordinates
+  # after_validation :geocode, :if => :location_changed?
   
-  # index({ coordinates: "2d" },  { min: -180, max: 180 })
+  index({ coordinates: "2d" },  { min: -180, max: 180 })
+
 
 
   field :name, type: String
@@ -34,6 +35,9 @@ class Store
   has_many :products, dependent: :destroy
   has_many :images, as: :imageable, class_name: "Image"
   has_many :devices, dependent: :destroy
+  has_many :ratings, dependent: :destroy, class_name: "StoreRating"
+  has_many :fav_stores, dependent: :destroy
+  has_many :campaigns, dependent: :destroy
 
   def self.generate_otp_and_send store
     otp = rand(1111..9999)

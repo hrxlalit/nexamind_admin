@@ -5,6 +5,6 @@ class FavStore
 
   field :is_liked, type: Mongoid::Boolean
 
-  has_many :users, dependent: :destroy
-  has_many :stores, dependent: :destroy
+  belongs_to :user
+  belongs_to :store
 end
