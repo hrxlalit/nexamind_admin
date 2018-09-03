@@ -13,4 +13,5 @@ class ServiceTiming
 
   belongs_to :store, dependent: :destroy
  # day: [:Sun, :Mon, :Tue, :Wed, :Thu, :Fri, :Sat]
+ 
 end
