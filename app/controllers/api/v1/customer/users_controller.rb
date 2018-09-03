@@ -113,9 +113,18 @@ class Api::V1::Customer::UsersController < ApplicationController
   end
 
   def upload_doc
-    user_doc = @current_user.user_docs.new(doc_no: params[:doc_no], doc_type: params[:doc_type], front_img: params[:front_img], back_img: params[:back_img])
+    user_doc = @current_user.user_docs.new(module_type: params[:module_type], doc_no: params[:doc_no], doc_type: params[:doc_type], front_img: params[:front_img], back_img: params[:back_img])
     if user_doc.save
-      render :json =>  {:responseCode => 200, :responseMessage => "Doc uploaded successfully."}
+      render :json =>  {:responseCode => 200, :responseMessage => "Document uploaded successfully."}
+    else
+      return render_message 402, user_doc.errors.full_messages.first
+    end
+  end
+
+  def edit_upload_doc
+    user_doc = @current_user.user_docs.new(module_type: params[:module_type], doc_no: params[:doc_no], doc_type: params[:doc_type], front_img: params[:front_img], back_img: params[:back_img])
+    if user_doc.save
+      render :json =>  {:responseCode => 200, :responseMessage => "Document uploaded successfully."}
     else
       return render_message 402, user_doc.errors.full_messages.first
     end

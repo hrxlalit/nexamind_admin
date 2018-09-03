@@ -1,5 +1,6 @@
 class Api::V1::Storeapi::StoresController < ApplicationController
-   before_action :find_store, :only=>[:logout, :view_profile, :update_profile, :send_otp_email, :otp_change_email, :upload_doc]
+  require 'will_paginate/array'
+  before_action :find_store, :only=>[:logout, :view_profile, :update_profile, :send_otp_email, :otp_change_email, :upload_doc]
 
   def sign_up
     @store = Store.any_of({:unique_id => params[:unique_id]},{:email => params[:email].try(:downcase)}, {:phone => params[:mobile]})
