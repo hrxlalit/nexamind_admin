@@ -46,6 +46,22 @@ Rails.application.routes.draw do
             post :upload_doc
           end
         end
+        resources :products do
+          collection do
+            post :product_update
+            post :product_detail
+            post :product_list
+            post :product_review
+          end
+        end
+        resources :campaigns do
+          collection do
+            post :product_update
+            post :product_detail
+            post :product_list
+            post :product_review
+          end
+        end
       end
     end
   end
