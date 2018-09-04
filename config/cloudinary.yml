@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: nitsx2
+  api_key: '358421628623776'
+  api_secret: qP7dI4auxNXMJPfvn5tTJSYOOuM
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: nitsx2
+  api_key: '358421628623776'
+  api_secret: qP7dI4auxNXMJPfvn5tTJSYOOuM
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: nitsx2
+  api_key: '358421628623776'
+  api_secret: qP7dI4auxNXMJPfvn5tTJSYOOuM
+  enhance_image_tag: true
+  static_image_support: false
