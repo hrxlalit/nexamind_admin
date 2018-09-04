@@ -1,5 +1,6 @@
 class Api::V1::Storeapi::StoresController < ApplicationController
-   before_action :find_store, :only=>[:logout, :view_profile, :update_profile, :send_otp_email, :otp_change_email, :upload_doc]
+  require 'will_paginate/array'
+  before_action :find_store, :only=>[:logout, :view_profile, :update_profile, :send_otp_email, :otp_change_email, :upload_doc]
 
   def sign_up
     @store = Store.any_of({:unique_id => params[:unique_id]},{:email => params[:email].try(:downcase)}, {:phone => params[:mobile]})
@@ -13,7 +14,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
   	  token = User.generate_token
       @store.update_attributes(access_token: token, status: 2)
       @image = @store.try(:images).map{|x| x.try(:file_url)}
-      @select = @store.as_json.merge("image" => @image).except("otp", "otp_gen_time", "unique_id", "password_digest")
+      @select = @store.as_json.merge("image" => @image, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
       Store.generate_otp_and_send(@store)
   	  return render :json =>  {:responseCode => 200, :responseMessage => "Signup successfully.", store: @select}
     else
@@ -30,7 +31,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
       else
         @store.update_attributes(otp: nil, status: 1)
         @image = @store.try(:images).map{|x| x.try(:file_url)}
-        @select = @store.as_json.merge("image" => @image).except("otp", "otp_gen_time", "unique_id", "password_digest")
+        @select = @store.as_json.merge("image" => @image, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
         device = @store.devices.create(device_params) 
         render :json =>  {:responseCode => 200, :responseMessage => "Otp verified successfully.", :store => @select }
       end
@@ -50,7 +51,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
 	 end
     	device = @store.devices.create(device_params)
     	@image = @store.try(:images).map{|x| x.try(:file_url)}
-    	@select = @store.as_json.merge("image" => @image).except("otp", "otp_gen_time", "unique_id", "password_digest")
+    	@select = @store.as_json.merge("image" => @image, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
     	render :json =>  {:responseCode => 200, :responseMessage => "You have successfully logged-In.", :store => @select }
   end
 
@@ -63,7 +64,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
 
   def view_profile
     @image = @current_store.try(:images).map{|x| x.try(:file_url)}
-    @select = @current_store.as_json.merge("image" => @image).except("otp", "otp_gen_time", "unique_id", "password_digest")
+    @select = @current_store.as_json.merge("image" => @image, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
     render json: {responseCode: 200, responseMessage: "Profile fetched successfully.",user: @select}
   end
 
@@ -76,7 +77,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
           @current_store.try(:images).try(:last).try(:reload)
       end
       @image = @current_store.try(:images).map{|x| x.try(:file_url)}
-      @select = @current_store.as_json.merge("image" => @image).except("otp", "otp_gen_time", "unique_id", "password_digest")
+      @select = @current_store.as_json.merge("image" => @image, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
       render json: {responseCode: 200, responseMessage: "Store profile updated successfully.",user: @select}
     else
       render_message 402, @current_store.errors.full_messages.first
@@ -109,14 +110,25 @@ class Api::V1::Storeapi::StoresController < ApplicationController
     end
   end
 
+  def upload_doc
+    store_doc = @current_store.user_docs.new(module_type: params[:module_type], doc_no: params[:doc_no], doc_type: params[:doc_type], front_img: params[:front_img], back_img: params[:back_img])
+    if store_doc.save
+      render :json =>  {:responseCode => 200, :responseMessage => "Document uploaded successfully."}
+    else
+      return render_message 402, store_doc.errors.full_messages.first
+    end
+  end
+
   private
 
   def store_params
-    params.permit(:name, :store_type, :email, :password, :website, :code, :mobile, :address, :unique_id, :touch_id, :latitude, :longitude, :description)
+    params.permit(:name, :store_type, :email, :password, :website, :code, :mobile, :address, :unique_id, :touch_id, :latitude, :longitude, :description,
+      service_timings_attributes: [:id, :day, :start_time, :end_time, :status, :_destroy])
   end
 
   def update_store_params
-    params.permit(:name, :email, :website, :address, :touch_id, :latitude, :longitude)
+    params.permit(:name, :email, :website, :address, :touch_id, :latitude, :longitude,
+      service_timings_attributes: [:id, :day, :start_time, :end_time, :status, :_destroy])
   end
 
   def device_params

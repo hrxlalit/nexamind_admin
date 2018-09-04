@@ -11,6 +11,8 @@ class Product
   field :availed_size, type: Array
   field :availed_color, type: Array
   field :description, type: String
+  field :category, type: String
+  field :subcategory, type: String
 
   belongs_to :store
   has_many :images, as: :imageable, class_name: "Image"

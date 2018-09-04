@@ -9,4 +9,3 @@ class Api::V1::Customer::ProductsController < ApplicationController
 		return render :json =>  {responseCode: 200, responseMessage: "Products fetched successfully.", products: @products}
     end
 end
-# 5b87e98f4dfa6f3bc72f5edf

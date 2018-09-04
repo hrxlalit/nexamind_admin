@@ -24,21 +24,24 @@ class Store
   field :location, type: String
   field :coordinates, :type => Array
   field :description, type: String
-  field :status, type: Integer, default: 0
-  field :is_verified, type: Boolean, default: false
   field :unique_id, type: String, default: ''
   field :touch_id, type: Boolean, default: false
   field :otp, type: String
   field :otp_gen_time, type: DateTime
   field :access_token, type: String, default: ''
+  field :status, type: Integer, default: 0 # 0:Dect by admin 1:Active 2:Otp not verified
+  field :is_verified, type: Boolean, default: false
 
   has_many :products, dependent: :destroy
   has_many :images, as: :imageable, class_name: "Image"
   has_many :devices, dependent: :destroy
   has_many :ratings, dependent: :destroy, class_name: "StoreRating"
   has_many :fav_stores, dependent: :destroy
+  has_many :service_timings, dependent: :destroy
+  has_many :user_docs, dependent: :destroy
   has_many :campaigns, dependent: :destroy
-
+  accepts_nested_attributes_for :service_timings , :allow_destroy => true, :reject_if =>:all_blank
+  
   def self.generate_otp_and_send store
     otp = rand(1111..9999)
     store.update_attributes(otp: otp, otp_gen_time: DateTime.current)
