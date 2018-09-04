@@ -99,6 +99,8 @@ Rails.application.routes.draw do
     resources :products
     resources :static_pages
     resources :faqs    
+    resources :contact_us
+    resources :tokens
     get '/login' => 'sessions#new'
   end
   # Example resource route with sub-resources:

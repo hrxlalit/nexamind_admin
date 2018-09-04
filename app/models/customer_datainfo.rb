@@ -8,5 +8,5 @@ class CustomerDatainfo
   field :level3, type: Mongoid::Boolean
 
   has_many :users, dependent: :destroy
-  has_many :store, dependent: :destroy
+  has_many :stores, dependent: :destroy
 end

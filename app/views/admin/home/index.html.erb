@@ -4,10 +4,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total Active Users</legend>
+              <legend>Total Customer</legend>
               <div class=" info-txt">
                     <p><%= User.count %></p>
-                     <a href="/admin/users" class="btn btn-blue"> View Details </a>
+                     <a href="/admin/users" class="btn btn-red"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -15,10 +15,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total</legend>
+              <legend>Total Service Provider</legend>
               <div class=" info-txt">
-                    <p><%= User.where(gender: "male").count %></p>
-                     <a href="#" class="btn btn-blue"> View Details </a>
+                    <p><%= Store.count %></p>
+                     <a href="/admin/stores" class="btn btn-red"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -26,10 +26,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total</legend>
+              <legend>Total Products</legend>
               <div class=" info-txt">
-                    <p><%= User.where(gender: "female").count %></p>
-                     <a href="#" class="btn btn-blue"> View Details </a>
+                    <p><%= Product.count %></p>
+                     <a href="/admin/products" class="btn btn-red"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -40,7 +40,7 @@
               <legend>Total</legend>
               <div class=" info-txt">
                 <p>0<%#= Report.where(reportable_type: "User").count %></p>
-                <a href="#" class="btn btn-blue"> View Details </a>
+                <a href="#" class="btn btn-red"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -53,7 +53,7 @@
               <legend>Total</legend>
               <div class=" info-txt">
                     <p>0<%#= Report.where(reportable_type: "Post").count %></p>
-                     <a href="#" class="btn btn-blue"> View Details </a>
+                     <a href="#" class="btn btn-red"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -64,7 +64,7 @@
               <legend>Total</legend>
               <div class=" info-txt">
                     <p>0<%#= Post.count %></p>
-                     <a href="#" class="btn btn-blue"> View Details </a>
+                     <a href="#" class="btn btn-red"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -75,7 +75,7 @@
               <legend>Total</legend>
               <div class=" info-txt">
                     <p>0<%#= Message.count %></p>
-                     <a href="#" class="btn btn-blue"> View Details </a>
+                     <a href="#" class="btn btn-red"> View Details </a>
               </div>
             </fieldset>
           </div>
@@ -86,7 +86,7 @@
               <legend>Total</legend>
               <div class=" info-txt">
                     <p>0<%#= Message.joins(:room).where("rooms.is_anonymous =?", true).count %></p>
-                     <a href="#" class="btn btn-blue"> View Details </a>
+                     <a href="#" class="btn btn-red"> View Details </a>
               </div>
             </fieldset>
           </div>

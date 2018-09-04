@@ -48,6 +48,7 @@ class User
   has_many :fav_stores, dependent: :destroy
   has_many :product_ratings, dependent: :destroy
   has_many :fav_products, dependent: :destroy
+  has_many :contact_us, dependent: :destroy
 
   ## Trackable
   field :sign_in_count,      type: Integer, default: 0
