@@ -3,7 +3,7 @@ class ProductRating
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
 
-  field :rate, type: String
+  field :rate, type: Float
   field :review, type: String
 
   belongs_to :user
