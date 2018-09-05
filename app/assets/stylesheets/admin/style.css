@@ -471,11 +471,11 @@ label {
 	padding: 0px!important;
 }
 .pagination>.active>a{color: #fff!important;
-  background-color: #11aedf!important;
-  border-color: #11aedf!important;
+  background-color: #b075b0!important;
+  border-color: #b075b0!important;
 }
-.pagination>.active>a:focus, .pagination>.active>a:hover{color: #fff!important;background-color: #b075b0!important;
-	border-color: #b075b0!important;}
+.pagination>.active>a:focus, .pagination>.active>a:hover{color: #fff!important;background-color: #11aedf!important;
+	border-color: #11aedf!important;}
 .pagination>li>a, .pagination>li>span {
   color: #293949!important;
 }
