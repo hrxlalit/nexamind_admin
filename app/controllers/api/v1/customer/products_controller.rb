@@ -33,10 +33,16 @@ class Api::V1::Customer::ProductsController < ApplicationController
   end
 
   def product_review
-    @product = Product.find_by(id: params[:product_id])
-    return render_message 402, "Product doesn't exists." unless @product.present?
+  	if params[:product_id]
+	  @product = Product.find_by(id: params[:product_id])
+	  return render_message 402, "Product doesn't exists." unless @product.present?
+	  rating = @product.product_ratings
+	else
+	  @store = Store.and({:id => params[:id]}, {:store_type => params[:store_type]}).first	
+	  rating = @store.products.map{|x| x.product_ratings}.try(:flatten)
+	end
     product_arr = []
-    @product.product_ratings.each do |product|
+    rating.each do |product|
       product_arr << product.as_json.merge("user" => product.user.as_json.slice("_id", "email", "name").merge("image" => product.user.try(:image).try(:file_url)))
     end
     render :json => { :responseCode => 200,
