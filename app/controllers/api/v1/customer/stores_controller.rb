@@ -24,14 +24,16 @@ class Api::V1::Customer::StoresController < ApplicationController
    end
 
 	def add_fav
-    	@fav_store = FavStore.find_by(store_id: params[:store_id], user_id: @current_user.id)
-    	if @fav_store.present? && @fav_store.is_liked.eql?(true)
-    		@fav_store.update(is_liked: false)
-    	elsif @fav_store.present? && @fav_store.is_liked.eql?(false)
-    		@fav_store.update(is_liked: true)
-    	else
-    		@fav_store = FavProduct.create(store_id: params[:store_id], user_id: @current_user.id)
-    	end
-    	return render :json =>  {responseCode: 200, responseMessage: "Store favorite status updated successfully.", fav_store: @fav_store}	
+		@store = Store.find_by({:id => params[:id]})
+	  	return render_message 402, "Store doesn't exists." unless @store.present?
+    	@fav_store = @store.fav_stores.find_or_create_by(store_id: params[:id], user_id: @current_user.id)
+    	if @fav_store.update(is_liked: params[:is_liked])
+  	        render :json => { :responseCode => 200,
+  	                  :responseMessage => "Store favorite status updated successfully.",
+  	                  :fav_store => @fav_store
+  	                 }
+  	    else
+  	        render_message 402, "Store favorite status not updated."
+        end 
     end
 end

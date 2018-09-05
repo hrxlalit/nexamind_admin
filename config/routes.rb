@@ -14,6 +14,8 @@ Rails.application.routes.draw do
         post :send_otp_mobile
         post :otp_change_mobile
         post :upload_doc
+        post :forgot_password
+        post :update_password
       end
     end    
     resources :stores do
@@ -38,7 +40,8 @@ Rails.application.routes.draw do
     end
     resources :static_contents  do
       collection do
-        post :static_content    
+        post :static_content 
+        post :contact_us   
       end
     end
   end
@@ -56,6 +59,8 @@ Rails.application.routes.draw do
         post :send_otp_email
         post :otp_change_email
         post :upload_doc
+        post :send_otp_mobile
+        post :otp_change_mobile
       end
     end
     resources :products do

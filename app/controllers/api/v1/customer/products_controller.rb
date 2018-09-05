@@ -66,14 +66,16 @@ class Api::V1::Customer::ProductsController < ApplicationController
   	end
     
     def add_fav
-    	@fav_product = FavProduct.find_by(product_id: params[:product_id], user_id: @current_user.id)
-    	if @fav_product.present? && @fav_product.is_liked.eql?(true)
-    		@fav_product.update(is_liked: false)
-    	elsif @fav_product.present? && @fav_product.is_liked.eql?(false)
-    		@fav_product.update(is_liked: true)
-    	else
-    		@fav_product = FavProduct.create(product_id: params[:product_id], user_id: @current_user.id)
-    	end
-    	return render :json =>  {responseCode: 200, responseMessage: "Product favorite status updated successfully.", fav_product: @fav_product}	
+    	@product = Product.find_by(id: params[:product_id])
+	    return render_message 402, "Product doesn't exists." unless @product.present?
+    	@fav_store = @product.fav_products.find_or_create_by(product_id: params[:product_id], user_id: @current_user.id)
+    	if @fav_store.update(is_liked: params[:is_liked])
+  	        render :json => { :responseCode => 200,
+  	                  :responseMessage => "Product favorite status updated successfully.",
+  	                  :fav_store => @fav_store
+  	                 }
+  	    else
+  	        render_message 402, "Product favorite status not updated."
+        end 	
     end
 end
