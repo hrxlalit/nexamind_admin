@@ -1,0 +1,70 @@
+<div class="right-inner">
+
+<h1 class="heading">CONTACT US DETAIL</h1>
+  <div class="form-show-body">
+      <form>
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2"> User Name  </label>
+            <div class="col-sm-8">
+              <%= @contact.try(:user).try(:name) %>
+            </div>
+          </div>
+        </div>
+         
+         <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2"> User Email </label>
+            <div class="col-sm-8">
+              <%= @contact.try(:user).try(:email) %>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2"> User Role </label>
+            <div class="col-sm-8">
+              <%= @contact.try(:user).try(:role) %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2"> Content Title</label>
+            <div class="col-sm-8">
+              <%= @contact.try(:title) %>
+            </div>
+          </div>
+        </div>
+       
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2"> Content Description  </label>
+            <div class="col-sm-8">
+              <%= sanitize @contact.description %>
+            </div>
+          </div>
+        </div>
+       
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2">Created On </label>
+            <div class="col-sm-8">
+              <label><%= @contact.created_at.localtime.strftime("%d %B, %Y %I:%M %p") %></label>
+            </div>
+          </div>
+        </div>
+       
+       
+        <div class="update-btn text-center">
+          <%= link_to 'Back', admin_contact_us_path, class: "btn btn-danger btn-common" %>
+        </div>
+  
+
+      </form>
+    
+        
+    </div>
+</div>  

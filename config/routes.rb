@@ -1,84 +1,80 @@
 Rails.application.routes.draw do
   devise_for :users
-
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
-      namespace :customer do
-        resources :users do
-          collection do
-            post :sign_up
-            get :generate_code
-            post :login
-            post :verify_otp
-            post :resend_otp
-            post :logout
-            get :view_profile
-            post :update_profile
-            post :send_otp_mobile
-            post :otp_change_mobile
-            post :upload_doc
-          end
-        end
-        resources :stores do
-          collection do
-            post :store_detail
-          end
-        end
-        resources :products do
-          collection do
-            post :product_list
-            post :product_detail
-            post :product_review
-            post :write_review
-          end
-        end
-        resources :socials do
-          collection do
-            post :social_login
-          end
-        end
-        resources :static_contents  do
-          collection do
-            post :static_content    
-          end
-        end
+  api_version(:module => "api/v1/customer", :header => {:name => "Accept", :value => "application/centarium.com; version=1"}) do
+    resources :users do
+      collection do
+        post :sign_up
+        get :generate_code
+        post :login
+        post :verify_otp
+        post :resend_otp
+        post :logout
+        get :view_profile
+        post :update_profile
+        post :send_otp_mobile
+        post :otp_change_mobile
+        post :upload_doc
       end
-      namespace :storeapi do
-        resources :stores do
-          collection do
-            post :sign_up
-            get :generate_code
-            post :login
-            post :verify_otp
-            post :resend_otp
-            post :logout
-            get :view_profile
-            post :update_profile
-            post :send_otp_email
-            post :otp_change_email
-            post :upload_doc
-          end
-        end
-        resources :products do
-          collection do
-            post :product_update
-            post :product_detail
-            post :product_list
-            post :product_review
-          end
-        end
-        resources :campaigns do
-          collection do
-            post :product_update
-            post :product_detail
-            post :product_list
-            post :product_review
-          end
-        end
+    end    
+    resources :stores do
+      collection do
+        post :store_detail
+        post :add_fav
+      end
+    end
+    resources :products do
+      collection do
+        post :product_list
+        post :product_detail
+        post :product_review
+        post :write_review
+        post :add_fav
+      end
+    end
+    resources :socials do
+      collection do
+        post :social_login
+      end
+    end
+    resources :static_contents  do
+      collection do
+        post :static_content    
       end
     end
   end
-
+  namespace :storeapi do
+    resources :stores do
+      collection do
+        post :sign_up
+        get :generate_code
+        post :login
+        post :verify_otp
+        post :resend_otp
+        post :logout
+        get :view_profile
+        post :update_profile
+        post :send_otp_email
+        post :otp_change_email
+        post :upload_doc
+      end
+    end
+    resources :products do
+      collection do
+        post :product_update
+        post :product_detail
+        post :product_list
+        post :product_review
+      end
+    end
+    resources :campaigns do
+      collection do
+        post :product_update
+        post :product_detail
+        post :product_list
+        post :product_review
+      end
+    end
+  end
   namespace :admin do
     root :to => "home#index"
     resources :sessions
@@ -110,6 +106,8 @@ Rails.application.routes.draw do
     resources :products
     resources :static_pages
     resources :faqs    
+    resources :contact_us
+    resources :tokens
     get '/login' => 'sessions#new'
   end
   # Example resource route with sub-resources:

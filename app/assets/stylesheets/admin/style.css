@@ -471,11 +471,11 @@ label {
 	padding: 0px!important;
 }
 .pagination>.active>a{color: #fff!important;
-  background-color: #11aedf!important;
-  border-color: #11aedf!important;
+  background-color: #b075b0!important;
+  border-color: #b075b0!important;
 }
-.pagination>.active>a:focus, .pagination>.active>a:hover{color: #fff!important;background-color: #b075b0!important;
-	border-color: #b075b0!important;}
+.pagination>.active>a:focus, .pagination>.active>a:hover{color: #fff!important;background-color: #11aedf!important;
+	border-color: #11aedf!important;}
 .pagination>li>a, .pagination>li>span {
   color: #293949!important;
 }
@@ -854,3 +854,8 @@ ul.nav-tabs{margin:0 0 10px;}
     line-height: 1.5;
     border-radius: .2rem;
 }
+a {color: #000 !important;text-decoration: none;}
+.sidebar-menu a {color: #fff !important;text-decoration: none;}
+.action-btn  a {color: #fff !important;text-decoration: none;}
+.text-right a{color: #fff !important;text-decoration: none;}
+.text-center a{color: #fff !important;text-decoration: none;}

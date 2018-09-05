@@ -51,17 +51,29 @@ class Api::V1::Customer::ProductsController < ApplicationController
                    }
   end
 
-  def write_review
-    @product = Product.find_by(id: params[:product_id])
-    return render_message 402, "Product doesn't exists." unless @product.present?
-    @review = @product.product_ratings.new(rate: params[:rate], review: params[:review], user_id: @current_user)
-    if @review.save
-      render :json => { :responseCode => 200,
-                    :responseMessage => "Review created successfully.",
-                    :reviews => @review
-                   }
-    else
-      render_message 402, "Review not created."	
+    def write_review
+	    @product = Product.find_by(id: params[:product_id])
+	    return render_message 402, "Product doesn't exists." unless @product.present?
+	    @review = @product.product_ratings.new(rate: params[:rate], review: params[:review], user_id: @current_user)
+	    if @review.save
+	      render :json => { :responseCode => 200,
+	                    :responseMessage => "Review created successfully.",
+	                    :reviews => @review
+	                   }
+	    else
+	      render_message 402, "Review not created."	
+	    end
+  	end
+    
+    def add_fav
+    	@fav_product = FavProduct.find_by(product_id: params[:product_id], user_id: @current_user.id)
+    	if @fav_product.present? && @fav_product.is_liked.eql?(true)
+    		@fav_product.update(is_liked: false)
+    	elsif @fav_product.present? && @fav_product.is_liked.eql?(false)
+    		@fav_product.update(is_liked: true)
+    	else
+    		@fav_product = FavProduct.create(product_id: params[:product_id], user_id: @current_user.id)
+    	end
+    	return render :json =>  {responseCode: 200, responseMessage: "Product favorite status updated successfully.", fav_product: @fav_product}	
     end
-  end
 end
