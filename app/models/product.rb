@@ -13,6 +13,10 @@ class Product
   field :description, type: String
   field :category, type: String
   field :subcategory, type: String
+  field :event_date, type: Date
+  field :start_time, type: DateTime
+  field :end_time, type: DateTime
+  
 
   belongs_to :store
   has_many :images, as: :imageable, class_name: "Image"

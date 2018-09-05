@@ -40,7 +40,9 @@ gem 'geocoder'
 gem "chartkick"
 gem 'groupdate'
 gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'cloudinary'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 group :development, :test do

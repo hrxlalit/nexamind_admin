@@ -4,7 +4,7 @@ class Image
   include Mongoid::Timestamps
   
   #====================uploader====================
-  # mount_uploader :file, ImageUploader, :mount_on => :file
+  mount_uploader :file, ImageUploader, :mount_on => :file
 
   #====================Data field attributes====================
   field :file, type: String

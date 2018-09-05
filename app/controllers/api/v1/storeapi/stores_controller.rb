@@ -64,7 +64,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
 
   def view_profile
     @image = @current_store.try(:images).map{|x| x.try(:file_url)}
-    @select = @current_store.as_json.merge("image" => @image, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
+    @select = @current_store.as_json.merge("image" => @image, "service_timing" => @current_store.try(:service_timings)).except("otp", "otp_gen_time", "unique_id", "password_digest")
     render json: {responseCode: 200, responseMessage: "Profile fetched successfully.",user: @select}
   end
 
@@ -77,7 +77,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
           @current_store.try(:images).try(:last).try(:reload)
       end
       @image = @current_store.try(:images).map{|x| x.try(:file_url)}
-      @select = @current_store.as_json.merge("image" => @image, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
+      @select = @current_store.as_json.merge("image" => @image, "service_timing" => @current_store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
       render json: {responseCode: 200, responseMessage: "Store profile updated successfully.",user: @select}
     else
       render_message 402, @current_store.errors.full_messages.first

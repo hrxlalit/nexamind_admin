@@ -19,10 +19,17 @@ Rails.application.routes.draw do
             post :upload_doc
           end
         end
-        resources :stores
+        resources :stores do
+          collection do
+            post :store_detail
+          end
+        end
         resources :products do
           collection do
             post :product_list
+            post :product_detail
+            post :product_review
+            post :write_review
           end
         end
         resources :socials do

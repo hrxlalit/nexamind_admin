@@ -78,7 +78,7 @@ class Api::V1::Storeapi::ProductsController < ApplicationController
   private
 
   def product_params
-    params.permit(:name, :cost, :price, :quantity, :sku, :description, :category, :subcategory, :latitude, :longitude, :description, availed_size: [], availed_color: [],
+    params.permit(:name, :cost, :price, :quantity, :sku, :description, :category, :subcategory, :latitude, :longitude, :description, :event_date, :start_time, :end_time, availed_size: [], availed_color: [],
     images_attributes: [:id, :file, :_destroy])
   end
 end
