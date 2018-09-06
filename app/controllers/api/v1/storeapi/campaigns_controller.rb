@@ -5,19 +5,26 @@ class Api::V1::Storeapi::CampaignsController < ApplicationController
 
   def create
   	@campaign = @current_store.campaigns.new(campaign_params)
-  	if @product.save
-  	  if params[:product_id].present?	
-  	  	campaign_arr = []
-  		params[:product_id].each do |prod_camp|
-  		 campaign_arr << ProductCampaign.create(product_id: prod_camp, campaign_id: @campaign.id)
-  		end
-  	  end
+  	if @campaign.save
   	  render :json => { :responseCode => 200,
   	                  :responseMessage => "Campaign created successfully.",
-  	                  :campaign => @campaign.as_json.merge("product_campaign" => campaign_arr)
+  	                  :campaign => @campaign.as_json.merge("product_campaign" => @campaign.product_campaigns)
   	                 }
   	else
-      return render_message 402, "Product not created."
+      return render_message 402, "Campaign not created."
+    end           
+  end
+
+  def edit_campaign
+  	@campaign = @current_store.campaigns.find_by({:id => params[:campaign_id]})
+	return render_message 402, "Campaign doesn't exists." unless @campaign.present?
+  	if @campaign.update_attributes(campaign_params)
+  	  render :json => { :responseCode => 200,
+  	                  :responseMessage => "Campaign updated successfully.",
+  	                  :campaign => @campaign.as_json.merge("product_campaign" => @campaign.product_campaigns)
+  	                 }
+  	else
+      return render_message 402, "Campaign not updated."
     end           
   end
 
@@ -32,6 +39,6 @@ class Api::V1::Storeapi::CampaignsController < ApplicationController
   private
 
   def campaign_params
-    params.permit(:name, :start_date, :end_date, :quantity, :discount, tag_friends_attributes: [:id, :product_id, :_destroy])
+    params.permit(:name, :start_date, :end_date, :quantity, :discount, product_campaigns_attributes: [:_id, :product_id, :_destroy])
   end	
 end

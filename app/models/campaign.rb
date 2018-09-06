@@ -11,8 +11,8 @@ class Campaign
    
   belongs_to :store
   has_many :product_campaigns, dependent: :destroy
-  accepts_nested_attributes_for :product_campaigns, :reject_if =>:all_blank
-
+  accepts_nested_attributes_for :product_campaigns, :allow_destroy => true, :reject_if =>:all_blank
+  
   def products
     Product.in(id: product_campaigns.pluck(:product_id))
   end

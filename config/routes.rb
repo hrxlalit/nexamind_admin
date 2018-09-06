@@ -72,10 +72,8 @@ Rails.application.routes.draw do
       end
       resources :campaigns do
         collection do
-          post :product_update
-          post :product_detail
-          post :product_list
-          post :product_review
+          post :product_list_name
+          post :edit_campaign
         end
       end
     end

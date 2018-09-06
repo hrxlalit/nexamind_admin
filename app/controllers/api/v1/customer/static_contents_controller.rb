@@ -1,5 +1,4 @@
 class Api::V1::Customer::StaticContentsController < ApplicationController
-  before_action :find_user, :only=>[:contact_us]
   include ActionView::Helpers::TextHelper
 
   def static_content
@@ -13,7 +12,11 @@ class Api::V1::Customer::StaticContentsController < ApplicationController
   end
 
   def contact_us
-      @contact_us = ContactU.new(title: params[:title], description: params[:description], user_id: @current_user)
+    if params[:type] == "customer"
+      @contact_us = ContactU.new(title: params[:title], description: params[:description], user_id: params[:id])
+    elsif params[:type] == "store"
+      @contact_us = ContactU.new(title: params[:title], description: params[:description], store_id: params[:id])
+    end
       if @contact_us.save
         render :json => { :responseCode => 200,
                       :responseMessage => "Thank you.",

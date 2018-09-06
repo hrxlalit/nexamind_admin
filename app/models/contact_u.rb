@@ -6,5 +6,6 @@ class ContactU
   field :title, type: String
   field :description, type: String
   
-  belongs_to :user
+  belongs_to :user, optional: true
+  belongs_to :store, optional: true
 end
