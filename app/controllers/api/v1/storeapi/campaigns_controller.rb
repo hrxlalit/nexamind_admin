@@ -4,24 +4,34 @@ class Api::V1::Storeapi::CampaignsController < ApplicationController
   extend ProductsConcern
 
   def create
-  	@product = @current_store.campaigns.new(campaign_params)
+  	@campaign = @current_store.campaigns.new(campaign_params)
   	if @product.save
-  	  product_hash = {}
-  	  product_hash[:product] = @product
-  	  product_img = @product.images.reload
-      product_hash[:images_attributes] = product_img
+  	  if params[:product_id].present?	
+  	  	campaign_arr = []
+  		params[:product_id].each do |prod_camp|
+  		 campaign_arr << ProductCampaign.create(product_id: prod_camp, campaign_id: @campaign.id)
+  		end
+  	  end
   	  render :json => { :responseCode => 200,
-  	                  :responseMessage => "Product created successfully.",
-  	                  :products => product_hash
+  	                  :responseMessage => "Campaign created successfully.",
+  	                  :campaign => @campaign.as_json.merge("product_campaign" => campaign_arr)
   	                 }
   	else
       return render_message 402, "Product not created."
     end           
   end
 
+  def product_list_name
+  	@products = @current_store.products.map{|x| x.as_json.slice("_id", "name")}
+    render :json => { :responseCode => 200,
+                      :responseMessage => "Product list fetched successfully.",
+                      :products => @products,
+                    }
+  end
+
   private
 
   def campaign_params
-    params.permit(:name, :start_date, :end_date, :quantity, :discount, :product_id)
+    params.permit(:name, :start_date, :end_date, :quantity, :discount, tag_friends_attributes: [:id, :product_id, :_destroy])
   end	
 end

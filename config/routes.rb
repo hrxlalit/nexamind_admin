@@ -44,39 +44,39 @@ Rails.application.routes.draw do
         post :contact_us   
       end
     end
-  end
-  namespace :storeapi do
-    resources :stores do
-      collection do
-        post :sign_up
-        get :generate_code
-        post :login
-        post :verify_otp
-        post :resend_otp
-        post :logout
-        get :view_profile
-        post :update_profile
-        post :send_otp_email
-        post :otp_change_email
-        post :upload_doc
-        post :send_otp_mobile
-        post :otp_change_mobile
+    namespace :storeapi do
+      resources :stores do
+        collection do
+          post :sign_up
+          get :generate_code
+          post :login
+          post :verify_otp
+          post :resend_otp
+          post :logout
+          get :view_profile
+          post :update_profile
+          post :send_otp_email
+          post :otp_change_email
+          post :upload_doc
+          post :send_otp_mobile
+          post :otp_change_mobile
+        end
       end
-    end
-    resources :products do
-      collection do
-        post :product_update
-        post :product_detail
-        post :product_list
-        post :product_review
+      resources :products do
+        collection do
+          post :product_update
+          post :product_detail
+          post :product_list
+          post :product_review
+        end
       end
-    end
-    resources :campaigns do
-      collection do
-        post :product_update
-        post :product_detail
-        post :product_list
-        post :product_review
+      resources :campaigns do
+        collection do
+          post :product_update
+          post :product_detail
+          post :product_list
+          post :product_review
+        end
       end
     end
   end

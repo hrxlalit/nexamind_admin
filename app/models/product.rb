@@ -16,10 +16,15 @@ class Product
   field :event_date, type: Date
   field :start_time, type: DateTime
   field :end_time, type: DateTime
-  
+
 
   belongs_to :store
   has_many :images, as: :imageable, class_name: "Image"
   has_many :product_ratings, dependent: :destroy
   has_many :fav_products, dependent: :destroy
+  has_many :product_campaigns, dependent: :destroy
+
+  def campaigns
+    Campaign.in(id: product_campaigns.pluck(:campaign_id))
+  end
 end
