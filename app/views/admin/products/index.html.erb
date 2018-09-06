@@ -50,7 +50,7 @@
         <% unless product.eql?(nil) %>
         <tbody>
           <tr>
-            <td><%= product.image.present? ? image_tag(product.image.try(:file_url),:width => 200, :height => 100, :class => 'news-content') : image_tag("/1.png",:width => 200, :height => 100, :class => 'news-content') %></td>
+            <td><%= product.images.present? ? image_tag(product.images.try(:first).try(:file_url),:width => 200, :height => 100, :class => 'news-content') : image_tag("/1.png",:width => 200, :height => 100, :class => 'news-content') %></td>
             <td><%= truncate(product.try(:name), omision: "...", length: 30) %></td>
             <td><%= truncate(product.try(:cost), omision: "...", length: 30) %></td>
             <td><%= truncate(product.try(:price), omision: "...", length: 30) %></td> 
