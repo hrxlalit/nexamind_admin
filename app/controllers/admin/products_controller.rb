@@ -9,12 +9,12 @@ class Admin::ProductsController < ApplicationController
   end
 
   def product_status
-   if @product.status.eql?(2) || @product.blocked?
+   if @product.status.eql?(2) 
       @product.update_attributes(status: 1)
-      redirect_to  admin_products_path,notice: "User's account activated successfully."
-   elsif @product.status.eql?(1) || @product.verified?
+      redirect_to  admin_products_path,notice: "Product activated successfully."
+   elsif @product.status.eql?(1) 
       @product.update_attributes(status: 2)
-      redirect_to  admin_products_path, notice: "User's account blocked successfully."
+      redirect_to  admin_products_path, notice: "Product blocked successfully."
    end
   end
 

@@ -106,7 +106,11 @@ Rails.application.routes.draw do
         post :store_status
       end
     end
-    resources :products
+    resources :products do
+     collection do
+        post :product_status
+      end
+    end
     resources :static_pages
     resources :faqs    
     resources :contact_us
