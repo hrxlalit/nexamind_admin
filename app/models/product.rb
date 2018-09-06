@@ -16,6 +16,7 @@ class Product
   field :event_date, type: Date
   field :start_time, type: DateTime
   field :end_time, type: DateTime
+  field :status, type: Integer, default: 1
 
 
   belongs_to :store
