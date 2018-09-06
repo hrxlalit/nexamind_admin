@@ -34,6 +34,7 @@
                       <tr>
                         <!-- <th>Id</th> -->
                         <th>Subject Name</th>
+                        <th>Type</th>
                         <th>Posted on </th>
                         
                         <th>Action</th>
@@ -45,6 +46,7 @@
                         <tr>
                           <!-- <td><%#= static_page.id%></td> -->
                           <td><%= truncate(static_page.title, omision: "...", length: 30)%></td>
+                          <td><%= static_page.type%></td>
                           <td><%= static_page.created_at.localtime.strftime("%d %B, %Y %I:%M %p") %></td>
                           <% if static_page.title == "Contact Us"%>
                           <td>
