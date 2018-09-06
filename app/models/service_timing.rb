@@ -7,7 +7,7 @@ class ServiceTiming
   field :day, type: Integer
   field :start_time, type: Time
   field :end_time, type: Time
-  field :status, type: Boolean, default: false
+  field :status, type: Mongoid::Boolean, default: false
 
 
 

@@ -43,6 +43,8 @@ gem 'ckeditor', github: 'galetahub/ckeditor'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'cloudinary'
+gem 'fcm'
+gem 'sidekiq'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 group :development, :test do

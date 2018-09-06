@@ -28,7 +28,7 @@ class User
   field :access_token, type: String, default: ''
   field :role, type: String, default: 'user'
   field :status, type: Integer, default: 0 # 0:Dect by admin 1:Active 2:Otp not verified
-  field :touch_id, type: Boolean, default: false
+  field :touch_id, type: Mongoid::Boolean, default: false
   field :fb_uid, type: String
   field :google_uid, type: String
   field :gender, type: String

@@ -23,4 +23,9 @@ class Product
   has_many :images, as: :imageable, class_name: "Image"
   has_many :product_ratings, dependent: :destroy
   has_many :fav_products, dependent: :destroy
+  has_many :product_campaigns, dependent: :destroy
+
+  def campaigns
+    Campaign.in(id: product_campaigns.pluck(:campaign_id))
+  end
 end
