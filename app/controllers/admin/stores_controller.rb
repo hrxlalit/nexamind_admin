@@ -9,10 +9,10 @@ class Admin::StoresController < ApplicationController
   end
 
   def store_status
-   if @store.status.eql?(2) || 
+   if @store.status.eql?(2) 
       @store.update_attributes(status: 1)
       redirect_to  admin_stores_path,notice: "User's account activated successfully."
-   elsif @store.status.eql?(1) || 
+   elsif @store.status.eql?(1) 
       @store.update_attributes(status: 2)
       redirect_to  admin_stores_path, notice: "User's account blocked successfully."
    end
