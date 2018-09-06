@@ -3,20 +3,19 @@
  <fieldset class="global-fieldset">
     <legend>Filter By</legend>
     <div class="filter-content user-filter">
-      <div class="row">
     <%= form_tag admin_products_path, method: :get do  %>
-     <div class="input-group">
+    <div class="row">
       <div class="col-sm-3">
-          <div class="search-inner  user-label">                              
-           <div class="input-group">
-            <%=  text_field_tag :search, "", class:"form-control1 custom-control1" %>
+          <div class="user-label">                              
+           <div class="">
+            <%=  text_field_tag :search, "", class:"form-control custom-control1" %>
            </div>                            
          </div>
        </div> 
          <div class="col-sm-3">
-          <div class="form-group">
-            <div class="show-entries">
-              <%=  select_tag :status,options_for_select([["All",""],["Active",1],["Blocked",2]]), class:"form-control1 custom-control1" %>
+          <div class="user-label">
+            <div class="">
+              <%=  select_tag :status,options_for_select([["All",""],["Active",1],["Blocked",2]]), class:"form-control custom-control1" %>
           </div>
           </div>
         </div> 
@@ -25,9 +24,8 @@
           <button class="btn btn-red">Search</button>
         </div>
       </div>
-     </div>
-    <%end%>
     </div>
+    <%end%>
   </div>
 </fieldset>
   </div>
@@ -50,7 +48,7 @@
         <% unless product.eql?(nil) %>
         <tbody>
           <tr>
-            <td><%= product.images.present? ? image_tag(product.images.first.try(:file_url),:width => 200, :height => 100, :class => 'news-content') : image_tag("/1.png",:width => 200, :height => 100, :class => 'news-content') %></td>
+            <td><%= product.images.present? ? image_tag(product.images.first.try(:file_url),:width => 200, :height => 100, :class => 'news-content') : image_tag("/product.png",:width => 100, :height => 100, :class => 'news-content') %></td>
             <td><%= truncate(product.try(:name), omision: "...", length: 30) %></td>
             <td><%= truncate(product.try(:cost), omision: "...", length: 30) %></td>
             <td><%= truncate(product.try(:price), omision: "...", length: 30) %></td> 
