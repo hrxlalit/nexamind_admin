@@ -9,10 +9,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_status
-   if @user.status.eql?(2) || @user.blocked?
+   if @user.status.eql?(2) 
       @user.update_attributes(status: 1)
       redirect_to  admin_users_path,notice: "User's account activated successfully."
-   elsif @user.status.eql?(1) || @user.verified?
+   elsif @user.status.eql?(1)
       @user.update_attributes(status: 2)
       redirect_to  admin_users_path, notice: "User's account blocked successfully."
    end
