@@ -44,6 +44,12 @@ Rails.application.routes.draw do
         post :contact_us   
       end
     end
+    resources :notifications do
+      collection do
+        post :notification_list
+        post :delete_notification
+      end
+    end
     namespace :storeapi do
       resources :stores do
         collection do

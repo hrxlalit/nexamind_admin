@@ -13,7 +13,7 @@ class Api::V1::Customer::NotificationsController < ApplicationController
 
   end
 
-  def destroy
+  def delete_notification
   	Notification.where(id: params[:id].to_i, user_id: @current_user.id).destroy_all
   	render :json =>  {:responseCode => 200, :responseMessage => "Notification deleted successfully." }
   end	
