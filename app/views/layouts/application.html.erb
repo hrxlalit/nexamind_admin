@@ -61,7 +61,6 @@
           <li><a href="/admin/stores"><i class="fa fa-university"></i>STORE MANAGEMENT</a></li>
           <li><a href="/admin/products"><i class="fa fa-product-hunt"></i>PRODUCT MANAGEMENT</a></li>
           <li><a href="#"><i class="fa fa-gift"></i>CAMPAIGN MANAGEMENT</a></li>
-          <!-- <li><a href="/admin/faqs"><i class="fa fa-question-circle"></i>FAQ MANAGEMENT</a></li> -->
           <li><a href="/admin/contact_us"><i class="fa fa-file-text"></i>CONTACT US</a></li>
           <li><a href="/admin/static_pages"><i class="fa fa-file-text"></i>STATIC CONTENT MANAGEMENT </a></li>
           <li><a href=" /admin/admin_users/<%= current_admin_user.id%>/change_password"><i class="fa fa-unlock-alt"></i> CHANGE PASSWORD </a></li>
@@ -73,11 +72,11 @@
       <div class="copyrights">Centareum © 2018 All Rights Reserved.</div>
     <div class="right-inner">
       <main>
-      <% flash.each do |key, value| %>
+       <% flash.each do |key, value| %>
         <%= content_tag(:div, value, class: "flash_notice hide", 'data-type' => "#{key}") %>
         <% flash.discard(key)%>
-      <% end %>
-       <%= yield %>
+        <% end %>
+        <%= yield%>
       </main>
     </div>
     </div>
@@ -85,10 +84,10 @@
   <%else%>
   <main>
     <% flash.each do |key, value| %>
-        <%= content_tag(:div, value, class: "flash_notice hide", 'data-type' => "#{key}") %>
-        <% flash.discard(key)%>
+      <%= content_tag(:div, value, class: "flash_notice hide", 'data-type' => "#{key}") %>
+      <% flash.discard(key)%>
       <% end %>
-       <%= yield %>
+      <%= yield%>
       </main>
   <%end%>
   
