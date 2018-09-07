@@ -39,6 +39,13 @@ class User
 
   ## Rememberable
   field :remember_created_at, type: Time
+
+  ## Trackable
+  field :sign_in_count,      type: Integer, default: 0
+  field :current_sign_in_at, type: Time
+  field :last_sign_in_at,    type: Time
+  field :current_sign_in_ip, type: String
+  field :last_sign_in_ip,    type: String
   
 
   has_many :devices, dependent: :destroy
@@ -49,13 +56,6 @@ class User
   has_many :product_ratings, dependent: :destroy
   has_many :fav_products, dependent: :destroy
   has_many :contact_us, dependent: :destroy
-
-  ## Trackable
-  field :sign_in_count,      type: Integer, default: 0
-  field :current_sign_in_at, type: Time
-  field :last_sign_in_at,    type: Time
-  field :current_sign_in_ip, type: String
-  field :last_sign_in_ip,    type: String
  
   ## Confirmable
   # field :confirmation_token,   type: String

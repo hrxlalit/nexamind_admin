@@ -62,7 +62,11 @@
             <td><%= truncate(user.try(:name), omision: "...", length: 30) %></td>
             <td><%= truncate(user.try(:email), omision: "...", length: 30) %></td>
             <td><%= truncate(user.try(:mobile), omision: "...", length: 30) %></td> 
-            <td><%= (user.gender).try(:titleize) %></td> 
+            <%if user.gender == "0"%>
+              <td><%= "Male" %></td> 
+            <%else%>
+              <td><%= "Female" %></td>
+            <%end%>
             <td><%#if user.status.eql?(0) || user.not_verified? %>
                     <%#='<i class = "btn-sm btn-danger"> Unverified</i>'.html_safe %>                                   
                   <%#elsif user.status.eql?(1) || user.verified? %>
@@ -71,7 +75,7 @@
                        <%#='<i class = "btn-sm btn-danger"> Blocked</i>'.html_safe %>             
                   <%#end%>
             </td>                               
-            <td><%#= user.last_sign_in_at ? user.last_sign_in_at.try(:localtime).try(:strftime, "%d %B, %Y %I:%M %p") : "N/A" %></td>                   
+            <td><%= user.last_sign_in_at ? user.last_sign_in_at.try(:localtime).try(:strftime, "%d %B, %Y %I:%M %p") : "N/A" %></td>                   
             <td>
               <div class="action-btn">
                 <%#if user.status.eql?(1) || user.verified? %>

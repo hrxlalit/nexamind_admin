@@ -79,6 +79,7 @@ class Api::V1::Customer::UsersController < ApplicationController
   end
 
   def logout
+    @current_user.update(last_sign_in_at: DateTime.current)
     @device = Device.and({device_token: params[:device][:device_token]}, {:user_id => @current_user.id})
     render_message 200, "Logged out successfully." if @device.destroy_all  
   end
