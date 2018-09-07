@@ -24,7 +24,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
   end	
 
   def verify_otp
-    @store = Store.find_by(email: params[:email])
+    @store = Store.any_of({mobile: params[:email]}, {email: params[:email]}).first
     return render_message 402, "Store doesn't exist." unless @store.present?
     if @store.otp == params[:otp]
       if @store.otp_expired?
@@ -33,7 +33,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
         @store.update_attributes(otp: nil, status: 1)
         @image = @store.try(:images).map{|x| x.try(:file_url)}
         @select = @store.as_json.merge("image" => @image, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
-        device = @store.devices.create(device_params) 
+        device = @store.devices.create(device_params) if params[:device].present?
         render :json =>  {:responseCode => 200, :responseMessage => "Otp verified successfully.", :store => @select }
       end
     else
@@ -49,7 +49,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
   	  @store = Store.find_by(mobile: params[:unique_id])
   	  return render_message 402, "Store doesn't exists." unless @store.present?
   	  return render_message 402, "Wrong password." unless @store.authenticate(params[:password])
-	 end
+	  end
     	device = @store.devices.create(device_params)
     	@image = @store.try(:images).map{|x| x.try(:file_url)}
     	@select = @store.as_json.merge("image" => @image, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
@@ -93,28 +93,6 @@ class Api::V1::Storeapi::StoresController < ApplicationController
     @device = Device.and({device_token: params[:device][:device_token]}, {:store_id => @current_store.id})
     render_message 200, "Logged out successfully." if @device.destroy_all  
   end
-
-  # def send_otp_email
-  #   @user = Store.where(:id.ne => @current_store.id).where(:email => params[:email])
-  #   return render json: {responseCode: 402, responseMessage: "Email Id already exist."} if @user.present?
-  #   Store.generate_otp_and_send(@current_store)
-  #   Store.forgot_generate_otp_and_send(@current_store.mobile, @current_store.code, @current_store)
-  #   @merge = @current_store.as_json.merge("new_email" => params[:email]).except("otp", "otp_gen_time", "unique_id", "password_digest")
-  #   return render json: {responseCode: 200, responseMessage: "OTP send to your email.", user: @merge}
-  # end
-
-  # def otp_change_email
-  #   if @current_store.otp == params[:otp]
-  #     if @current_store.otp_expired?
-  #       return render_message 402, "OTP is expired."
-  #     else
-  #       @current_store.update_attributes(email: params[:email], otp: nil)
-  #       render :json =>  {:responseCode => 200, :responseMessage => "Email Id changed successfully."}
-  #     end
-  #   else
-  #     return render_message 402, "OTP is not valid."
-  #   end
-  # end
   
   def send_otp_mobile
     @mobile = params[:mobile]
@@ -157,10 +135,10 @@ class Api::V1::Storeapi::StoresController < ApplicationController
     @store = Store.find_by({mobile: params[:mobile]})
     return render_message 402, "Store doesn't exist." unless @store.present?
     if @store.update_attributes(password: params[:password])
-      @select = @store.as_json.merge("image" => @current_store.try(:images).map{|x| x.try(:file_url)}, "service_timing" => @current_store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
-      render json: {responseCode: 200, responseMessage: "Store profile updated successfully.",user: @select}
+      @select = @store.as_json.merge("image" => @store.try(:images).map{|x| x.try(:file_url)}, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
+      render json: {responseCode: 200, responseMessage: "Password updated successfully.",user: @select}
     else
-      render_message 402, @current_store.errors.full_messages.first
+      render_message 402, @store.errors.full_messages.first
     end
   end
 

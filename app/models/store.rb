@@ -51,9 +51,9 @@ class Store
 
   def self.forgot_generate_otp_and_send mobile, code, store
     mobile_no = code + mobile
-    # otp = [*1000..9999].sample
-    @otp =  "1234"
-    store.update_attributes(otp: @otp, otp_gen_time: DateTime.current)
+    otp = [*1000..9999].sample
+    # otp =  "1234"
+    store.update_attributes(otp: otp, otp_gen_time: DateTime.current)
     # TwilioSms.send_otp(mobile_no, "Your Centrium App account OTP is: #{@otp}" )
   end
 
