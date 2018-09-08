@@ -80,6 +80,8 @@ Rails.application.routes.draw do
         collection do
           get :product_list_name
           post :edit_campaign
+          post :list_campaign
+          post :detail_campaign
         end
       end
     end
