@@ -84,28 +84,28 @@ class Api::V1::Customer::UsersController < ApplicationController
     render_message 200, "Logged out successfully." if @device.destroy_all  
   end
 
-  def send_otp_mobile
-    @mobile = params[:mobile]
-    @mobile_code = params[:code]
-    @user = User.where(:id.ne => @current_user.id).where(:mobile => @mobile)
-    return render json: {responseCode: 402, responseMessage: "Mobile no already exist."} if @user.present?
-    User.generate_otp_and_send(@mobile, @mobile_code, @current_user)
-    @merge = @current_user.as_json.merge("new_mobile" => @mobile, "new_code" => @mobile_code).except("otp", "otp_gen_time", "unique_id")
-    return render json: {responseCode: 200, responseMessage: "OTP send to your no.", user: @merge}
-  end
+  # def send_otp_mobile
+  #   @mobile = params[:mobile]
+  #   @mobile_code = params[:code]
+  #   @user = User.where(:id.ne => @current_user.id).where(:mobile => @mobile)
+  #   return render json: {responseCode: 402, responseMessage: "Mobile no already exist."} if @user.present?
+  #   User.generate_otp_and_send(@mobile, @mobile_code, @current_user)
+  #   @merge = @current_user.as_json.merge("new_mobile" => @mobile, "new_code" => @mobile_code).except("otp", "otp_gen_time", "unique_id")
+  #   return render json: {responseCode: 200, responseMessage: "OTP send to your no.", user: @merge}
+  # end
 
-  def otp_change_mobile
-    if @current_user.otp == params[:otp]
-      if @current_user.otp_expired?
-        return render_message 402, "OTP is expired."
-      else
-        @current_user.update_attributes(mobile: params[:mobile], code: params[:code], otp: nil)
-        render :json =>  {:responseCode => 200, :responseMessage => "Mobile no. change successfully."}
-      end
-    else
-      return render_message 402, "OTP is not valid."
-    end
-  end
+  # def otp_change_mobile
+  #   if @current_user.otp == params[:otp]
+  #     if @current_user.otp_expired?
+  #       return render_message 402, "OTP is expired."
+  #     else
+  #       @current_user.update_attributes(mobile: params[:mobile], code: params[:code], otp: nil)
+  #       render :json =>  {:responseCode => 200, :responseMessage => "Mobile no. change successfully."}
+  #     end
+  #   else
+  #     return render_message 402, "OTP is not valid."
+  #   end
+  # end
 
   def upload_doc
     user_doc = @current_user.user_docs.new(module_type: params[:module_type], doc_no: params[:doc_no], doc_type: params[:doc_type], front_img: params[:front_img], back_img: params[:back_img])
