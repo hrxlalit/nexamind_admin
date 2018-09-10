@@ -107,6 +107,20 @@ class Api::V1::Customer::UsersController < ApplicationController
     end
   end
 
+  def forgot_password
+    @store = User.any_of({mobile: params[:mobile]}, {email: params[:mobile]}).first
+    return render_message 402, "User doesn't exists." unless @store.present?
+    if params[:mobile].present?
+      User.generate_otp_and_send(@store.mobile, @store.code, @store)
+      render json: {responseCode: 200, responseMessage: "SMS has been sent with new otp.", store: @store.as_json.slice("mobile", "email")}
+    elsif params[:email].present?
+      User.generate_otp_and_send(@store)
+      render json: {responseCode: 200, responseMessage: "Mail has been sent with new otp.", store: @store.as_json.slice("mobile", "email")}
+    else
+      {responseCode: 402, responseMessage: "Please provide mobile no or email."}
+    end
+  end
+
   def upload_doc
     user_doc = @current_user.user_docs.new(module_type: params[:module_type], doc_no: params[:doc_no], doc_type: params[:doc_type], front_img: params[:front_img], back_img: params[:back_img])
     if user_doc.save

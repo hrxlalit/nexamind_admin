@@ -51,31 +51,31 @@ class Api::V1::Customer::ProductsController < ApplicationController
                    }
   end
 
-    def write_review
-	    @product = Product.find_by(id: params[:product_id])
-	    return render_message 402, "Product doesn't exists." unless @product.present?
-	    @review = @product.product_ratings.new(rate: params[:rate], review: params[:review], user_id: @current_user)
-	    if @review.save
-	      render :json => { :responseCode => 200,
+  def write_review
+	@product = Product.find_by(id: params[:product_id])
+	return render_message 402, "Product doesn't exists." unless @product.present?
+	@review = @product.product_ratings.new(rate: params[:rate], review: params[:review], user_id: @current_user)
+	if @review.save
+	  render :json => { :responseCode => 200,
 	                    :responseMessage => "Review created successfully.",
 	                    :reviews => @review
 	                   }
-	    else
-	      render_message 402, "Review not created."	
-	    end
-  	end
+	else
+	  render_message 402, "Review not created."	
+	end
+  end
     
-    def add_fav
-    	@product = Product.find_by(id: params[:product_id])
-	    return render_message 402, "Product doesn't exists." unless @product.present?
-    	@fav_store = @product.fav_products.find_or_create_by(product_id: params[:product_id], user_id: @current_user.id)
-    	if @fav_store.update(is_liked: params[:is_liked])
-  	        render :json => { :responseCode => 200,
+  def add_fav
+    @product = Product.find_by(id: params[:product_id])
+	return render_message 402, "Product doesn't exists." unless @product.present?
+    @fav_store = @product.fav_products.find_or_create_by(product_id: params[:product_id], user_id: @current_user.id)
+    if @fav_store.update(is_liked: params[:is_liked])
+  	  render :json => { :responseCode => 200,
   	                  :responseMessage => "Product favorite status updated successfully.",
   	                  :fav_store => @fav_store
   	                 }
-  	    else
-  	        render_message 402, "Product favorite status not updated."
-        end 	
-    end
+  	else
+  	  render_message 402, "Product favorite status not updated."
+    end 	
+  end
 end
