@@ -4,8 +4,18 @@ class Admin::StoresController < ApplicationController
   before_action :find_store, except: [:index, :vendor_list]
 
   def index
-    @search = Store.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")},{mobile: Regexp.new(".*#{params[:search]}.*","i")},{status: Regexp.new(".*#{params[:status]}.*","i")},{address: Regexp.new(".*#{params[:address]}.*","i")})
-    @stores = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    if params[:search].present? && params[:status].present?
+      @search = Store.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")}).and({status: params[:status]})
+      @stores = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    elsif params[:status].present? && params[:status] != ""
+      @search = Store.where({status: params[:status]})
+      @stores = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    elsif params[:search].present? && params[:search] != ""
+      @search = Store.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")})
+      @stores = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    else
+      @stores = Store.all.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    end
   end
 
   def store_status
