@@ -94,23 +94,23 @@ $(document).on('turbolinks:load', function() {
 	           $('#err-label').text('This is not an allowed file type.').fadeOut(10000);
 	    }
 	});
-	$('#userdatetimepicker2').datetimepicker({
-      format: 'DD/MM/YYYY',
-      useCurrent: false,
-      defaultDate: moment().add(-12, 'years'),
-      maxDate: moment().add(-12, 'years'),
-      locale: 'en'
-    });
-    window.onload = function() {
-      var myInput = document.getElementById('userdatetimepicker1');
-      if (myInput == "null"){
-        return 0;
-      }else{
-        myInput.onpaste = function(e) {
-          e.preventDefault();
-        }
-      }
-    }
+	// $('#userdatetimepicker2').datetimepicker({
+ //      format: 'DD/MM/YYYY',
+ //      useCurrent: false,
+ //      defaultDate: moment().add(-12, 'years'),
+ //      maxDate: moment().add(-12, 'years'),
+ //      locale: 'en'
+ //    });
+ //    window.onload = function() {
+ //      var myInput = document.getElementById('userdatetimepicker1');
+ //      if (myInput == "null"){
+ //        return 0;
+ //      }else{
+ //        myInput.onpaste = function(e) {
+ //          e.preventDefault();
+ //        }
+ //      }
+ //    }
 
 
 });
