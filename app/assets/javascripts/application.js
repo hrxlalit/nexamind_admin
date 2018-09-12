@@ -15,11 +15,13 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require turbolinks
+//= require alertify
+//= require moment
 //= require ckeditor/init
 //= require_tree .
 
 
-$(document).on('turbolinks:load', function() {
+$( document ).ready(function() {
 
 	$('#full-width').modal('toggle');
 	$("[class^=flash_notice]").each(function(){

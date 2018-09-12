@@ -33,6 +33,7 @@ class Admin::AdminUsersController < ApplicationController
   end
 
   def update_password
+     # binding.pry
     if @admin_user.valid_password?params[:admin_user][:old_password]
       if params[:admin_user][:new_password].eql?(params[:admin_user][:confirm_password])
         @admin_user.update_attributes(password: params[:admin_user][:new_password])
@@ -43,8 +44,9 @@ class Admin::AdminUsersController < ApplicationController
         flash[:error] = "Confirm Password doen't match with Password."
       end
     else
-      redirect_to change_password_admin_admin_user_path
       flash[:error] = "Your current password is incorrect, it's required to change the Password."
+      redirect_to change_password_admin_admin_user_path#, alert: "Error"
+      
     end
   end
 
