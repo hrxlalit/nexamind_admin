@@ -14,6 +14,8 @@ Rails.application.routes.draw do
         post :send_otp_mobile
         post :otp_change_mobile
         post :upload_doc
+        post :forgot_password
+        post :update_password
       end
     end    
     resources :stores do

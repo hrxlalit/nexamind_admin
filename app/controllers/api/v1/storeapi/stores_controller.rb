@@ -43,6 +43,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
   	if params[:type] == "seed"
   	  @store = Store.find_by(unique_id: params[:unique_id])
   	  return render_message 402, "Store doesn't exists." unless @store.present?
+      return render json: {responseCode: 407, responseMessage: "Sorry! Store is not verified.", store: @store} unless @store.verified?
 	  elsif params[:type] == "conventional"
   	  @store = Store.find_by(mobile: params[:unique_id])
   	  return render_message 402, "Store doesn't exists." unless @store.present?

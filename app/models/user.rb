@@ -27,7 +27,7 @@ class User
   field :otp_gen_time, type: DateTime
   field :access_token, type: String, default: ''
   field :role, type: String, default: 'user'
-  field :status, type: Integer, default: 0 # 0:Dect by admin 1:Active 2:Otp not verified
+  field :status, type: Integer, default: 2 # 0:Dect by admin 1:Active 2:Otp not verified
   field :touch_id, type: Mongoid::Boolean, default: false
   field :fb_uid, type: String
   field :google_uid, type: String
@@ -86,6 +86,13 @@ class User
     # otp =  "1234"
     user.update_attributes(otp: otp, otp_gen_time: DateTime.current)
     # TwilioSms.send_otp(mobile_no, "Your Centrium App account OTP is: #{@otp}" )
+  end
+
+  def self.generate_otp_and_send_mailer user
+    otp = rand(1111..9999)
+    user.update_attributes(otp: otp, otp_gen_time: DateTime.current)
+    msg = "#{otp} is your one time password(OTP). This is usable once & valid for 15 minuts from request. Do not share with anyone."
+    UserMailer.send_otp(user, msg).deliver_now
   end
 
   def otp_expired?
