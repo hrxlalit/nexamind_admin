@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$( document ).ready(function() {
   $("#change-password").validate({
     // Specify the validation rules
     debug: true,
