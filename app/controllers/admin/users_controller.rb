@@ -4,8 +4,21 @@ class Admin::UsersController < ApplicationController
   before_action :find_user, except: [:index, :vendor_list]
 
   def index
-    @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")},{mobile: Regexp.new(".*#{params[:search]}.*","i")},{status: Regexp.new(".*#{params[:status]}.*","i")},{gender: Regexp.new(".*#{params[:gender]}.*","i")})
-    @users = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    if params[:search].present?
+      if params[:gender].present? && !params[:status].present? == false
+      @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")},{mobile: Regexp.new(".*#{params[:search]}.*","i")}).where(gender: params[:gender])
+      elsif params[:status].present? && !params[:gender].present?
+      @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")},{mobile: Regexp.new(".*#{params[:search]}.*","i")}).where(status: params[:status])
+      elsif params[:status].present? && params[:gender].present?
+      @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")},{mobile: Regexp.new(".*#{params[:search]}.*","i")}).where(gender: params[:gender], status: params[:status])
+      else
+          
+      @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")},{mobile: Regexp.new(".*#{params[:search]}.*","i")})
+  end
+    else
+    @search = User.all
+    end
+    @users = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 5)
   end
 
   def user_status
