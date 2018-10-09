@@ -41,6 +41,7 @@ class Api::V1::Customer::UsersController < ApplicationController
   end
 
   def login
+    binding.pry
     @user = User.find_by(unique_id: params[:unique_id])
     return render_message 402, "User doesn't exists." unless @user.present?
     @user.update_attributes(sign_in_count: @user.sign_in_count.to_i + 1, current_sign_in_at: DateTime.current)
