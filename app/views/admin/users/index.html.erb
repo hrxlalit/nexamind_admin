@@ -8,21 +8,21 @@
       <div class="col-sm-3">
           <div class="user-label">                              
            <div class="">
-            <%=  text_field_tag :search, "", class:"form-control custom-control1" %>
+            <%=  text_field_tag :search, "", class:"form-control custom-control1", placeholder: "Search by Email/Username" %>
            </div>                            
          </div>
        </div> 
          <div class="col-sm-3">
           <div class="user-label">
             <div class="">
-              <%=  select_tag :status,options_for_select([["Active",1],["Blocked",2]]), class:"form-control custom-control1" %>
+              <%=  select_tag :status,options_for_select([["All",""],["Active",1],["Blocked",2]]), class:"form-control custom-control1" %>
           </div>
           </div>
         </div> 
         <div class="col-sm-3">
           <div class="user-label">
             <div class="">
-              <%=  select_tag :gender,options_for_select([["Male","0"],["Female","1"]]), class:"form-control custom-control1" %>
+              <%=  select_tag :gender,options_for_select([["All",""],["Male","0"],["Female","1"]]), class:"form-control custom-control1" %>
           </div>
           </div>
       </div>
@@ -67,13 +67,13 @@
             <%else%>
               <td><%= "Female" %></td>
             <%end%>
-            <td><%#if user.status.eql?(0) || user.not_verified? %>
-                    <%#='<i class = "btn-sm btn-danger"> Unverified</i>'.html_safe %>                                   
-                  <%#elsif user.status.eql?(1) || user.verified? %>
-                      <%#= '<i class = "btn-sm btn-success"> Active </i>'.html_safe %>
-                  <%#else%>
-                       <%#='<i class = "btn-sm btn-danger"> Blocked</i>'.html_safe %>             
-                  <%#end%>
+            <td><%if user.status.eql?(0) %>
+                    <%='<i class = "btn-sm btn-danger"> Block</i>'.html_safe %>                                   
+                  <%elsif user.status.eql?(1) %>
+                      <%= '<i class = "btn-sm btn-success"> Active </i>'.html_safe %>
+                  <%elsif user.status.eql?(2)%>
+                       <%='<i class = "btn-sm btn-danger"> Not Verified</i>'.html_safe %>             
+                  <%end%>
             </td>                               
             <td><%= user.last_sign_in_at ? user.last_sign_in_at.try(:localtime).try(:strftime, "%d %B, %Y %I:%M %p") : "N/A" %></td>                   
             <td>
@@ -84,6 +84,8 @@
                 <%#= link_to '<i class="fa fa-check" aria-hidden="true"></i> Unblock'.html_safe,user_status_admin_users_path(:id => user.id), method: :post,:class=>"btn btn-sm btn-primary",:data => { :confirm => "Are you sure to activate this user?" }%>
                 <%#end%>    
                 <a><%= link_to '<i class="fa fa-eye" aria-hidden="true"></i> View'.html_safe, admin_user_path(id: user.id), :class=>"btn btn-sm btn-success"%></a>
+                <a><%= link_to_if user.status == 0, '<i class="fa fa-check-square-o" aria-hidden="true"></i> Unblock'.html_safe, user_status_admin_users_path(id: user.id, status: 1), :class=>"btn btn-sm btn-success"%></a>
+                <a><%= link_to_if user.status == 1, '<i class="fa fa-ban" aria-hidden="true"></i> Block'.html_safe, user_status_admin_users_path(id: user.id, status: 0), :class=>"btn btn-sm btn-danger"%></a>
                 <!-- <a><%#= link_to '<i class="fa fa-trash" aria-hidden="true"></i> Delete'.html_safe,  admin_user_path(user.id), method: :delete,:class=>"btn btn-sm btn-danger", data: {confirm: 'Are you sure to delete this user?' }%></a> -->
               </div>  
             </td>

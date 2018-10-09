@@ -13,8 +13,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
       @store.try(:images).try(:reload)
   	  token = User.generate_token
       @store.update_attributes(access_token: token, status: 2)
-      @image = @store.try(:images).map{|x| x.try(:file_url)}
-      @select = @store.as_json.merge("image" => @image, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
+      @select = @store.as_json.merge("image" => @store.try(:images).map{|x| x.try(:file_url)}, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
       Store.generate_otp_and_send(@store)
       Store.forgot_generate_otp_and_send(@store.mobile, @store.code, @store)
   	  return render :json =>  {:responseCode => 200, :responseMessage => "Signup successfully.", store: @select}
@@ -31,8 +30,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
         return render_message 402, "OTP is expired."
       else
         @store.update_attributes(otp: nil, status: 1)
-        @image = @store.try(:images).map{|x| x.try(:file_url)}
-        @select = @store.as_json.merge("image" => @image, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
+        @select = @store.as_json.merge("image" => @store.try(:images).map{|x| x.try(:file_url)}, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
         device = @store.devices.create(device_params) if params[:device].present?
         render :json =>  {:responseCode => 200, :responseMessage => "Otp verified successfully.", :store => @select }
       end
@@ -45,14 +43,14 @@ class Api::V1::Storeapi::StoresController < ApplicationController
   	if params[:type] == "seed"
   	  @store = Store.find_by(unique_id: params[:unique_id])
   	  return render_message 402, "Store doesn't exists." unless @store.present?
+      return render json: {responseCode: 407, responseMessage: "Sorry! Store is not verified.", store: @store} unless @store.verified?
 	  elsif params[:type] == "conventional"
   	  @store = Store.find_by(mobile: params[:unique_id])
   	  return render_message 402, "Store doesn't exists." unless @store.present?
   	  return render_message 402, "Wrong password." unless @store.authenticate(params[:password])
 	  end
     	device = @store.devices.create(device_params)
-    	@image = @store.try(:images).map{|x| x.try(:file_url)}
-    	@select = @store.as_json.merge("image" => @image, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
+    	@select = @store.as_json.merge("image" => @store.try(:images).map{|x| x.try(:file_url)}, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
     	render :json =>  {:responseCode => 200, :responseMessage => "You have successfully logged-In.", :store => @select }
   end
 
@@ -65,8 +63,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
   end
 
   def view_profile
-    @image = @current_store.try(:images).map{|x| x.try(:file_url)}
-    @select = @current_store.as_json.merge("image" => @image, "service_timing" => @current_store.try(:service_timings)).except("otp", "otp_gen_time", "unique_id", "password_digest")
+    @select = @current_store.as_json.merge("image" => @current_store.try(:images).map{|x| x.try(:file_url)}, "service_timing" => @current_store.try(:service_timings)).except("otp", "otp_gen_time", "unique_id", "password_digest")
     render json: {responseCode: 200, responseMessage: "Profile fetched successfully.",user: @select}
   end
 
@@ -81,8 +78,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
           @current_store.images.create(file: params[:image])
           @current_store.try(:images).try(:last).try(:reload)
       end
-      @image = @current_store.try(:images).map{|x| x.try(:file_url)}
-      @select = @current_store.as_json.merge("image" => @image, "service_timing" => @current_store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
+      @select = @current_store.as_json.merge("image" => @current_store.try(:images).map{|x| x.try(:file_url)}, "service_timing" => @current_store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
       render json: {responseCode: 200, responseMessage: "Store profile updated successfully.",user: @select}
     else
       render_message 402, @current_store.errors.full_messages.first

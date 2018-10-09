@@ -14,7 +14,7 @@ class Store
 
 
   field :name, type: String
-  field :store_type, type: Integer# 0:cloths 1:food and beverages 2:entertainment 3:events
+  field :store_type, type: Integer# 0:cloths 1:food and beverages 2:entertainment 3:events 5:gadgets
   field :email, type: String, default: ''
   field :password_digest, :type => String
   field :website, type: String
@@ -29,7 +29,7 @@ class Store
   field :otp, type: String
   field :otp_gen_time, type: DateTime
   field :access_token, type: String, default: ''
-  field :status, type: Integer, default: 0 # 0:Dect by admin 1:Active 2:Otp not verified
+  field :status, type: Integer, default: 2 # 0:Dect by admin 1:Active 2:Otp not verified
   field :is_verified, type: Mongoid::Boolean, default: false
 
   has_many :products, dependent: :destroy

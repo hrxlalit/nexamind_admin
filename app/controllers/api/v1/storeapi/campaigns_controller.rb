@@ -48,7 +48,7 @@ class Api::V1::Storeapi::CampaignsController < ApplicationController
 
   def detail_campaign
   	@campaign = @current_store.campaigns.find_by({:id => params[:campaign_id]})
-	return render_message 402, "Campaign doesn't exists." unless @campaign.present?
+	  return render_message 402, "Campaign doesn't exists." unless @campaign.present?
   	render :json => { :responseCode => 200,
   	                  :responseMessage => "Campaign fetched successfully.",
   	                  :campaigns => @campaign.as_json.merge("product_campaign" => Product.where(id: { '$in': @campaign.product_campaigns.pluck(:product_id)}).map{|x| x.as_json.slice("_id", "name")})

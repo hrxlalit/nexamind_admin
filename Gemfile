@@ -35,7 +35,7 @@ gem 'jquery-validation-rails'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
-gem 'alertify-rails'
+gem 'alertifyjs-rails'
 gem 'geocoder'
 gem "chartkick"
 gem 'groupdate'

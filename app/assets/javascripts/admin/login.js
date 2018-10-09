@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$( document ).ready(function() {
 
 	$("#signin-idenity").validate({
 
@@ -35,5 +35,24 @@ $(document).on('turbolinks:load', function() {
     return this.optional(element) || /^[A-Z0-9_]+([\.][A-Z0-9_]+)*@[A-Z0-9-]+(\.[a-zA-Z]{2,3})+$/i.test(value);
   }, "Please enter a valid email address.");
 
+
+
+
+$("#new_static_page").validate({
+
+		rules: {
+			"static_page[title]":{
+				minlength: 2,
+				maxlength: 100
+			},					
+			"static_page[description]":{
+				minlength: 3,
+				maxlength: 500
+			},			
+		},
+		submitHandler: function(form) {
+	      form.submit();
+	    }
+	});
 
 });

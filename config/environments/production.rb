@@ -85,6 +85,6 @@ Rails.application.configure do
     :domain         => "sendgrid.com"
   }
 
-  config.action_mailer.default_url_options = { host: "http://localhost:3000" }
+  config.action_mailer.default_url_options = { host: "https://centrium.herokuapp.com" }
   config.action_mailer.perform_caching = false
 end

@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$( document ).ready(function() {
   $("#new_article").validate({
     // Specify the validation rules
     // debug: true,

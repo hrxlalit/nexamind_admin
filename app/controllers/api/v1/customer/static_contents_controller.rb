@@ -17,13 +17,13 @@ class Api::V1::Customer::StaticContentsController < ApplicationController
     elsif params[:type] == "store"
       @contact_us = ContactU.new(title: params[:title], description: params[:description], store_id: params[:id])
     end
-      if @contact_us.save
-        render :json => { :responseCode => 200,
+    if @contact_us.save
+      render :json => { :responseCode => 200,
                       :responseMessage => "Thank you.",
                       :reviews => @contact_us
                      }
-      else
-        render_message 402, "Contact us not created." 
-      end
+    else
+      render_message 402, "Contact us not created." 
+    end
   end
 end
