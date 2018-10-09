@@ -10,7 +10,7 @@ class Api::V1::Customer::UsersController < ApplicationController
     @user = User.any_of({:unique_id => params[:unique_id]},{:email => params[:email].try(:downcase)}, {:mobile => params[:mobile]})
     return render_message 402, "User already exist." if @user.present?
     @user = User.new(user_params)
-    @user.build_image(file: params[:image])
+    @user.build_image(file: params[:image]) if params[:image].present?
     if @user.save
   	  token = User.generate_token
       @user.update_attributes(access_token: token, status: 2, sign_in_count: @user.sign_in_count.to_i + 1, current_sign_in_at: DateTime.current)
@@ -47,12 +47,13 @@ class Api::V1::Customer::UsersController < ApplicationController
     elsif params[:type] == "conventional"
       @user = User.any_of({:email => params[:email].try(:downcase)}, {:mobile => params[:mobile]}).first
       return render_message 402, "User doesn't exists." unless @user.present?
-      return render_message 402, "Wrong password." unless @user.authenticate(params[:password])
+      return render_message 402, "Wrong password." unless @user.valid_password?(params[:password])
     end
       @user.update_attributes(sign_in_count: @user.sign_in_count.to_i + 1, current_sign_in_at: DateTime.current)
   	  device = @user.devices.create(device_params)
       @select = @user.as_json.merge("image" => @user.try(:image).try(:file_url)).except("otp", "otp_gen_time", "unique_id")
       render :json =>  {:responseCode => 200, :responseMessage => "You have successfully logged-In.", :user => @select }
+
   end
 
   def resend_otp
