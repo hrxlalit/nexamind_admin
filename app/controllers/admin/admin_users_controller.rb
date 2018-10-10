@@ -33,7 +33,6 @@ class Admin::AdminUsersController < ApplicationController
   end
 
   def update_password
-     # binding.pry
     if @admin_user.valid_password?params[:admin_user][:old_password]
       if params[:admin_user][:new_password].eql?(params[:admin_user][:confirm_password])
         @admin_user.update_attributes(password: params[:admin_user][:new_password])
