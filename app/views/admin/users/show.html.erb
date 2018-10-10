@@ -34,7 +34,7 @@
           <div class="row">
             <label class="col-sm-2">Gender </label>
             <div class="col-sm-8">
-                <%= @user.try(:gender)%>
+                <%= @user.try(:gender).eql?("0") ? "Male" : "Female" %>
             </div>
           </div>
         </div>
