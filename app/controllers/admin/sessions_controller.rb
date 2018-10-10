@@ -7,8 +7,9 @@ class Admin::SessionsController < ApplicationController
     if @admin_user = AdminUser.find_by(email: params[:session][:email])
       if @admin_user && @admin_user.valid_password?(params[:session][:password])
           @admin_user.update_attributes(sign_in_count: @admin_user.sign_in_count+1, last_sign_in_at: Time.current)
+          binding.pry
           if params[:session][:remember_me].eql?("1")
-            cookies.signed[:admin_user_id] = { value: @admin_user.id.to_s}
+            cookies.signed[:admin_user_id] = { value: @admin_user.id.to_s, expires: 2.weeks.from_now}
           else
             # expires at the end of the browser session
             cookies.signed[:admin_user_id] = @admin_user.id.to_s
