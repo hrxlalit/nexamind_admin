@@ -47,7 +47,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
 	  elsif params[:type] == "conventional"
   	  @store = Store.find_by(mobile: params[:unique_id])
   	  return render_message 402, "Store doesn't exists." unless @store.present?
-  	  return render_message 402, "Wrong password." unless @store.authenticate(params[:password])
+  	  return render_message 402, "Wrong password." unless @store.valid_password?(params[:password])
 	  end
     	device = @store.devices.create(device_params)
     	@select = @store.as_json.merge("image" => @store.try(:images).map{|x| x.try(:file_url)}, "service_timing" => @store.service_timings).except("otp", "otp_gen_time", "unique_id", "password_digest")
@@ -71,7 +71,7 @@ class Api::V1::Storeapi::StoresController < ApplicationController
     @store = Store.where(:id.ne => @current_store.id).and({email: params[:email].try(:downcase)}, {:email.ne => ""}) if params[:email].present?
     return render_message 402, "Email must be unique." if @store.present?
     if params[:old_password].present?
-      return render_message 402, "Old password is wrong." unless @current_store.authenticate(params[:old_password])
+      return render_message 402, "Old password is wrong." unless @current_store.valid_password?(params[:old_password])
     end 
     if @current_store.update_attributes(update_store_params)
       if params[:image].present?

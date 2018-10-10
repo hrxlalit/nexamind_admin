@@ -11,7 +11,7 @@ class Api::V1::Customer::SocialsController < ApplicationController
       render :json => {responseCode: 200, responseMessage: "You have successfully logged-In.", user: @select}
     else
       @user = User.new(user_params)
-      token = User.generate_token(@user)
+      token = User.generate_token
       if @user.save(validate: false)
         if params[:user][:image].present?
           @user.create_image(remote_file_url: params[:user][:image])
