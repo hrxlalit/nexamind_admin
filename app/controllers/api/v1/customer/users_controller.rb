@@ -74,7 +74,7 @@ class Api::V1::Customer::UsersController < ApplicationController
     @users = User.where(:id.ne => @current_user.id).and({email: params[:email].try(:downcase)}, {:email.ne => ""}) if params[:email].present?
     return render_message 402, "Email must be unique." if @users.present?
     if params[:old_password].present?
-      return render_message 402, "Old password is wrong." unless @current_store.authenticate(params[:old_password])
+      return render_message 402, "Old password is wrong." unless @current_store.valid_password?(params[:old_password])
     end 
     if @current_user.update_attributes(update_user_params)
       if params[:image].present?
