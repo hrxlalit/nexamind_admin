@@ -67,13 +67,17 @@
             <%else%>
               <td><%= "Female" %></td>
             <%end%>
-            <td><%if user.status.eql?(0) %>
-                    <%='<i class = "btn-sm btn-danger"> Block</i>'.html_safe %>                                   
+            <td>
+              <%if user.status.eql?(0) %>
+                    <%='<i class = "btn-sm btn-danger"> Block</i>'.html_safe %>                     
                   <%elsif user.status.eql?(1) %>
                       <%= '<i class = "btn-sm btn-success"> Active </i>'.html_safe %>
-                  <%elsif user.status.eql?(2)%>
-                       <%='<i class = "btn-sm btn-danger"> Not Verified</i>'.html_safe %>             
-                  <%end%>
+              <%end%>
+              <%if user.admin_approved.eql?(0) %>
+                    <%='<i class = "btn-sm btn-danger"> Not Approved</i>'.html_safe %>                     
+                  <%elsif user.admin_approved.eql?(1) %>
+                      <%= '<i class = "btn-sm btn-success"> Approved </i>'.html_safe %>
+              <%end%>
             </td>                               
             <td><%= user.last_sign_in_at ? user.last_sign_in_at.try(:localtime).try(:strftime, "%d %B, %Y %I:%M %p") : "N/A" %></td>                   
             <td>
