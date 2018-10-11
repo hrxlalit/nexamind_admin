@@ -29,7 +29,9 @@
   </div>
 </fieldset>
   </div>
-  <%= link_to "new" , new_admin_store_path %>
+  <div class="action-btn">
+  <a><%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i> New Provider'.html_safe,  new_admin_store_path, :class=>"btn btn-sm btn-primary"%></a>
+</div>
 <div class="box box-blue">
   <div class="box-body">
     <div class="custom-table table-responsive">
