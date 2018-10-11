@@ -109,11 +109,13 @@ Rails.application.routes.draw do
     resources :users do
       collection do
         get :user_status
+        get :user_approve
       end
     end
     resources :stores do
       collection do
         post :store_status
+        get :store_approve
       end
     end
     resources :products do

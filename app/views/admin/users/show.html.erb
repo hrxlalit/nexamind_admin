@@ -32,6 +32,15 @@
         
         <div class="form-group">
           <div class="row">
+            <label class="col-sm-2">Date of Birth </label>
+            <div class="col-sm-8">
+                <%= @user.try(:dob) %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
             <label class="col-sm-2">Gender </label>
             <div class="col-sm-8">
                 <%= @user.try(:gender).eql?("0") ? "Male" : "Female" %>
@@ -41,9 +50,56 @@
 
         <div class="form-group">
           <div class="row">
+            <label class="col-sm-2">Available CTD </label>
+            <div class="col-sm-8">
+                <%= "Not available" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2">Available CTM </label>
+            <div class="col-sm-8">
+                <%= "Not available" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2">Buyer's Behaviour </label>
+            <div class="col-sm-8">
+                <%= @user&.min_behaviour %>
+                <%= @user&.max_behaviour %>
+            </div>
+          </div>
+        </div>
+
+        <%if @user.user_docs%>
+        <% @user.user_docs.each do |doc|%>
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2" ><%=doc&.module_type&.capitalize %> </label>
+            <div class="col-sm-8">
+              <dl>
+              <dt><%=doc&.doc_type %></dt>
+              </dl>
+              <br>
+              <%#= doc.front_img.present? ? "Front Image" : "" %>
+              <%= doc.front_img.present? ? image_tag(doc.front_img.try(:url),:width => 200, :height => 100, :class => 'news-content') : image_tag("/1.png",:width => 200, :height => 100, :class => 'news-content') %>
+              <%#= doc.back_img.present? ? "Back Image" : "" %>
+              <%= doc.back_img.present? ? image_tag(doc.back_img.try(:url),:width => 200, :height => 100, :class => 'news-content') : image_tag("/1.png",:width => 200, :height => 100, :class => 'news-content') %>
+            </div>
+          </div>
+        </div>
+        <%end%>
+        <%end%>
+<!--         <div class="form-group">
+          <div class="row">
             <label class="col-sm-2">Address </label>
             <div class="col-sm-8">
-                <%= @user.try(:address) %>
+                <%#= @user.try(:address) %>
             </div>
           </div>
         </div>
@@ -52,7 +108,7 @@
           <div class="row">
             <label class="col-sm-2">City</label>
             <div class="col-sm-8">
-              <%= @user.try(:city) %>
+              <%#= @user.try(:city) %>
             </div>
           </div>
         </div>
@@ -61,16 +117,17 @@
           <div class="row">
             <label class="col-sm-2">Country</label>
             <div class="col-sm-8">
-              <%= @user.try(:country) %>
+              <%#= @user.try(:country) %>
             </div>
           </div>
-        </div>
+        </div> -->
         
         <div class="update-btn text-center">
           <%= link_to 'BACK', admin_users_path, class: "btn btn-red btn-common" %>
-          <%if @user.status != 1%>
-          <%= link_to 'APPROVE', user_status_admin_users_path(id: @user.id, status: 1), class: "btn btn-red btn-common" %>
-          <%end%>
+          
+          <%= link_to 'APPROVE', user_approve_admin_users_path(id: @user.id, admin_approved: 1), class: "btn btn-red btn-success" %>
+          <%= link_to 'REJECT', user_approve_admin_users_path(id: @user.id, admin_approved: 0), class: "btn btn-red btn-danger" %>
+          
         </div>
       </form>
     </div>

@@ -29,6 +29,7 @@
   </div>
 </fieldset>
   </div>
+  <%= link_to "new" , new_admin_store_path %>
 <div class="box box-blue">
   <div class="box-body">
     <div class="custom-table table-responsive">
@@ -57,11 +58,15 @@
             <td><%= (store.try(:store_type)).try(:titleize) %></td> 
             <td><%= truncate(store.try(:address), omision: "...", length: 50) %></td>                   
             <td><%if store.status.eql?(0) %>
-                    <%='<i class = "btn-sm btn-danger"> Unverified</i>'.html_safe %>                                   
+                    <%='<i class = "btn-sm btn-danger"> Blocked</i>'.html_safe %>                                   
                   <%elsif store.status.eql?(1) %>
-                      <%= '<i class = "btn-sm btn-success"> Active </i>'.html_safe %>
-                  <%else%>
-                       <%='<i class = "btn-sm btn-danger"> Blocked</i>'.html_safe %>             
+                      <%= '<i class = "btn-sm btn-success"> Active </i>'.html_safe %>             
+                  <%end%>
+
+                  <%if store.admin_approved.eql?(0) %>
+                    <%='<i class = "btn-sm btn-danger"> Not Approved</i>'.html_safe %>
+                  <%elsif store.admin_approved.eql?(1) %>
+                      <%= '<i class = "btn-sm btn-success"> Approved </i>'.html_safe %>
                   <%end%>
             </td>                               
             <td>
@@ -69,12 +74,11 @@
               <a><%= link_to '<i class="fa fa-eye" aria-hidden="true"></i> View'.html_safe, admin_store_path(id: store.id), :class=>"btn btn-sm btn-success"%></a>
                 <%if store.status.eql?(1) %>
                 <%= link_to '<i class="fa fa-ban" aria-hidden="true"></i> Block'.html_safe,store_status_admin_stores_path(:id => store.id), method: :post,:class=>"btn btn-sm btn-danger",:data => { :confirm => "Are you sure to block this store?" }%>
-                <%elsif store.status.eql?(2) %>
+                <%elsif store.status.eql?(0) %>
                 <%= link_to '<i class="fa fa-check-square-o" aria-hidden="true"></i> Unblock'.html_safe,store_status_admin_stores_path(:id => store.id), method: :post,:class=>"btn btn-sm btn-primary",:data => { :confirm => "Are you sure to activate this store?" }%>
-                <%else %>
-                <%= link_to '<i class="fa fa-ban" aria-hidden="true"></i> Not verified'.html_safe, "#", method: :post,:class=>"btn btn-sm btn-warning"%>
                 <%end%>      
                 <a><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i> Delete'.html_safe,  admin_store_path(store.id), method: :delete,:class=>"btn btn-sm btn-danger", data: {confirm: 'Are you sure to delete this store?' }%></a>
+                <a><%= link_to '<i class="fa fa-edit" aria-hidden="true"></i> Edit'.html_safe,  edit_admin_store_path(store.id), :class=>"btn btn-sm btn-primary"%></a>
               </div>  
             </td>
           </tr>                                
