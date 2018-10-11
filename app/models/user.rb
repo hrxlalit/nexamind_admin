@@ -1,9 +1,11 @@
+require "twilio"
 class User
   include ActiveModel::SecurePassword
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
   include Geocoder::Model::Mongoid
+  include TwilioSms
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -85,7 +87,7 @@ class User
     otp = [*1000..9999].sample
     # otp =  "1234"
     user.update_attributes(otp: otp, otp_gen_time: DateTime.current)
-    # TwilioSms.send_otp(mobile_no, "Your Centrium App account OTP is: #{@otp}" )
+    TwilioSms.send_otp(mobile_no, "Your Centrium App account OTP is: #{otp}" )
   end
 
   def self.generate_otp_and_send_mailer user
