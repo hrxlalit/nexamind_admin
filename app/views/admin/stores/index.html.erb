@@ -66,14 +66,14 @@
             </td>                               
             <td>
               <div class="action-btn">
+              <a><%= link_to '<i class="fa fa-eye" aria-hidden="true"></i> View'.html_safe, admin_store_path(id: store.id), :class=>"btn btn-sm btn-success"%></a>
                 <%if store.status.eql?(1) %>
                 <%= link_to '<i class="fa fa-ban" aria-hidden="true"></i> Block'.html_safe,store_status_admin_stores_path(:id => store.id), method: :post,:class=>"btn btn-sm btn-danger",:data => { :confirm => "Are you sure to block this store?" }%>
                 <%elsif store.status.eql?(2) %>
                 <%= link_to '<i class="fa fa-check-square-o" aria-hidden="true"></i> Unblock'.html_safe,store_status_admin_stores_path(:id => store.id), method: :post,:class=>"btn btn-sm btn-primary",:data => { :confirm => "Are you sure to activate this store?" }%>
                 <%else %>
                 <%= link_to '<i class="fa fa-ban" aria-hidden="true"></i> Not verified'.html_safe, "#", method: :post,:class=>"btn btn-sm btn-warning"%>
-                <%end%>    
-                <a><%= link_to '<i class="fa fa-eye" aria-hidden="true"></i> View'.html_safe, admin_store_path(id: store.id), :class=>"btn btn-sm btn-success"%></a>
+                <%end%>      
                 <!-- <a><%#= link_to '<i class="fa fa-trash" aria-hidden="true"></i> Delete'.html_safe,  admin_store_path(store.id), method: :delete,:class=>"btn btn-sm btn-danger", data: {confirm: 'Are you sure to delete this store?' }%></a> -->
               </div>  
             </td>
