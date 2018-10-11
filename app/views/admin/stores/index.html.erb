@@ -74,7 +74,7 @@
                 <%else %>
                 <%= link_to '<i class="fa fa-ban" aria-hidden="true"></i> Not verified'.html_safe, "#", method: :post,:class=>"btn btn-sm btn-warning"%>
                 <%end%>      
-                <!-- <a><%#= link_to '<i class="fa fa-trash" aria-hidden="true"></i> Delete'.html_safe,  admin_store_path(store.id), method: :delete,:class=>"btn btn-sm btn-danger", data: {confirm: 'Are you sure to delete this store?' }%></a> -->
+                <a><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i> Delete'.html_safe,  admin_store_path(store.id), method: :delete,:class=>"btn btn-sm btn-danger", data: {confirm: 'Are you sure to delete this store?' }%></a>
               </div>  
             </td>
           </tr>                                
