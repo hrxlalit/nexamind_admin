@@ -59,7 +59,7 @@ class Store
   end
 
   def otp_expired?
-    otp_gen_time < 15.minutes.ago
+    otp_gen_time > 15.minutes.ago
   end
 
   # def self.at_range(latitude, longitude, range)
