@@ -1,4 +1,5 @@
 class Admin::SessionsController < ApplicationController
+
   def new
     redirect_to admin_users_path if current_admin_user.present?
   end
