@@ -43,8 +43,9 @@ class Admin::AdminUsersController < ApplicationController
         flash[:error] = "Confirm Password doen't match with Password."
       end
     else
-      redirect_to change_password_admin_admin_user_path
       flash[:error] = "Your current password is incorrect, it's required to change the Password."
+      redirect_to change_password_admin_admin_user_path#, alert: "Error"
+      
     end
   end
 

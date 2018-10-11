@@ -16,7 +16,9 @@
 
  @import 'bootstrap-sprockets';
  @import 'bootstrap';
- @import 'alertify';
+ @import "alertify";
+ @import "alertify/default";
+ @import "alertify/bootstrap";
 
 .admin-error div.error {color: red !important;}
 .flash {

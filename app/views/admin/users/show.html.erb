@@ -34,7 +34,7 @@
           <div class="row">
             <label class="col-sm-2">Gender </label>
             <div class="col-sm-8">
-                <%= @user.try(:gender)%>
+                <%= @user.try(:gender).eql?("0") ? "Male" : "Female" %>
             </div>
           </div>
         </div>
@@ -68,7 +68,9 @@
         
         <div class="update-btn text-center">
           <%= link_to 'BACK', admin_users_path, class: "btn btn-red btn-common" %>
-          <%= link_to 'APPROVE', admin_users_path, class: "btn btn-red btn-common" %>
+          <%if @user.status != 1%>
+          <%= link_to 'APPROVE', user_status_admin_users_path(id: @user.id, status: 1), class: "btn btn-red btn-common" %>
+          <%end%>
         </div>
       </form>
     </div>

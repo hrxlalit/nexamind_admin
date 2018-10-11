@@ -4,8 +4,18 @@ class Admin::ProductsController < ApplicationController
   before_action :find_product, except: [:index, :vendor_list]
 
   def index
-    @search = Product.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")},{mobile: Regexp.new(".*#{params[:search]}.*","i")},{status: Regexp.new(".*#{params[:status]}.*","i")},{gender: Regexp.new(".*#{params[:gender]}.*","i")})
-    @products = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    if params[:search].present? && params[:status].present?
+      @search = Product.and({name: Regexp.new(".*#{params[:search]}.*","i")}, {status: params[:status]})
+      @products = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    elsif params[:status].present? && params[:status] != ""
+      @search = Product.where({status: params[:status]})
+      @products = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    elsif params[:search].present? && params[:search] != ""
+      @search = Product.where({name: Regexp.new(".*#{params[:search]}.*","i")})
+      @products = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    else
+      @products = Product.all.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    end
   end
 
   def product_status

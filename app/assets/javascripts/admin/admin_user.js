@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$( document ).ready(function() {
 	// $("#admin_user_address").placepicker();
 	$("#new_admin_user").validate({
 		rules: {
