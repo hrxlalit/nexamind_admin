@@ -40,6 +40,7 @@ class Store
   has_many :service_timings, dependent: :destroy
   has_many :user_docs, dependent: :destroy
   has_many :campaigns, dependent: :destroy
+  has_many :contact_u, dependent: :destroy
   accepts_nested_attributes_for :service_timings , :allow_destroy => true, :reject_if =>:all_blank
   
   def self.generate_otp_and_send store
