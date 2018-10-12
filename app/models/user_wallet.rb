@@ -1,6 +1,7 @@
 class UserWallet
   include Mongoid::Document
-  field :ctd, type: float
-  field :ctm, type: float
-  field :qr_code, type: string
+  field :ctd, type: Float
+  field :ctm, type: Float
+  field :qr_code, type: String
+  belongs_to :user
 end

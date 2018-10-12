@@ -61,6 +61,7 @@ class User
   has_many :product_ratings, dependent: :destroy
   has_many :fav_products, dependent: :destroy
   has_many :contact_u, dependent: :destroy
+  has_one :user_wallet, dependent: :destroy
  
   ## Confirmable
   # field :confirmation_token,   type: String
