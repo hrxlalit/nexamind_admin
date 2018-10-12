@@ -5,7 +5,7 @@ class Store
   include ActiveModel::SecurePassword
   include Geocoder::Model::Mongoid
 
-  has_secure_password
+  has_secure_password validations: false
   geocoded_by :coordinates
   # after_validation :geocode, :if => :location_changed?
   
@@ -21,6 +21,8 @@ class Store
   field :code, type: String
   field :mobile, type: String, default: ''
   field :address, type: String
+  field :country, type: String
+  field :city, type: String
   field :location, type: String
   field :coordinates, :type => Array
   field :description, type: String
@@ -29,7 +31,8 @@ class Store
   field :otp, type: String
   field :otp_gen_time, type: DateTime
   field :access_token, type: String, default: ''
-  field :status, type: Integer, default: 2 # 0:Dect by admin 1:Active 2:Otp not verified
+  field :status, type: Integer, default: 1 # 0:Dect by admin 1:Active
+  field :admin_approved, type: Integer, default: 0 # 0:rejected 1:Approved
   field :is_verified, type: Mongoid::Boolean, default: false
 
   has_many :products, dependent: :destroy
@@ -60,6 +63,21 @@ class Store
 
   def otp_expired?
     otp_gen_time > 15.minutes.ago
+  end
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      Store.create! row.to_hash      
+    end    
+  end
+
+  def self.export(options = {})
+    headers = ['name','address','description','website','mobile','code']  
+    dummy = ['Lalit','Delhi','Mobiloitte Technologies','www.mobiloitte.com','9876543210','+91']  
+    CSV.generate(options) do |csv|
+      csv << headers
+      csv << dummy
+    end
   end
 
   # def self.at_range(latitude, longitude, range)

@@ -5,19 +5,19 @@ class Admin::UsersController < ApplicationController
 
   def index
     if params[:search].present? && params[:gender].present? && params[:status].present?
-      @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")}).and({status: params[:status]},{gender: params[:gender]})
+      @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")}).and({status: params[:status]},{gender: params[:gender]}).where(status: (0..1))
       @users = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
     elsif params[:gender].present? && params[:gender] != ""
-      @search = User.where({gender: params[:gender]}) 
+      @search = User.where({gender: params[:gender]}).where(status: (0..1)) 
       @users = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
     elsif params[:status].present? && params[:status] != ""
-      @search = User.where({status: params[:status]}) 
+      @search = User.where({status: params[:status]}).where(status: (0..1)) 
       @users = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10) 
     elsif params[:search].present? && params[:search] != ""
-      @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")}) 
+      @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")}).where(status: (0..1)) 
       @users = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10) 
     else
-      @users = User.all.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+      @users = User.where(status: (0..1)).order("created_at desc").paginate(:page => params[:page], :per_page => 10)
     end
   end
 
@@ -29,6 +29,12 @@ class Admin::UsersController < ApplicationController
       @user.update_attributes(status: 0)
       redirect_to  request.referer, notice: "User's account blocked successfully."
    end
+  end
+
+  def user_approve
+    @user.update_attributes(admin_approved: 1) if params[:admin_approved] == "1"
+    @user.update_attributes(admin_approved: 0) if params[:admin_approved] == "0"
+    redirect_to request.referer
   end
 
   def edit

@@ -1,7 +1,7 @@
 require 'will_paginate/array'
 class Admin::StoresController < ApplicationController
   before_action :require_admin_user
-  before_action :find_store, except: [:index, :vendor_list]
+  before_action :find_store, except: [:index, :vendor_list, :new, :create, :import, :export]
 
   def index
     if params[:search].present? && params[:status].present?
@@ -18,14 +18,36 @@ class Admin::StoresController < ApplicationController
     end
   end
 
+  def new
+    @store = Store.new
+  end
+
+  def create
+    @store  = Store.new(store_params)
+    if @store.save
+       flash[:notice] = "Store created successfully."
+       redirect_to admin_stores_path 
+    else   
+       flash[:alert] = @store.errors.messages
+       redirect_to request.referer
+
+    end 
+  end
+
   def store_status
-   if @store.status.eql?(2) 
+   if @store.status.eql?(0) 
       @store.update_attributes(status: 1)
-      redirect_to  admin_stores_path,notice: "User's account activated successfully."
+      redirect_to  admin_stores_path,notice: "Provider activated successfully."
    elsif @store.status.eql?(1) 
-      @store.update_attributes(status: 2)
-      redirect_to  admin_stores_path, notice: "User's account blocked successfully."
+      @store.update_attributes(status: 0)
+      redirect_to  admin_stores_path, notice: "Provider blocked successfully."
    end
+  end
+
+  def store_approve
+    @store.update_attributes(admin_approved: 1) if params[:admin_approved] == "1"
+    @store.update_attributes(admin_approved: 0) if params[:admin_approved] == "0"
+    redirect_to request.referer
   end
 
   def edit
@@ -33,11 +55,11 @@ class Admin::StoresController < ApplicationController
 
   def update
     if @store.update_attributes(store_params)
-			redirect_to admin_stores_path, notice: 'User updated Successfully.'
-		else
+      redirect_to admin_stores_path, notice: 'User updated Successfully.'
+    else
       flash[:error] = @store.errors.full_messages.first
-			render :edit
-		end
+      render :edit
+    end
   end
 
   def show
@@ -50,6 +72,19 @@ class Admin::StoresController < ApplicationController
     else
       flash[:error] = @store.errors.full_messages.first
       redirect_to  admin_stores_path
+    end
+  end
+
+  def import
+    Store.import(params[:file])
+    redirect_to request.referer, notice: "HRMS User List imported."
+  end
+
+  def export
+    @store = Store.all
+    respond_to do |format|
+      format.html
+      format.csv{ send_data @store.export,filename: "store-dummy-csv.csv"}
     end
   end
 
