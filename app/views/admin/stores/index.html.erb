@@ -29,16 +29,39 @@
   </div>
 </fieldset>
   </div>
+<!-- <<<<<<< HEAD
   <div class="action-btn">
-  <a><%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i> Add Service Provider'.html_safe,  new_admin_store_path, :class=>"btn btn-sm btn-primary"%></a>
-  <a><%= link_to '<i class="fa fa-download" aria-hidden="true"></i> Export Sample CSV'.html_safe,  export_admin_stores_path(format: "csv") , method: :post, :class=>"btn btn-sm btn-primary"%></a>
+  <a><%#= link_to '<i class="fa fa-pencil" aria-hidden="true"></i> Add Service Provider'.html_safe,  new_admin_store_path, :class=>"btn btn-sm btn-primary"%></a>
+  <a><%#= link_to '<i class="fa fa-download" aria-hidden="true"></i> Export Sample CSV'.html_safe,  export_admin_stores_path(format: "csv") , method: :post, :class=>"btn btn-sm btn-primary"%></a>
   <a><%#= link_to '<i class="fa fa-pencil" aria-hidden="true"></i> Import CSV'.html_safe,  import_admin_stores_path(format: "csv") , method: :post, :class=>"btn btn-sm btn-primary"%></a>
+======= -->
+  
+<div class="action-btn">
+  <table>
+    <tr>
+      <td>
+        <a>
+        <%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i> New Provider'.html_safe,  new_admin_store_path, :class=>"btn btn-sm btn-primary"%>
+        </a>
+        <a>
+        <%= link_to '<i class="fa fa-download" aria-hidden="true"></i> Export Sample CSV'.html_safe,  export_admin_stores_path(format: "csv") , method: :post, :class=>"btn btn-sm btn-primary"%>
+        </a>
+        <%#= link_to '<i class="fa fa-pencil" aria-hidden="true"></i> Import CSV'.html_safe,  import_admin_stores_path(format: "csv") , method: :post, :class=>"btn btn-sm btn-primary"%>
+
+        <a>
+          <%= form_tag import_admin_stores_path, multipart: true do %>
+            <th><a>
+              <%= file_field_tag :file, required: true , class: "btn btn-sm "%>
+            </a></th>
+            <th><a>
+              <%= submit_tag "Import", class: "btn btn-sm btn-primary" %>
+            </a></th>
+          <%end%>
+        </a>
+      </td>
+    </tr>
+  </table>
 </div>
-                <%= form_tag import_admin_stores_path, multipart: true do %>
-                <%= file_field_tag :file, required: true %>
-              
-                <%= submit_tag "Import", class: "btn-btn-primary" %>
-                <%end%>
 
 <div class="box box-blue">
   <div class="box-body">
@@ -67,28 +90,23 @@
             <td><%= truncate(store.try(:mobile), omision: "...", length: 30) %></td> 
             <td><%= (store.try(:store_type)).try(:titleize) %></td> 
             <td><%= truncate(store.try(:address), omision: "...", length: 50) %></td>                   
-            <td><%if store.status.eql?(0) %>
-                    <%='<i class = "btn-sm btn-danger"> Blocked</i>'.html_safe %>                                   
-                  <%elsif store.status.eql?(1) %>
-                      <%= '<i class = "btn-sm btn-success"> Active </i>'.html_safe %>             
-                  <%end%>
-
+            <td>
                   <%if store.admin_approved.eql?(0) %>
-                    <%='<i class = "btn-sm btn-danger"> Not Approved</i>'.html_safe %>
+                    <%='<i class = "btn-sm btn-danger width90"> Not Approved</i>'.html_safe %>
                   <%elsif store.admin_approved.eql?(1) %>
-                      <%= '<i class = "btn-sm btn-success"> Approved </i>'.html_safe %>
+                      <%= '<i class = "btn-sm btn-success width90"> Approved </i>'.html_safe %>
                   <%end%>
             </td>                               
             <td>
               <div class="action-btn">
-              <a><%= link_to '<i class="fa fa-eye" aria-hidden="true"></i> View'.html_safe, admin_store_path(id: store.id), :class=>"btn btn-sm btn-success"%></a>
+              <a><%= link_to '<i class="fa fa-eye" aria-hidden="true"></i> View'.html_safe, admin_store_path(id: store.id), :class=>"btn btn-sm btn-success width90"%></a>
                 <%if store.status.eql?(1) %>
-                <%= link_to '<i class="fa fa-ban" aria-hidden="true"></i> Block'.html_safe,store_status_admin_stores_path(:id => store.id), method: :post,:class=>"btn btn-sm btn-danger",:data => { :confirm => "Are you sure to block this store?" }%>
+                <%= link_to '<i class="fa fa-ban" aria-hidden="true"></i> Block'.html_safe,store_status_admin_stores_path(:id => store.id), method: :post,:class=>"btn btn-sm btn-danger width90",:data => { :confirm => "Are you sure to block this store?" }%>
                 <%elsif store.status.eql?(0) %>
-                <%= link_to '<i class="fa fa-check-square-o" aria-hidden="true"></i> Unblock'.html_safe,store_status_admin_stores_path(:id => store.id), method: :post,:class=>"btn btn-sm btn-primary",:data => { :confirm => "Are you sure to activate this store?" }%>
+                <%= link_to '<i class="fa fa-check-square-o" aria-hidden="true"></i> Unblock'.html_safe,store_status_admin_stores_path(:id => store.id), method: :post,:class=>"btn btn-sm btn-primary width90",:data => { :confirm => "Are you sure to activate this store?" }%>
                 <%end%>      
-                <a><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i> Delete'.html_safe,  admin_store_path(store.id), method: :delete,:class=>"btn btn-sm btn-danger", data: {confirm: 'Are you sure to delete this store?' }%></a>
-                <a><%= link_to '<i class="fa fa-edit" aria-hidden="true"></i> Edit'.html_safe,  edit_admin_store_path(store.id), :class=>"btn btn-sm btn-primary"%></a>
+                <a><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i> Delete'.html_safe,  admin_store_path(store.id), method: :delete,:class=>"btn btn-sm btn-danger width90", data: {confirm: 'Are you sure to delete this store?' }%></a>
+                <a><%= link_to '<i class="fa fa-edit" aria-hidden="true"></i> Edit'.html_safe,  edit_admin_store_path(store.id), :class=>"btn btn-sm btn-primary width90"%></a>
               </div>  
             </td>
           </tr>                                
