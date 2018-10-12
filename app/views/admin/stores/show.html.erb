@@ -1,4 +1,6 @@
+<center>
 <h1 class="heading">STORE DETAIL</h1>
+</center>
 <div class="box box-blue mb40">
   <div class="box-body">
     <div class="store-detail-block mt20">
@@ -243,12 +245,8 @@
 
 
 <div class="update-btn text-center">
-          <%= link_to 'BACK', request.referer, class: "btn btn-red btn-common" %>
-          
-          <%= link_to 'APPROVE', store_approve_admin_stores_path(id: @store.id, admin_approved: 1), class: "btn btn-red btn-success" %>
-          <%= link_to 'REJECT', store_approve_admin_stores_path(id: @store.id, admin_approved: 0), class: "btn btn-red btn-danger" %>
-          
-        </div>
+          <%= link_to 'BACK', request.referer, class: "btn btn-red btn-common" %>  
+</div>
 
 <div class="modal fade common-modal" id="image" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
    <div class="modal-dialog max-WT-600" role="document">

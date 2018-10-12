@@ -53,7 +53,6 @@
           </tr>
         </thead>
         <center>
-        <%= "No user found." unless @users.present?%>
         </center>
         <% @users.each do |user| %>
         <% unless user.eql?(nil) %>
@@ -83,17 +82,15 @@
                <% elsif user.admin_approved.eql?(0) %>
                       <a class = "btn btn-sm btn-danger width90" href="<%= user_approve_admin_users_path(id: user.id, admin_approved: 1) %>" onclick="return confirm('Are you sure you want to approve this user?')" > Not Approved </a>  
                 <% end %>
-                <a><%= link_to '<i class="fa fa-eye" aria-hidden="true"></i> View'.html_safe, admin_user_path(id: user.id), :class=>"btn btn-sm btn-success width90"%></a>
-                <a>
+                  <%= link_to '<i class="fa fa-eye" aria-hidden="true"></i> View'.html_safe, admin_user_path(id: user.id), :class=>"btn btn-sm btn-success width90"%>
                   <%if user.status == 0 %>
-                  <%= link_to '<i class="fa fa-check-square-o" aria-hidden="true"></i> Unblock'.html_safe, user_status_admin_users_path(id: user.id, status: 1), :class=>"btn btn-sm btn-primary" , :data => { :confirm => "Are you sure to activate this user?" }%>
+                  <%= link_to '<i class="fa fa-check-square-o" aria-hidden="true"></i> Unblock'.html_safe, user_status_admin_users_path(id: user.id, status: 1), :class=>"btn btn-sm btn-primary width90" , :data => { :confirm => "Are you sure to activate this user?" }%>
                   <%elsif user.status == 1 %>
                   <%= link_to '<i class="fa fa-ban" aria-hidden="true"></i> Block'.html_safe, user_status_admin_users_path(id: user.id, status: 0), :class=>"btn btn-sm btn-danger width90", :data => { :confirm => "Are you sure to deactivate this user?" }%>
                   <%else %>
                   <%= link_to '<i class="fa fa-ban" aria-hidden="true"></i> Not Verify'.html_safe, "#", :class=>"btn btn-sm btn-warning width90"%>  
-                  </a>
                   <%end%>
-                <a><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i> Delete'.html_safe,  admin_user_path(user.id), method: :delete,:class=>"btn btn-sm btn-danger width90", data: {confirm: 'Are you sure to delete this user?' }%></a>
+                  <%= link_to '<i class="fa fa-trash" aria-hidden="true"></i> Delete'.html_safe,  admin_user_path(user.id), method: :delete,:class=>"btn btn-sm btn-danger width90", data: {confirm: 'Are you sure to delete this user?' }%>
               </div>  
             </td>
           </tr>                                
@@ -101,6 +98,7 @@
         <%end%>
         <%end%>
       </table>
+        <%= "No user found." unless @users.present?%>
     </div>                     
   </div>
 </div>
