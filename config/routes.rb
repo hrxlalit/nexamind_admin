@@ -124,6 +124,11 @@ Rails.application.routes.draw do
     resources :products do
      collection do
         post :product_status
+     end
+    end
+    resources :distance do
+      collection do
+        post :save_distance
       end
     end
     resources :static_pages
