@@ -116,6 +116,8 @@ Rails.application.routes.draw do
       collection do
         post :store_status
         get :store_approve
+        post :import
+        post :export
       end
     end
     resources :products do
