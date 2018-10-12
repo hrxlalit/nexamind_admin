@@ -55,7 +55,7 @@ class Admin::StoresController < ApplicationController
 
   def update
     if @store.update_attributes(store_params)
-      redirect_to admin_stores_path, notice: 'User updated Successfully.'
+      redirect_to admin_stores_path, notice: "Provider's profile updated Successfully."
     else
       flash[:error] = @store.errors.full_messages.first
       render :edit
