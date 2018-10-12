@@ -19,4 +19,19 @@ module StoresHelper
 		  "You gave me #{x} -- I have no idea what to do with that."
 		end
 	end
+
+	def store_type type
+		case type
+		when 0
+		  "apparels"
+		when 1
+		  "food"
+		when 2
+		  "electronics"
+		when 3
+		  "events"
+		else
+		  "You gave me #{x} -- I have no idea what to do with that."
+		end
+	end
 end

@@ -1,13 +1,35 @@
-<h1 class="heading">DASHBOARD</h1>
+<h1 class="heading">CENTARIUM ANALYTICS</h1>
 <div class="info-box-block">
   <div class="row">
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total Customer</legend>
+              <legend>Total Active Customers</legend>
+              <div class=" info-txt">
+                    <p><%= User.where(status: 1).count %></p>
+                     <!-- <a href="/admin/users" class="btn btn-red"> View Details </a> -->
+              </div>
+            </fieldset>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-green">
+              <legend>Total Active Service Providers</legend>
+              <div class=" info-txt">
+                    <p><%= Store.where(status: 1).count %></p>
+                     <!-- <a href="/admin/stores" class="btn btn-red"> View Details </a> -->
+              </div>
+            </fieldset>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+          <div class="info-box ">
+            <fieldset class="global-fieldset bg-green">
+              <legend>Total Customers</legend>
               <div class=" info-txt">
                     <p><%= User.count %></p>
-                     <a href="/admin/users" class="btn btn-red"> View Details </a>
+                     <!-- <a href="/admin/products" class="btn btn-red"> View Details </a> -->
               </div>
             </fieldset>
           </div>
@@ -15,32 +37,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total Service Provider</legend>
+              <legend>Total Service Providers</legend>
               <div class=" info-txt">
-                    <p><%= Store.count %></p>
-                     <a href="/admin/stores" class="btn btn-red"> View Details </a>
-              </div>
-            </fieldset>
-          </div>
-      </div>
-      <div class="col-md-3 col-sm-6">
-          <div class="info-box ">
-            <fieldset class="global-fieldset bg-green">
-              <legend>Total Products</legend>
-              <div class=" info-txt">
-                    <p><%= Product.count %></p>
-                     <a href="/admin/products" class="btn btn-red"> View Details </a>
-              </div>
-            </fieldset>
-          </div>
-      </div>
-      <div class="col-md-3 col-sm-6">
-          <div class="info-box ">
-            <fieldset class="global-fieldset bg-green">
-              <legend>Total</legend>
-              <div class=" info-txt">
-                <p>0<%#= Report.where(reportable_type: "User").count %></p>
-                <a href="#" class="btn btn-red"> View Details </a>
+                <p><%= Store.count %></p>
+                <!-- <a href="#" class="btn btn-red"> View Details </a> -->
               </div>
             </fieldset>
           </div>
@@ -50,10 +50,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total</legend>
+              <legend>Total Revenue</legend>
               <div class=" info-txt">
-                    <p>0<%#= Report.where(reportable_type: "Post").count %></p>
-                     <a href="#" class="btn btn-red"> View Details </a>
+                    <p><%= "NA" %></p>
+                     <!-- <a href="#" class="btn btn-red"> View Details </a> -->
               </div>
             </fieldset>
           </div>
@@ -61,37 +61,16 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total</legend>
+              <legend>Total Transactions</legend>
               <div class=" info-txt">
-                    <p>0<%#= Post.count %></p>
-                     <a href="#" class="btn btn-red"> View Details </a>
+                    <p><%= "NA" %></p>
+                     <!-- <a href="#" class="btn btn-red"> View Details </a> -->
               </div>
             </fieldset>
           </div>
-      </div>
-      <div class="col-md-3 col-sm-6">
-          <div class="info-box ">
-            <fieldset class="global-fieldset bg-green">
-              <legend>Total</legend>
-              <div class=" info-txt">
-                    <p>0<%#= Message.count %></p>
-                     <a href="#" class="btn btn-red"> View Details </a>
-              </div>
-            </fieldset>
-          </div>
-      </div>
-      <div class="col-md-3 col-sm-6">
-          <div class="info-box ">
-            <fieldset class="global-fieldset bg-green">
-              <legend>Total</legend>
-              <div class=" info-txt">
-                    <p>0<%#= Message.joins(:room).where("rooms.is_anonymous =?", true).count %></p>
-                     <a href="#" class="btn btn-red"> View Details </a>
-              </div>
-            </fieldset>
-          </div>
-      </div>
+      </div>   
    </div>
+   
    <div class="row mt20">
       <div class="col-sm-6">
           <div class="info-box ">

@@ -43,7 +43,6 @@
             <th>Action</th>
           </tr>
         </thead>
-        <%= "No product found." unless @products.present?%>
         <% @products.each do |product| %>
         <% unless product.eql?(nil) %>
         <tbody>
@@ -70,6 +69,7 @@
         <%end%>
         <%end%>
       </table>
+        <%= "No product found." unless @products.present?%>
     </div>                     
   </div>
 </div>

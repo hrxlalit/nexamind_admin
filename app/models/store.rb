@@ -14,7 +14,7 @@ class Store
 
 
   field :name, type: String
-  field :store_type, type: Integer# 0:cloths 1:food and beverages 2:entertainment 3:events 5:gadgets
+  field :store_type, type: Integer# 0:apparels 1:food 2:electronics 3:events
   field :email, type: String, default: ''
   field :password_digest, :type => String
   field :website, type: String

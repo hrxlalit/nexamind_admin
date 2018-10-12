@@ -41,7 +41,8 @@
                       <div class="row">
                         <label class="col-sm-4 col-md-3 control-label">Store Type</label>
                         <div class="col-sm-8 col-md-7">
-                          <%= f.text_field :store_type, class: "form-control", placeholder: ""%>
+                          <%#= f.text_field :store_type, class: "form-control", placeholder: ""%>
+                          <%= f.select :store_type, options_for_select({ "apparels"=>"0" , "food" => "1" ,  "electronics"=>"2" , "events"=>"3"})%>
                         </div>
                       </div>
                     </div>

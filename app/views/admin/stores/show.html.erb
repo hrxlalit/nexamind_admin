@@ -31,7 +31,7 @@
                   <label>Store Type</label>
                 </div>
                 <div class="col-sm-8">
-                  <%= @store&.store_type %>
+                  <%= store_type @store&.store_type %>
                 </div>
               </div>
             </div>
@@ -97,12 +97,32 @@
                 </div>
                 <div class="col-sm-8">
                   <%if @store.service_timings.present?%>
-                  <%= @store.service_timings.each do |timing| %>
-                    <%=  get_day timing.day %>
-                    <%= timing.start_time.strftime("%H:%M") %>
-                    <%= timing.end_time.strftime("%H:%M") %>
-                    <%= timing.status == false ? "Closed" : "Open" %><br>
+                 <section class="content">
+      <div class="row">
+        <div class="col-xs-8">
+            <div class="box-body">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                 <%= @store.service_timings.each do |timing| %>
+                  <tr>
+                    <td><%=  get_day timing.day %></td>
+                    <td><%= timing.start_time.strftime("%H:%M") %></td>
+                    <td><%= timing.end_time.strftime("%H:%M") %></td>
+                    <td><%= timing.status == false ? "Closed" : "Open" %></td>
+                  </tr>
                   <%end%>
+                </tbody>
+              </table>
+            </div>
+          </div>
                   <%else%>
                   <%= "NA"%>
                   <%end%>
@@ -121,7 +141,7 @@
               </div>
             </div>
 
-        <%if @store.user_docs%>
+        <%if @store.user_docs.present?%>
         <% @store.user_docs.each do |doc|%>
         <div class="form-group">
           <div class="row">
