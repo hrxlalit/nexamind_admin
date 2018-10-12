@@ -32,7 +32,7 @@ class Store
   field :otp_gen_time, type: DateTime
   field :access_token, type: String, default: ''
   field :status, type: Integer, default: 1 # 0:Dect by admin 1:Active
-  field :admin_approved, type: Integer, default: 1 # 0:rejected 1:Approved
+  field :admin_approved, type: Integer, default: 0 # 0:rejected 1:Approved
   field :is_verified, type: Mongoid::Boolean, default: false
 
   has_many :products, dependent: :destroy
@@ -62,7 +62,22 @@ class Store
   end
 
   def otp_expired?
-    otp_gen_time < 15.minutes.ago
+    otp_gen_time > 15.minutes.ago
+  end
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      Store.create! row.to_hash      
+    end    
+  end
+
+  def self.export(options = {})
+    headers = ['name','address','description','website','mobile','code']  
+    dummy = ['Lalit','Delhi','Mobiloitte Technologies','www.mobiloitte.com','9876543210','+91']  
+    CSV.generate(options) do |csv|
+      csv << headers
+      csv << dummy
+    end
   end
 
   # def self.at_range(latitude, longitude, range)

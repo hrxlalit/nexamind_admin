@@ -1,7 +1,8 @@
 <div class="right-inner">
-
+<center>
 <h1 class="heading"> USER DETAILS</h1>
-  <div class="form-show-body">
+</center>
+  <div class="form-show-body width600">
       <form>
         <div class="form-group">
           <div class="row">
@@ -70,11 +71,17 @@
           <div class="row">
             <label class="col-sm-2">Buyer's Behaviour </label>
             <div class="col-sm-8">
-                <%= @user&.min_behaviour %>
-                <%= @user&.max_behaviour %>
+                <%#= @user&.min_behaviour %>
+                <%#= @user&.max_behaviour %>
+                <div id="slider-range"></div>
+                <p>
+              <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                </p>
             </div>
           </div>
         </div>
+
+ 
 
         <%if @user.user_docs%>
         <% @user.user_docs.each do |doc|%>
@@ -123,12 +130,32 @@
         </div> -->
         
         <div class="update-btn text-center">
-          <%= link_to 'BACK', admin_users_path, class: "btn btn-red btn-common" %>
-          
-          <%= link_to 'APPROVE', user_approve_admin_users_path(id: @user.id, admin_approved: 1), class: "btn btn-red btn-success" %>
-          <%= link_to 'REJECT', user_approve_admin_users_path(id: @user.id, admin_approved: 0), class: "btn btn-red btn-danger" %>
-          
+          <%= link_to 'BACK', admin_users_path, class: "btn btn-red btn-common" %>   
         </div>
       </form>
     </div>
+
 </div>  
+
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ '<%= @user&.min_behaviour %>', '<%= @user&.max_behaviour %>' ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+  } );
+
+  $('#slider-range').slider({ disabled: true });
+  </script>
