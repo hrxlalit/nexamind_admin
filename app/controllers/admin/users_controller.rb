@@ -3,23 +3,26 @@ class Admin::UsersController < ApplicationController
   before_action :require_admin_user
   before_action :find_user, except: [:index, :vendor_list]
 
-  def index
-    if params[:search].present? && params[:gender].present? && params[:status].present?
-      @search = User.any_of({name: Regexp.new(".*#{params[:search].strip }.*","i")},{email: Regexp.new(".*#{params[:search].strip}.*","i")}).and({status: params[:status]},{gender: params[:gender]}).where(status: (0..1))
-      @users = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
-    elsif params[:gender].present? && params[:gender] != ""
-      @search = User.where({gender: params[:gender]}).where(status: (0..1)) 
-      @users = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
-    elsif params[:status].present? && params[:status] != ""
-      @search = User.where({status: params[:status]}).where(status: (0..1)) 
-      @users = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10) 
-    elsif params[:search].present? && params[:search] != ""
-      @search = User.any_of({name: Regexp.new(".*#{params[:search].strip}.*","i")},{email: Regexp.new(".*#{params[:search].strip}.*","i")}).where(status: (0..1)) 
-      @users = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10) 
-    else
-      @users = User.where(status: (0..1)).order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    def index
+      if params[:search].present?
+        if params[:gender].present? && params[:status].present?
+          @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")},{mobile: Regexp.new(".*#{params[:search]}.*","i")}).where(gender: params[:gender],status: params[:status])       
+        elsif params[:gender].present?
+          @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")},{mobile: Regexp.new(".*#{params[:search]}.*","i")}).where(gender: params[:gender],status: (0..1))       
+        elsif params[:status].present?
+          @search = User.any_of({name: Regexp.new(".*#{params[:search]}.*","i")},{email: Regexp.new(".*#{params[:search]}.*","i")},{mobile: Regexp.new(".*#{params[:search]}.*","i")}).where(status: params[:status])       
+        end 
+      elsif params[:gender].present?
+          if params[:status].present?
+            @search = User.where(status: params[:status], gender: params[:gender])
+          end
+      elsif params[:status].present?
+            @search = User.where(status: params[:status])
+      else      
+        @search = User.where(status: (0..1))     
+      end     
+        @users = @search.order("created_at desc").paginate(:page => params[:page], :per_page => 10)   
     end
-  end
 
   def user_status
    if params[:status] == "1" 
