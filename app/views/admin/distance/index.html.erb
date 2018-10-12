@@ -1,0 +1,29 @@
+<h1 class="heading"> DISTANCE SETTING </h1>
+<div class="box box-blue mb40">
+  <div class="box-body">
+   <%= form_with scope: :distance, url: save_distance_admin_distance_index_path, method: :post, local: true do |f| %>
+      <div class="user-detail-block mt20 mb20">                    
+        <div class="userdetail-part common-detail-box common-detail-box1">
+          <ul class="edit-profile-list">
+            
+            <li class="detail-list">
+              <label>Distance Range For Vaildator of Product and Store</label>
+             <span><%= f.number_field :distance_range_for_vaildator_of_product_or_store, class: "form-control", value: current_admin_user.try(:distance_setting).try(:distance_range_for_vaildator_of_product_or_store) %></span> 
+            </li>
+
+            <li class="detail-list">
+              <label>Distance Range For Customer To View Store</label>
+              <span><%= f.number_field :distance_range_for_customer_to_view_store, class: "form-control", value: current_admin_user.try(:distance_setting).try(:distance_range_for_customer_to_view_store) %></span>
+            </li>
+            
+          </ul>
+          <div class="table-button text-center mt20">
+            <%= f.submit 'Submit', class: "btn btn-success" %>
+          </div>
+        </div>    
+      </div>
+    <%end%>
+  </div>
+</div>
+
+

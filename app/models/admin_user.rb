@@ -36,4 +36,5 @@ class AdminUser
   # field :locked_at,       type: Time
 
   has_one :image, as: :imageable, dependent: :destroy
+  has_one :distance_setting, dependent: :destroy
 end
