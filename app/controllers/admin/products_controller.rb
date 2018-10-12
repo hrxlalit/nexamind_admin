@@ -33,7 +33,7 @@ class Admin::ProductsController < ApplicationController
 
   def update
     if @product.update_attributes(product_params)
-			redirect_to admin_products_path, notice: 'User updated Successfully.'
+			redirect_to admin_products_path, notice: 'Product updated Successfully.'
 		else
       flash[:error] = @product.errors.full_messages.first
 			render :edit

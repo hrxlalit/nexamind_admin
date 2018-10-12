@@ -15,7 +15,8 @@ class Admin::SessionsController < ApplicationController
             cookies.signed[:admin_user_id] = @admin_user.id.to_s
           end
           flash[:notice] = "You have successfully logged In."
-          redirect_to admin_users_path
+          #redirect_to admin_users_path
+          redirect_to admin_root_path   #after login, user should land on dashboard
       else
      		redirect_to new_admin_session_path
         flash[:error] = "Invalid Email or Password"

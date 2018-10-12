@@ -86,7 +86,7 @@
                 <a><%= link_to '<i class="fa fa-eye" aria-hidden="true"></i> View'.html_safe, admin_user_path(id: user.id), :class=>"btn btn-sm btn-success width90"%></a>
                 <a>
                   <%if user.status == 0 %>
-                  <%= link_to '<i class="fa fa-check-square-o" aria-hidden="true"></i> Unblock'.html_safe, user_status_admin_users_path(id: user.id, status: 1), :class=>"btn btn-sm btn-primary width90" , :data => { :confirm => "Are you sure to activate this User?" }%>
+                  <%= link_to '<i class="fa fa-check-square-o" aria-hidden="true"></i> Unblock'.html_safe, user_status_admin_users_path(id: user.id, status: 1), :class=>"btn btn-sm btn-primary" , :data => { :confirm => "Are you sure to activate this user?" }%>
                   <%elsif user.status == 1 %>
                   <%= link_to '<i class="fa fa-ban" aria-hidden="true"></i> Block'.html_safe, user_status_admin_users_path(id: user.id, status: 0), :class=>"btn btn-sm btn-danger width90", :data => { :confirm => "Are you sure to deactivate this user?" }%>
                   <%else %>
