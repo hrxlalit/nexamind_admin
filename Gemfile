@@ -58,4 +58,5 @@ group :development, :test do
   gem 'spring'
   gem 'pry'
 end
-
+gem 'twilio-ruby', '~> 5.14.1'
+gem 'rqrcode'
