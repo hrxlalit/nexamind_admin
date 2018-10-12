@@ -4,7 +4,7 @@ class ServiceTiming
   include Mongoid::Timestamps
 
 
-  field :day, type: Integer
+  field :day, type: Integer # 0-6, mon-sun
   field :start_time, type: Time
   field :end_time, type: Time
   field :status, type: Mongoid::Boolean, default: false

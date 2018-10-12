@@ -15,7 +15,7 @@
          <div class="col-sm-3">
           <div class="user-label">
             <div class="">
-              <%=  select_tag :status,options_for_select([["All",""],["Active",1],["Blocked",2]]), class:"form-control custom-control1" %>
+              <%=  select_tag :status,options_for_select([["All",""],["Active",1],["Blocked",0]]), class:"form-control custom-control1" %>
           </div>
           </div>
         </div> 
@@ -30,7 +30,7 @@
 </fieldset>
   </div>
   <div class="action-btn">
-  <a><%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i> New Provider'.html_safe,  new_admin_store_path, :class=>"btn btn-sm btn-primary"%></a>
+  <a><%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i> Add Service Provider'.html_safe,  new_admin_store_path, :class=>"btn btn-sm btn-primary"%></a>
   <a><%= link_to '<i class="fa fa-download" aria-hidden="true"></i> Export Sample CSV'.html_safe,  export_admin_stores_path(format: "csv") , method: :post, :class=>"btn btn-sm btn-primary"%></a>
   <a><%#= link_to '<i class="fa fa-pencil" aria-hidden="true"></i> Import CSV'.html_safe,  import_admin_stores_path(format: "csv") , method: :post, :class=>"btn btn-sm btn-primary"%></a>
 </div>

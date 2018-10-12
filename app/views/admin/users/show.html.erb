@@ -70,11 +70,17 @@
           <div class="row">
             <label class="col-sm-2">Buyer's Behaviour </label>
             <div class="col-sm-8">
-                <%= @user&.min_behaviour %>
-                <%= @user&.max_behaviour %>
+                <%#= @user&.min_behaviour %>
+                <%#= @user&.max_behaviour %>
+                <div id="slider-range"></div>
+                <p>
+              <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                </p>
             </div>
           </div>
         </div>
+
+ 
 
         <%if @user.user_docs%>
         <% @user.user_docs.each do |doc|%>
@@ -132,3 +138,26 @@
       </form>
     </div>
 </div>  
+
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ '<%= @user&.min_behaviour %>', '<%= @user&.max_behaviour %>' ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+  } );
+
+  $('#slider-range').slider({ disabled: true });
+  </script>

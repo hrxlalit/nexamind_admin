@@ -12,46 +12,136 @@
         </div>
         <div class="col-sm-8">
           <div class="storedetail-part">
+          <div class="col-sm-8">
+          <div class="storedetail-part">
             <div class="form-group">
               <div class="row">
                 <div class="col-sm-4">
-                  <label>Name</label>
+                  <label>Store Name</label>
                 </div>
                 <div class="col-sm-8">
-                  <label><%= @store.try(:name) %></label>
+                  <%= @store&.name %>
                 </div>
               </div>
             </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Store Type</label>
+                </div>
+                <div class="col-sm-8">
+                  <%= @store&.store_type %>
+                </div>
+              </div>
+            </div>
+
             <div class="form-group">
               <div class="row">
                 <div class="col-sm-4">
                   <label>Email</label>
                 </div>
                 <div class="col-sm-8">
-                  <label><%= @store.try(:email) %></label>
+                  <%= @store.try(:email) %>
                 </div>
               </div>
             </div>
             <div class="form-group">
               <div class="row">
                 <div class="col-sm-4">
-                  <label>Phone no </label>
+                  <label>Contact No </label>
                 </div>
                 <div class="col-sm-8">
-                  <label><%= @store.try(:mobile) %></label>
+                  <%= @store&.mobile %>
                 </div>
               </div>
             </div>
+
             <div class="form-group">
               <div class="row">
                 <div class="col-sm-4">
-                  <label>Citizenship No</label>
+                  <label>Website</label>
                 </div>
                 <div class="col-sm-8">
-                  <label><%= @store.try(:citizenship_no) %></label>
+                  <%= @store&.website %>
                 </div>
               </div>
             </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Address</label>
+                </div>
+                <div class="col-sm-8">
+                  <%= @store&.address %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Location</label>
+                </div>
+                <div class="col-sm-8">
+                  <%= @store&.location %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Opening Days And Hours</label>
+                </div>
+                <div class="col-sm-8">
+                  <%if @store.service_timings.present?%>
+                  <%= @store.service_timings.each do |timing| %>
+                    <%=  get_day timing.day %>
+                    <%= timing.start_time.strftime("%H:%M") %>
+                    <%= timing.end_time.strftime("%H:%M") %>
+                    <%= timing.status == false ? "Closed" : "Open" %><br>
+                  <%end%>
+                  <%else%>
+                  <%= "NA"%>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Description</label>
+                </div>
+                <div class="col-sm-8">
+                  <%= @store&.description %>
+                </div>
+              </div>
+            </div>
+
+        <%if @store.user_docs%>
+        <% @store.user_docs.each do |doc|%>
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2" ><%=doc&.module_type&.capitalize %> </label>
+            <div class="col-sm-8">
+              <dl>
+              <dt><%=doc&.doc_type %></dt>
+              </dl>
+              <br>
+              <%#= doc.front_img.present? ? "Front Image" : "" %>
+              <%= doc.front_img.present? ? image_tag(doc.front_img.try(:url),:width => 200, :height => 100, :class => 'news-content') : image_tag("/1.png",:width => 200, :height => 100, :class => 'news-content') %>
+              <%#= doc.back_img.present? ? "Back Image" : "" %>
+              <%= doc.back_img.present? ? image_tag(doc.back_img.try(:url),:width => 200, :height => 100, :class => 'news-content') : image_tag("/1.png",:width => 200, :height => 100, :class => 'news-content') %>
+            </div>
+          </div>
+        </div>
+        <%end%>
+        <%end%>
+
+
             <!-- <div class="form-group">
               <div class="row">
                 <div class="col-sm-4">
@@ -62,13 +152,13 @@
                 </div>
               </div>
             </div> -->
-            <div class="form-group">
+        <!--     <div class="form-group">
               <div class="row">
                 <div class="col-sm-4">
                   <label>Account Status</label>
                 </div>
                 <div class="col-sm-8">
-                  <label><%= @store.status.eql?(1) ?  '<i class = "btn-sm btn-success fa fa-check-circle"> Activated </i>'.html_safe : '<i class = "btn-sm btn-danger fa fa-times-circle"> Deactivated </i>'.html_safe %></label>
+                  <label><%#= @store.status.eql?(1) ?  '<i class = "btn-sm btn-success fa fa-check-circle"> Activated </i>'.html_safe : '<i class = "btn-sm btn-danger fa fa-times-circle"> Deactivated </i>'.html_safe %></label>
                 </div>
               </div>
             </div>
@@ -78,7 +168,7 @@
                   <label>Document Verified</label>
                 </div>
                 <div class="col-sm-8">
-                  <label><%= @store.is_verified.eql?(true) ?  '<i class = "btn-sm btn-success fa fa-check-circle"> Activated </i>'.html_safe : '<i class = "btn-sm btn-danger fa fa-times-circle"> Deactivated </i>'.html_safe %></label>
+                  <label><%#= @store.is_verified.eql?(true) ?  '<i class = "btn-sm btn-success fa fa-check-circle"> Activated </i>'.html_safe : '<i class = "btn-sm btn-danger fa fa-times-circle"> Deactivated </i>'.html_safe %></label>
                 </div>
               </div>
             </div>
@@ -88,7 +178,7 @@
                   <label>Date of Birth</label>
                 </div>
                 <div class="col-sm-8">
-                  <label><%= @store.try(:dob) %></label>
+                  <label><%#= @store.try(:dob) %></label>
                 </div>
               </div>
             </div>
@@ -98,17 +188,17 @@
                   <label>Gender</label>
                 </div>
                 <div class="col-sm-8">
-                  <label><%= @store.try(:gender)%></label>
+                  <label><%#= @store.try(:gender)%></label>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- <div class="form-group">
               <div class="row">
                 <div class="col-sm-4">
                   <label>Country</label>
                 </div>
                 <div class="col-sm-8">
-                  <label><%#= @store.try(:country) %></label>
+                  <label><%##= @store.try(:country) %></label>
                 </div>
               </div>
             </div>
@@ -118,64 +208,10 @@
                   <label>City</label>
                 </div>
                 <div class="col-sm-8">
-                  <label><%#= @store.try(:city) %></label>
+                  <label><%##= @store.try(:city) %></label>
                 </div>
               </div>
             </div> -->
-            <div class="form-group">
-              <div class="row">
-                <div class="col-sm-4">
-                  <label>Address</label>
-                </div>
-                <div class="col-sm-8">
-                  <label><%= @store.try(:address) %></label>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-sm-4">
-                  <label class= "doc_front">Document Front page</label>
-                </div>
-                <div class="col-sm-8">
-                  <!-- <label class=""><i class="fa fa-file" aria-hidden="true"></i> </label> -->
-                  <span class= "image_preview"  id="<%#= @store&.id_proof_file.try(:url) %>">
-                   <%#= @store.try(:id_proof_file).present? ? image_tag(@store.try(:id_proof_file).try(:url), :class => 'profile-store-img', :id=> "black_cat_img") : image_tag("/1.png", :class => 'profile-store-img') %>
-                   <%#=  image_tag("#{@store&.id_proof_file.try(:url)}", :class=>"profile-store-img") %></span>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-sm-4">
-                  <label class= "doc_back">Document Back Page</label>
-                </div>
-                <div class="col-sm-8">
-                  <!-- <label class=""><i class="fa fa-file" aria-hidden="true"></i> </label> -->
-                  <span class= "image_preview"  id="<%#= @store&.id_proof_file2.try(:url) %>">
-                  <%#= @store.try(:id_proof_file2).present? ? image_tag(@store.try(:id_proof_file2).try(:url), :class => 'profile-store-img', :id=> "black_cat_img") : image_tag("/1.png", :class => 'profile-store-img') %>
-                  <%#=  image_tag("#{@store&.id_proof_file2.try(:url)}", :class=>"profile-store-img") %></span>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-sm-4">
-                  <label>KYC Info Verification</label>
-                </div>
-                <div class="col-sm-8">
-                  <label class="info-status"><%#= @store.kyc_info.eql?(true) ?  '<i class = "btn-sm btn-success fa fa-check-circle" id = "info-verified"> Verified </i>'.html_safe : '<i class = "btn-sm btn-danger fa fa-times-circle" id = "info-verified"> Pending </i>'.html_safe %></label>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-sm-4">
-                  <label>KYC Doc Verification</label>
-                </div>
-                <div class="col-sm-8">
-                  <label class="doc-status"><%#= @store.kyc_doc.eql?(true) ?  '<i class = "btn-sm btn-success fa fa-check-circle" id = "doc-verified"> Verified </i>'.html_safe : '<i class = "btn-sm btn-danger fa fa-times-circle" id = "doc-verified"> Pending </i>'.html_safe %></label>
-                </div>                                        
               </div>
             </div>
           </div>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users
   api_version(:module => "api/v1/customer", :header => {:name => "Accept", :value => "application/centarium.com; version=1"}) do
     resources :users do
