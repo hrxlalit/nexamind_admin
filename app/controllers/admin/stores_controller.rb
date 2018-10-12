@@ -37,10 +37,10 @@ class Admin::StoresController < ApplicationController
   def store_status
    if @store.status.eql?(0) 
       @store.update_attributes(status: 1)
-      redirect_to  admin_stores_path,notice: "Provider activated successfully."
+      redirect_to  admin_stores_path,notice: "Service Provider activated successfully."
    elsif @store.status.eql?(1) 
       @store.update_attributes(status: 0)
-      redirect_to  admin_stores_path, notice: "Provider blocked successfully."
+      redirect_to  admin_stores_path, notice: "Service Provider blocked successfully."
    end
   end
 
@@ -55,7 +55,7 @@ class Admin::StoresController < ApplicationController
 
   def update
     if @store.update_attributes(store_params)
-      redirect_to admin_stores_path, notice: 'User updated Successfully.'
+      redirect_to admin_stores_path, notice: 'Service Provider updated Successfully.'
     else
       flash[:error] = @store.errors.full_messages.first
       render :edit
@@ -77,7 +77,7 @@ class Admin::StoresController < ApplicationController
 
   def import
     Store.import(params[:file])
-    redirect_to request.referer, notice: "HRMS User List imported."
+    redirect_to request.referer, notice: "Service Provider List imported."
   end
 
   def export

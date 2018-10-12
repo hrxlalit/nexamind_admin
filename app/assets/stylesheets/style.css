@@ -632,7 +632,7 @@ hr{    border-top: 1px solid #000;}
 .form-body {margin: 50px auto;max-width: 600px; width: 100%; padding: 0 20px; background: #fff; padding: 30px; box-shadow: 0 0 5px #ccc;border-top: 3px solid #11aedf; }
 .form-body1 {margin: 50px auto;max-width: 900px; width: 100%; padding: 0 20px; background: #fff; padding: 30px; box-shadow: 0 0 5px #ccc;border-top: 3px solid #11aedf; }
 /*.form-control.custom-control{border-radius: 4px!important;border: 1px solid #ccc!important;box-shadow: none!important;height: 40px;}*/
-.form-show-body {margin: 50px auto;max-width: 100%; width: 100%; padding: 0 20px; background: #fff; padding: 30px; box-shadow: 0 0 5px #ccc;border-top: 3px solid #11aedf; }
+.form-show-body {margin: 50px auto;max-width: 100%; width: 100%; padding: 0 20px; background: #fff; padding: 30px; box-shadow: 0 0 5px #ccc;border-top: 3px solid #650b65; }
 .form-body label{font-size: 15px;}
 /*.btn-save-cancel button:last-child{float: right;}*/
 .btn-save-cancel{margin:40px 0 30px;}
@@ -652,7 +652,7 @@ font-size: 14px;
 margin-bottom: 0px;
 border-radius: 4px;
 padding: 6px 12px;
-background:#9494BD;
+background:#1a1a34;
 display: inline-block;
 color: #fff;
 width: auto;
@@ -660,7 +660,7 @@ border: none;
 text-align: center;
 }
 .info-box-block fieldset.global-fieldset {
-border: 1px solid #11aedf;
+border: 1px solid #650b65;
 margin: 0 0 15px;
 padding: 10px;
 position: relative;
@@ -669,7 +669,7 @@ box-shadow: 0 1px 1px rgba(0,0,0,0.1);
 padding-left: 10px;
 min-height: 160px;
 text-align: center;
-background:#ccc;
+background: #fff;
 }
 
 .serach-date input.form-control{display: inline-block;max-width: 148px;}
@@ -679,7 +679,7 @@ right: 50px;
 top: 7px;}
 .serach-date{margin-bottom: 20px;}
 
-.btn.btn-red{background:#650a65;color: #fff;font-size: 17px;}
+.btn.btn-red{background:#650a65;color: #fff !important;font-size: 17px;}
 .btn.btn-red:hover , .btn.btn-red:focus{background:#ffa29f;color: #fff;}
 .btn.btn-yellow{background:#650a65;color: #fff;font-size: 17px;}
 .btn.btn-yellow:hover , .btn.btn-red:focus{background:#650a65 ;color: #000!important;}
@@ -863,5 +863,9 @@ a {color: #000 !important;text-decoration: none;}
 
 
 .width90 {
-	width: 94px;
+	width: 100px;
+}
+
+.width600 {
+	width: 600px;
 }

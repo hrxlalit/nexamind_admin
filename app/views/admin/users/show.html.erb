@@ -1,7 +1,8 @@
 <div class="right-inner">
-
+<center>
 <h1 class="heading"> USER DETAILS</h1>
-  <div class="form-show-body">
+</center>
+  <div class="form-show-body width600">
       <form>
         <div class="form-group">
           <div class="row">
@@ -129,14 +130,11 @@
         </div> -->
         
         <div class="update-btn text-center">
-          <%= link_to 'BACK', admin_users_path, class: "btn btn-red btn-common" %>
-          
-          <%= link_to 'APPROVE', user_approve_admin_users_path(id: @user.id, admin_approved: 1), class: "btn btn-red btn-success" %>
-          <%= link_to 'REJECT', user_approve_admin_users_path(id: @user.id, admin_approved: 0), class: "btn btn-red btn-danger" %>
-          
+          <%= link_to 'BACK', admin_users_path, class: "btn btn-red btn-common" %>   
         </div>
       </form>
     </div>
+
 </div>  
 
 
