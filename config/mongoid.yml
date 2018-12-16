@@ -1,20 +1,20 @@
 development:
   clients:
     default:
-      uri: mongodb://shashank.tripathi:Mobiloitte1@ds022228.mlab.com:22228/centareum_app
+      uri: mongodb://nexamind:nexamind1@ds135724.mlab.com:35724/nexamind
       # options:
       #   raise_not_found_error: false
 test:
   clients:
     default:
-      uri: mongodb://shashank.tripathi:Mobiloitte1@ds022228.mlab.com:22228/centareum_app
+      uri: mongodb://nexamind:nexamind1@ds135724.mlab.com:35724/nexamind
       # options:
       #   raise_not_found_error: false
 
 production:
   clients:
     default:
-      uri: mongodb://shashank.tripathi:Mobiloitte1@ds022228.mlab.com:22228/centareum_app
+      uri: mongodb://nexamind:nexamind1@ds135724.mlab.com:35724/nexamind
   defaults: &defaults
   # use_utc: false
   # use_activesupport_time_zone: true

@@ -22,7 +22,7 @@ class User
   field :dob, type: Date
   field :code, type: String, default: ''
   field :mobile, type: String, default: ''
-  field :gender, type: Integer #0:male  1:female
+  field :gender, type: Integer, default: 1 #0:male  1:female
   field :address, type: String, default: ''
   field :coordinates, :type => Array
   field :otp, type: String

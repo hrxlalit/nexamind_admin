@@ -1,4 +1,4 @@
-<h1 class="heading">CENTAREUM ANALYTICS</h1>
+<h1 class="heading">NEXAMIND ANALYTICS</h1>
 <div class="info-box-block">
   <div class="row">
       <div class="col-md-3 col-sm-6">
@@ -15,9 +15,9 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total Active Service Providers</legend>
+              <legend>Total Customers</legend>
               <div class=" info-txt">
-                    <p><%= Store.where(status: 1).count %></p>
+                    <p><%= User.count %></p>
                      <!-- <a href="/admin/stores" class="btn btn-red"> View Details </a> -->
               </div>
             </fieldset>
@@ -26,34 +26,10 @@
       <div class="col-md-3 col-sm-6">
           <div class="info-box ">
             <fieldset class="global-fieldset bg-green">
-              <legend>Total Customers</legend>
-              <div class=" info-txt">
-                    <p><%= User.count %></p>
-                     <!-- <a href="/admin/products" class="btn btn-red"> View Details </a> -->
-              </div>
-            </fieldset>
-          </div>
-      </div>
-      <div class="col-md-3 col-sm-6">
-          <div class="info-box ">
-            <fieldset class="global-fieldset bg-green">
-              <legend>Total Service Providers</legend>
-              <div class=" info-txt">
-                <p><%= Store.count %></p>
-                <!-- <a href="#" class="btn btn-red"> View Details </a> -->
-              </div>
-            </fieldset>
-          </div>
-      </div>
-   </div>
-   <div class="row">
-      <div class="col-md-3 col-sm-6">
-          <div class="info-box ">
-            <fieldset class="global-fieldset bg-green">
               <legend>Total Revenue</legend>
               <div class=" info-txt">
-                    <p><%= "NA" %></p>
-                     <!-- <a href="#" class="btn btn-red"> View Details </a> -->
+                    <p><%= Store.count %></p>
+                     <!-- <a href="/admin/products" class="btn btn-red"> View Details </a> -->
               </div>
             </fieldset>
           </div>
@@ -63,13 +39,14 @@
             <fieldset class="global-fieldset bg-green">
               <legend>Total Transactions</legend>
               <div class=" info-txt">
-                    <p><%= "NA" %></p>
-                     <!-- <a href="#" class="btn btn-red"> View Details </a> -->
+                <p><%= Store.count %></p>
+                <!-- <a href="#" class="btn btn-red"> View Details </a> -->
               </div>
             </fieldset>
           </div>
-      </div>   
+      </div>
    </div>
+   
    
    <div class="row mt20">
       <div class="col-sm-6">
@@ -77,7 +54,12 @@
             <fieldset class="global-fieldset bg-yellow">
               <legend>Total</legend>
               <div class=" info-txt">
-                <%#= line_chart User.group_by_day(:created_at).count,colors: ["#169BD5"] %>
+                <%#= line_chart {"Football" => 10, "Basketball" => 5},colors: ["#169BD5"] %>
+                <%= timeline [
+  ["Washington", "1789-04-29", "1797-03-03"],
+  ["Adams", "1797-03-03", "1801-03-03"],
+  ["Jefferson", "1801-03-03", "1809-03-03"]
+] %>
               </div>
             </fieldset>
           </div>

@@ -62,10 +62,12 @@
             <td><%= truncate(user.try(:name), omision: "...", length: 30) %></td>
             <td><%= truncate(user.try(:email), omision: "...", length: 30) %></td>
             <td><%= truncate(user.try(:mobile), omision: "...", length: 30) %></td> 
-            <%if user.gender == "0"%>
+            <%if user.gender == "0" %>
               <td><%= "Male" %></td> 
-            <%else%>
+            <%elsif user.gender == "1" %>
               <td><%= "Female" %></td>
+              <%else%>
+              <td><%= "NA"%></td>
             <%end%>
             <td><%= user.last_sign_in_at ? user.last_sign_in_at.try(:localtime).try(:strftime, "%d %B, %Y %I:%M %p") : "N/A" %></td>                   
   
@@ -77,11 +79,7 @@
                 <%#elsif user.status.eql?(2) || user.blocked? %>
                 <%#= link_to '<i class="fa fa-check" aria-hidden="true"></i> Unblock'.html_safe,user_status_admin_users_path(:id => user.id), method: :post,:class=>"btn btn-sm btn-primary",:data => { :confirm => "Are you sure to activate this user?" }%>
                 <%#end%>    
-                <%if user.admin_approved.eql?(1) %>
-                      <a class = "btn btn-sm btn-success width90" href="<%= user_approve_admin_users_path(id: user.id, admin_approved: 0) %>" onclick="return confirm('Are you sure you want to disapprove this user?')" > Approved </a>
-               <% elsif user.admin_approved.eql?(0) %>
-                      <a class = "btn btn-sm btn-danger width90" href="<%= user_approve_admin_users_path(id: user.id, admin_approved: 1) %>" onclick="return confirm('Are you sure you want to approve this user?')" > Not Approved </a>  
-                <% end %>
+                
                   <%= link_to '<i class="fa fa-eye" aria-hidden="true"></i> View'.html_safe, admin_user_path(id: user.id), :class=>"btn btn-sm btn-success width90"%>
                   <%if user.status == 0 %>
                   <%= link_to '<i class="fa fa-check-square-o" aria-hidden="true"></i> Unblock'.html_safe, user_status_admin_users_path(id: user.id, status: 1), :class=>"btn btn-sm btn-primary width90" , :data => { :confirm => "Are you sure to activate this user?" }%>

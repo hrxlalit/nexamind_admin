@@ -16,6 +16,8 @@
 //= require jquery.validate.additional-methods
 //= require turbolinks
 //= require alertify
+//= require Chart.bundle
+//= require chartkick
 //= require moment
 //= require ckeditor/init
 //= require_tree .
